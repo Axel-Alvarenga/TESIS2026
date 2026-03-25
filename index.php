@@ -11,7 +11,7 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <!-- Pantalla de bienvenida -->
+        <!-- Pantalla de bienvenida (Yoni) -->
         <div class="welcome-card" id="welcomeCard">
             <div class="logo">
                 <h1>Voces del Sur</h1>
