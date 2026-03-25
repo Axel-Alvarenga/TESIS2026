@@ -36,7 +36,7 @@ session_start();
                     
                     <label class="checkbox-label">
                         <input type="checkbox" id="consentCheckbox">
-                        <span>☐ Acepto y quiero participar</span>
+                        <span>Acepto y quiero participar</span>
                     </label>
                 </div>
                 
@@ -84,6 +84,18 @@ session_start();
                             <option value="otra">Otra parroquia</option>
                             <option value="no_frecuento">No frecuento ninguna comunidad, pero vivo en [barrio/compañía]</option>
                         </select>
+                    </div>
+                </div>
+                <div class="block">
+                    <h2>Identificación familiar (opcional)</h2>
+                    <div class="question">
+                        <label><strong>¿Quieres crear o usar un código familiar?</strong></label>
+                        <p class="help-text">Si varias personas de tu familia van a responder desde el mismo dispositivo, 
+                        pueden usar un mismo código para que sepamos que son respuestas diferentes del mismo hogar. 
+                        Si es tu primera vez, puedes dejar en blanco.</p>
+                        <input type="text" name="codigo_familiar" maxlength="20" 
+                            placeholder="Ej: FamiliaGomez, Casa123, o déjalo vacío">
+                        <small>Este código es opcional y nos ayuda a entender mejor las dinámicas familiares.</small>
                     </div>
                 </div>
 
