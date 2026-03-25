@@ -86,7 +86,7 @@ session_start();
                         </select>
                     </div>
                 </div>
-                <div class="block">
+                 <!--<div class="block">
                     <h2>Identificación familiar (opcional)</h2>
                     <div class="question">
                         <label><strong>¿Quieres crear o usar un código familiar?</strong></label>
@@ -97,7 +97,7 @@ session_start();
                             placeholder="Ej: FamiliaGomez, Casa123, o déjalo vacío">
                         <small>Este código es opcional y nos ayuda a entender mejor las dinámicas familiares.</small>
                     </div>
-                </div>
+                </div>-->
 
                 <!-- Bloque II: Vínculos y pertenencia -->
                 <div class="block">
