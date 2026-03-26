@@ -70,7 +70,6 @@ $veces_respondidas = contar_respuestas_por_ip($ip_usuario, $archivo_datos);
 if ($es_repetida) {
     registrar_en_log($ip_usuario, "RESPUESTA_REPETIDA (veces: " . ($veces_respondidas + 1) . ")", $archivo_log);
 }
-
 // Crear array con las respuestas
 $respuesta = [
     'fecha' => date('Y-m-d H:i:s'),

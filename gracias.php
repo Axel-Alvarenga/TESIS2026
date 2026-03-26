@@ -209,11 +209,11 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
                 <p>Los resultados de este laboratorio de escucha se comunicarán por los mismos canales por los que te llegó esta encuesta y también en las páginas y redes oficiales de la Diócesis de Encarnación y de la Universidad Católica. Tu voz no va al vacío.</p>
             </div>
             
-            <?php if ($es_repetida): ?>
+            <!-- <?php if ($es_repetida): ?>
                 <div class="suggestion-box">
                     <strong>💡 Sugerencia para familias</strong>
                     <p>Si otras personas de tu familia aún no han respondido, pueden hacerlo desde este mismo dispositivo. Para ayudarnos a identificar las respuestas de cada uno, pueden usar un código familiar común (ej: "ApellidoGomez" o "Casa123") en el campo de código familiar que aparece al inicio de la encuesta.</p>
-                </div>
+                </div> -->
             <?php else: ?>
                 <div class="suggestion-box">
                     <strong>🙏 Ayúdanos a llegar a más jóvenes</strong>

@@ -69,5 +69,53 @@
             "p10_esperanza": "3",
             "campo_libre": ""
         }
+    },
+    {
+        "fecha": "2026-03-26 11:55:16",
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/146.0.0.0 Safari\/537.36",
+        "es_respuesta_repetida": true,
+        "numero_respuesta_desde_ip": 4,
+        "codigo_familiar": "",
+        "datos": {
+            "p1_anio": "1997",
+            "p2_parroquia": "trinidad",
+            "p3_pertenencia": "C",
+            "p4_atraccion": "D",
+            "p5_espiritualidad": "A",
+            "p6_familia": "B",
+            "p7_proyecto": "B",
+            "p8_vocacion": "D",
+            "p9_critica": [
+                "D",
+                "F"
+            ],
+            "p10_esperanza": "3",
+            "campo_libre": ""
+        }
+    },
+    {
+        "fecha": "2026-03-26 11:56:13",
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/146.0.0.0 Safari\/537.36",
+        "es_respuesta_repetida": true,
+        "numero_respuesta_desde_ip": 5,
+        "codigo_familiar": "",
+        "datos": {
+            "p1_anio": "1998",
+            "p2_parroquia": "encarnacion_centro",
+            "p3_pertenencia": "B",
+            "p4_atraccion": "B",
+            "p5_espiritualidad": "D",
+            "p6_familia": "D",
+            "p7_proyecto": "B",
+            "p8_vocacion": "E",
+            "p9_critica": [
+                "C",
+                "F"
+            ],
+            "p10_esperanza": "2",
+            "campo_libre": ""
+        }
     }
 ]
