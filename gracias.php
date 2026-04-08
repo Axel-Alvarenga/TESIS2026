@@ -192,12 +192,12 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
                 <h1>¡Gracias por tu voz!</h1>
                 <p>Tu respuesta ha sido guardada correctamente.</p>
                 
-                <div class="warning-card">
+                <!--<div class="warning-card">
                     <h3>📌 Aviso importante</h3>
                     <p><strong>Hemos detectado que desde este dispositivo ya se ha respondido la encuesta anteriormente.</strong></p>
                     <p>• <strong>Si eres un familiar diferente:</strong> No te preocupes, tu respuesta ha sido guardada correctamente. Te recomendamos usar un <strong>código familiar</strong> (como "FamiliaPerez" o "Casa123") para que podamos identificar que son respuestas de diferentes personas del mismo hogar.</p>
                     <p>• <strong>Si ya respondiste antes:</strong> Tu respuesta anterior se mantiene, pero valoramos mucho tu interés. Por favor, considera que lo más valioso es que cada persona responda una sola vez para mantener la representatividad de la encuesta.</p>
-                </div>
+                </div>-->
             <?php else: ?>
                 <div class="emoji-big">✨</div>
                 <h1>¡Gracias por tu voz!</h1>

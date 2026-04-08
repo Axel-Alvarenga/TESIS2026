@@ -11,7 +11,7 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <!-- Pantalla de bienvenida (Yoni) -->
+        <!-- Pantalla de bienvenida -->
         <div class="welcome-card" id="welcomeCard">
             <div class="logo">
                 <h1>Voces del Sur</h1>
@@ -85,19 +85,17 @@ session_start();
                             <option value="no_frecuento">No frecuento ninguna comunidad, pero vivo en [barrio/compañía]</option>
                         </select>
                     </div>
-                </div>
-                 <!--<div class="block">
-                    <h2>Identificación familiar (opcional)</h2>
+                    
+                    <!-- Campo de código familiar (dentro del Bloque I) -->
                     <div class="question">
                         <label><strong>¿Quieres crear o usar un código familiar?</strong></label>
                         <p class="help-text">Si varias personas de tu familia van a responder desde el mismo dispositivo, 
-                        pueden usar un mismo código para que sepamos que son respuestas diferentes del mismo hogar. 
-                        Si es tu primera vez, puedes dejar en blanco.</p>
+                        pueden usar un mismo código para que sepamos que son respuestas diferentes del mismo hogar.</p>
                         <input type="text" name="codigo_familiar" maxlength="20" 
-                            placeholder="Ej: FamiliaGomez, Casa123, o déjalo vacío">
-                        <small>Este código es opcional y nos ayuda a entender mejor las dinámicas familiares.</small>
+                               placeholder="Ej: FamiliaGomez, Casa123, o déjalo vacío">
+                        <small>Este código es opcional.</small>
                     </div>
-                </div>-->
+                </div>
 
                 <!-- Bloque II: Vínculos y pertenencia -->
                 <div class="block">
@@ -205,6 +203,7 @@ session_start();
                             <label><input type="checkbox" name="p9_critica[]" value="F"> F. Malas experiencias personales que me dejaron lastimado/a o decepcionado/a</label>
                             <label><input type="checkbox" name="p9_critica[]" value="G"> G. No me siento alejado/a; la Iglesia sigue siendo importante en mi vida</label>
                         </div>
+                        <small>Selecciona hasta dos opciones</small>
                     </div>
                 </div>
 
@@ -271,6 +270,18 @@ session_start();
             surveyForm.style.display = 'block';
             // Scroll al inicio del formulario
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Limitar a 2 selecciones en P9
+        const checkboxes = document.querySelectorAll('input[name="p9_critica[]"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checked = document.querySelectorAll('input[name="p9_critica[]"]:checked');
+                if (checked.length > 2) {
+                    this.checked = false;
+                    alert('Solo puedes seleccionar hasta 2 opciones');
+                }
+            });
         });
     </script>
 </body>
