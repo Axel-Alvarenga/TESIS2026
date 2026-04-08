@@ -17,7 +17,7 @@
             "p8_vocacion": "E",
             "p9_critica": [
                 "A",
-                "C"
+               "C"
             ],
             "p10_esperanza": "5",
             "campo_libre": "Aleluya"
@@ -48,13 +48,18 @@
         }
     },
     {
+<<<<<<< HEAD
         "fecha": "2026-03-25 02:09:14",
+=======
+        "fecha": "2026-03-26 11:37:36",
+>>>>>>> ab1fc32e78737d5bdf3879a74f066262c75eeb5a
         "ip": "::1",
         "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/146.0.0.0 Safari\/537.36",
         "es_respuesta_repetida": true,
         "numero_respuesta_desde_ip": 3,
         "codigo_familiar": "",
         "datos": {
+<<<<<<< HEAD
             "p1_anio": "2008",
             "p2_parroquia": "fram",
             "p3_pertenencia": "A",
@@ -73,12 +78,32 @@
     },
     {
         "fecha": "2026-03-25 02:15:02",
+=======
+            "p1_anio": "1992",
+            "p2_parroquia": "catedral",
+            "p3_pertenencia": "A",
+            "p4_atraccion": "D",
+            "p5_espiritualidad": "B",
+            "p6_familia": "B",
+            "p7_proyecto": "C",
+            "p8_vocacion": "B",
+            "p9_critica": [
+                "B"
+            ],
+            "p10_esperanza": "3",
+            "campo_libre": ""
+        }
+    },
+    {
+        "fecha": "2026-03-26 11:55:16",
+>>>>>>> ab1fc32e78737d5bdf3879a74f066262c75eeb5a
         "ip": "::1",
         "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/146.0.0.0 Safari\/537.36",
         "es_respuesta_repetida": true,
         "numero_respuesta_desde_ip": 4,
         "codigo_familiar": "",
         "datos": {
+<<<<<<< HEAD
             "p1_anio": "2001",
             "p2_parroquia": "trinidad",
             "p3_pertenencia": "A",
@@ -97,12 +122,33 @@
     },
     {
         "fecha": "2026-03-25 02:21:20",
+=======
+            "p1_anio": "1997",
+            "p2_parroquia": "trinidad",
+            "p3_pertenencia": "C",
+            "p4_atraccion": "D",
+            "p5_espiritualidad": "A",
+            "p6_familia": "B",
+            "p7_proyecto": "B",
+            "p8_vocacion": "D",
+            "p9_critica": [
+                "D",
+                "F"
+            ],
+            "p10_esperanza": "3",
+            "campo_libre": ""
+        }
+    },
+    {
+        "fecha": "2026-03-26 11:56:13",
+>>>>>>> ab1fc32e78737d5bdf3879a74f066262c75eeb5a
         "ip": "::1",
         "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/146.0.0.0 Safari\/537.36",
         "es_respuesta_repetida": true,
         "numero_respuesta_desde_ip": 5,
         "codigo_familiar": "",
         "datos": {
+<<<<<<< HEAD
             "p1_anio": "2001",
             "p2_parroquia": "trinidad",
             "p3_pertenencia": "A",
@@ -116,6 +162,22 @@
             ],
             "p10_esperanza": "5",
             "campo_libre": "Hola"
+=======
+            "p1_anio": "1998",
+            "p2_parroquia": "encarnacion_centro",
+            "p3_pertenencia": "B",
+            "p4_atraccion": "B",
+            "p5_espiritualidad": "D",
+            "p6_familia": "D",
+            "p7_proyecto": "B",
+            "p8_vocacion": "E",
+            "p9_critica": [
+                "C",
+                "F"
+            ],
+            "p10_esperanza": "2",
+            "campo_libre": ""
+>>>>>>> ab1fc32e78737d5bdf3879a74f066262c75eeb5a
         }
     }
 ]

@@ -192,12 +192,20 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
                 <h1>¡Gracias por tu voz!</h1>
                 <p>Tu respuesta ha sido guardada correctamente.</p>
                 
+<<<<<<< HEAD
                 <!--<div class="warning-card">
+=======
+                <!-- <div class="warning-card">
+>>>>>>> ab1fc32e78737d5bdf3879a74f066262c75eeb5a
                     <h3>📌 Aviso importante</h3>
                     <p><strong>Hemos detectado que desde este dispositivo ya se ha respondido la encuesta anteriormente.</strong></p>
                     <p>• <strong>Si eres un familiar diferente:</strong> No te preocupes, tu respuesta ha sido guardada correctamente. Te recomendamos usar un <strong>código familiar</strong> (como "FamiliaPerez" o "Casa123") para que podamos identificar que son respuestas de diferentes personas del mismo hogar.</p>
                     <p>• <strong>Si ya respondiste antes:</strong> Tu respuesta anterior se mantiene, pero valoramos mucho tu interés. Por favor, considera que lo más valioso es que cada persona responda una sola vez para mantener la representatividad de la encuesta.</p>
+<<<<<<< HEAD
                 </div>-->
+=======
+                </div> -->
+>>>>>>> ab1fc32e78737d5bdf3879a74f066262c75eeb5a
             <?php else: ?>
                 <div class="emoji-big">✨</div>
                 <h1>¡Gracias por tu voz!</h1>
@@ -209,11 +217,11 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
                 <p>Los resultados de este laboratorio de escucha se comunicarán por los mismos canales por los que te llegó esta encuesta y también en las páginas y redes oficiales de la Diócesis de Encarnación y de la Universidad Católica. Tu voz no va al vacío.</p>
             </div>
             
-            <?php if ($es_repetida): ?>
+            <!-- <?php if ($es_repetida): ?>
                 <div class="suggestion-box">
                     <strong>💡 Sugerencia para familias</strong>
                     <p>Si otras personas de tu familia aún no han respondido, pueden hacerlo desde este mismo dispositivo. Para ayudarnos a identificar las respuestas de cada uno, pueden usar un código familiar común (ej: "ApellidoGomez" o "Casa123") en el campo de código familiar que aparece al inicio de la encuesta.</p>
-                </div>
+                </div> -->
             <?php else: ?>
                 <div class="suggestion-box">
                     <strong>🙏 Ayúdanos a llegar a más jóvenes</strong>
