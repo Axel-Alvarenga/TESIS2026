@@ -13,10 +13,23 @@ session_start();
     <div class="container">
         <!-- Pantalla de bienvenida -->
         <div class="welcome-card" id="welcomeCard">
-            <div class="logo">
-                <h1>Voces del Sur</h1>
-                <p>Proyecto de escucha genuina</p>
+            <!-- HEADER: LOGOS + TÍTULO CENTRADO -->
+            <div class="header-principal">
+                <div class="logo-izquierda">
+                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica Campus Itapúa" class="logo-img">
+                    <p><strong>Universidad Católica</strong><br>Campus Itapúa</p>
+                </div>
+                <div class="titulo-central">
+                    <h2>Voces del Sur</h2>
+                    <p>Proyecto de escucha genuina</p>
+                </div>
+                <div class="logo-derecha">
+                    <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img">
+                    <p><strong>Diócesis de la</strong><br>Santísima Encarnación</p>
+                </div>
             </div>
+
+
             
             <div class="message">
                 <p><strong>Hola, soy Felipe de la Parroquia.</strong></p>
@@ -27,7 +40,15 @@ session_start();
                 <div class="info-box">
                     ⏱ 5 a 7 minutos · 100% anónimo · Sin apellidos ni cédula · Caduca el 31/12/2026
                 </div>
-                
+                            <!-- MENSAJE DE ADVERTENCIA - Una sola vez por persona -->
+            <div class="warning-message">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-text">
+                    <strong>Importante:</strong> Esta encuesta está diseñada para ser respondida <strong>UNA SOLA VEZ por persona</strong>. 
+                    Si ya la completaste anteriormente, por favor no la vuelvas a responder. 
+                    Esto nos ayuda a mantener la calidad y representatividad de los datos.
+                </div>
+            </div>
                 <div class="consent">
                     <p><em>Al continuar, acepto que mis respuestas sean usadas de forma anónima 
                     y agregada con fines académicos y pastorales por el CGC de la UC y la 
@@ -52,6 +73,22 @@ session_start();
 
         <!-- Formulario de encuesta (inicialmente oculto) -->
         <div class="survey-form" id="surveyForm" style="display:none;">
+            <!-- HEADER: LOGOS + TÍTULO CENTRADO (versión más pequeña) -->
+            <div class="header-principal">
+                <div class="logo-izquierda">
+                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica" class="logo-img" style="max-width: 50px;">
+                    <p>Universidad Católica<br>Campus Itapúa</p>
+                </div>
+                <div class="titulo-central">
+                    <h2 style="font-size: 1.2em;">Voces del Sur</h2>
+                    <p style="font-size: 0.7em;">Proyecto de escucha genuina</p>
+                </div>
+                <div class="logo-derecha">
+                    <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img" style="max-width: 50px;">
+                    <p>Diócesis de Encarnación</p>
+                </div>
+            </div>
+            
             <form action="procesar.php" method="POST" id="encuestaForm">
                 
                 <!-- Bloque I: Datos de clasificación -->
@@ -73,7 +110,7 @@ session_start();
                     </div>
                     
                     <div class="question">
-                        <label><strong>P2. ¿A qué parroquia o capilla estás más cerca, o en cuál participás?</strong></label>
+                        <label><strong>P2. ¿A qué parroquia estás más cerca, o en cuál participás?</strong></label>
                         <select name="p2_parroquia" required>
                             <option value="">Selecciona una opción</option>
                             <option value="catedral">Catedral de Encarnación</option>
@@ -86,16 +123,17 @@ session_start();
                         </select>
                     </div>
                     
-                    <!-- Campo de código familiar (dentro del Bloque I) -->
-                    <div class="question">
-                        <label><strong>¿Quieres crear o usar un código familiar?</strong></label>
-                        <p class="help-text">Si varias personas de tu familia van a responder desde el mismo dispositivo, 
-                        pueden usar un mismo código para que sepamos que son respuestas diferentes del mismo hogar.</p>
-                        <input type="text" name="codigo_familiar" maxlength="20" 
-                               placeholder="Ej: FamiliaGomez, Casa123, o déjalo vacío">
-                        <small>Este código es opcional.</small>
-                    </div>
-                </div>
+<div class="question">
+    <label><strong>Escribe aquí tu capilla</strong></label>
+    <p class="help-text">En este campo puedes escribir tu capilla.</p>
+    <input type="text" name="nombre_capilla" maxlength="50" 
+           placeholder="Ej: Catedral de Encarnación"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="none"
+           spellcheck="false">
+    <small>Este campo es opcional.</small>
+</div>
 
                 <!-- Bloque II: Vínculos y pertenencia -->
                 <div class="block">
@@ -255,7 +293,6 @@ session_start();
     </div>
 
     <script>
-        // Mostrar el formulario solo si se acepta el consentimiento
         const consentCheckbox = document.getElementById('consentCheckbox');
         const startBtn = document.getElementById('startBtn');
         const welcomeCard = document.getElementById('welcomeCard');
@@ -268,11 +305,9 @@ session_start();
         startBtn.addEventListener('click', function() {
             welcomeCard.style.display = 'none';
             surveyForm.style.display = 'block';
-            // Scroll al inicio del formulario
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
         
-        // Limitar a 2 selecciones en P9
         const checkboxes = document.querySelectorAll('input[name="p9_critica[]"]');
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
