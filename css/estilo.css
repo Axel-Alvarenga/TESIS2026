@@ -430,3 +430,74 @@ select.error, input.error, textarea.error {
 .step-page {
     animation: fadeInStep 0.3s ease;
 }
+
+/* ==================== CABECERA CON LOGOS ==================== */
+.welcome-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo-left, .logo-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-left {
+    justify-content: flex-start;
+}
+
+.logo-right {
+    justify-content: flex-end;
+}
+
+.logo-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-img {
+    max-height: 70px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.02);
+}
+
+.logo-img-center {
+    max-height: 80px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo-img-center:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .welcome-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .logo-left, .logo-center, .logo-right {
+        justify-content: center;
+        flex: none;
+    }
+    
+    .logo-img, .logo-img-center {
+        max-height: 50px;
+    }
+}

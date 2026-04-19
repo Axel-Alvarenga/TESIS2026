@@ -118,9 +118,24 @@ session_start();
 <body>
     <div class="container">
         <!-- Pantalla de bienvenida -->
+        <!-- Pantalla de bienvenida con logos -->
         <div class="welcome-card" id="welcomeCard">
-            <div class="logo">
-                <h1>Voces del Sur</h1>
+            <!-- Cabecera con logos -->
+            <div class="welcome-header">
+                <div class="logo-left">
+                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="UC Campus Itapúa" class="logo-img">
+                </div>
+                <div class="logo-center">
+                    <img src="img/bie-cat.jpeg" alt="Bienvenida" class="logo-img-center">
+                </div>
+                <div class="logo-right">
+                    <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img">
+                </div>
+            </div>
+            
+            <!-- Título y descripción -->
+            <div class="titulo-principal">
+                <h2>Voces del Sur</h2>
                 <p>Proyecto de escucha genuina</p>
             </div>
             
@@ -134,11 +149,21 @@ session_start();
                     ⏱ 5 a 7 minutos · 100% anónimo · Sin apellidos ni cédula · Caduca el 31/12/2026
                 </div>
                 
+                <!-- MENSAJE DE ADVERTENCIA -->
+                <div class="warning-message">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="warning-text">
+                        <strong>Importante:</strong> Esta encuesta está diseñada para ser respondida <strong>UNA SOLA VEZ por persona</strong>. 
+                        Si ya la completaste anteriormente, por favor no la vuelvas a responder. 
+                        Esto nos ayuda a mantener la calidad y representatividad de los datos.
+                    </div>
+                </div>
+                
                 <div class="consent">
                     <p><em>Al continuar, acepto que mis respuestas sean usadas de forma anónima 
-                    y agregada con fines académicos y pastorales por el equipo de investigación 
-                    de la Universidad Católica y la Diócesis de Encarnación. No se almacenarán 
-                    datos que permitan mi identificación personal.</em></p>
+                    y agregada con fines académicos y pastorales por el Centro de gestion del conocimiento de la UC y la 
+                    Diócesis de Encarnación. No se almacenarán datos que permitan mi 
+                    identificación personal.</em></p>
                     
                     <label class="checkbox-label">
                         <input type="checkbox" id="consentCheckbox">
