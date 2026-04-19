@@ -197,6 +197,16 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
                 <p>Tu participación es muy valiosa para este proyecto de escucha genuina. Cada respuesta nos ayuda a entender mejor la realidad de los jóvenes de Itapúa.</p>
             <?php endif; ?>
             
+            <?php if ($es_repetida): ?>
+                <div class="emoji-big">⚠️</div>
+                <h1>¡Gracias por tu voz!</h1>
+                <p>Tu respuesta ha sido guardada correctamente.</p>
+            <?php else: ?>
+                <div class="emoji-big">✨</div>
+                <h1>¡Gracias por tu voz!</h1>
+                <p>Tu participación es muy valiosa para este proyecto de escucha genuina. Cada respuesta nos ayuda a entender mejor la realidad de los jóvenes de Itapúa.</p>
+            <?php endif; ?>
+            
             <div class="info-message">
                 <strong>📢 Los resultados te van a llegar</strong>
                 <p>Los resultados de este laboratorio de escucha se comunicarán por los mismos canales por los que te llegó esta encuesta y también en las páginas y redes oficiales de la Diócesis de Encarnación y de la Universidad Católica. Tu voz no va al vacío.</p>

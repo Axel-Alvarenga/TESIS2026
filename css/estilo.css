@@ -25,7 +25,7 @@ body {
     animation: fadeIn 0.5s ease-in;
 }
 
-/* Header con logos y título en la misma línea */
+/* Header con logos en las esquinas y logo central - TAMAÑO UNIFORME */
 .header-principal {
     display: flex;
     justify-content: space-between;
@@ -34,49 +34,52 @@ body {
     margin-bottom: 25px;
     padding-bottom: 15px;
     border-bottom: 2px solid #e2e8f0;
+    min-height: 100px;
 }
 
 .logo-izquierda {
     flex-shrink: 0;
     text-align: center;
+    flex: 1;
 }
 
 .logo-derecha {
     flex-shrink: 0;
     text-align: center;
+    flex: 1;
 }
 
-.logo-img {
-    max-width: 70px;
-    height: auto;
-    margin-bottom: 5px;
-}
-
-.logo-izquierda p, .logo-derecha p {
-    font-size: 9px;
-    color: #4a5568;
-    margin: 0;
-    line-height: 1.2;
-}
-
-.logo-izquierda p strong, .logo-derecha p strong {
-    color: #00093e;
-}
-
-.titulo-central {
+.logo-central {
+    flex-shrink: 0;
     text-align: center;
     flex: 1;
 }
 
-.titulo-central h2 {
-    color: #00093e;
-    font-size: 1.5em;
-    margin-bottom: 3px;
+.logo-img {
+    max-width: 90px;
+    height: auto;
 }
 
-.titulo-central p {
+.logo-img-central {
+    max-width: 80px;
+    height: auto;
+}
+
+/* Título principal fuera de la cabecera */
+.titulo-principal {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.titulo-principal h2 {
+    color: #00093e;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.titulo-principal p {
     color: #718096;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 /* Mensaje de advertencia */
@@ -327,14 +330,19 @@ select:focus, textarea:focus {
     .header-principal {
         flex-direction: column;
         gap: 15px;
+        min-height: auto;
     }
     
     .logo-img {
-        max-width: 55px;
+        max-width: 70px;
     }
     
-    .titulo-central h2 {
-        font-size: 1.3em;
+    .logo-img-central {
+        max-width: 60px;
+    }
+    
+    .titulo-principal h2 {
+        font-size: 1.5em;
     }
     
     .warning-message {
