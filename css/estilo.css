@@ -377,3 +377,48 @@ small {
     color: #718096;
     display: block;
 }
+
+/* Espaciado para el campo de permiso de menores */
+#permisoMenores {
+    margin-top: 20px !important;
+    margin-bottom: 25px !important;
+    padding: 15px !important;
+}
+
+/* Separación después del selector de año */
+#anioNacimiento {
+    margin-bottom: 10px;
+}
+
+/* Espaciado para la pregunta de código familiar */
+.question:has(input[name="codigo_familiar"]) {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+/* Estilos para campos con error */
+.error {
+    border: 2px solid #e53e3e !important;
+    background-color: #fff5f5 !important;
+}
+
+select.error, input.error, textarea.error {
+    border: 2px solid #e53e3e !important;
+}
+
+/* Animación de entrada para pasos */
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.step-page {
+    animation: fadeInStep 0.3s ease;
+}

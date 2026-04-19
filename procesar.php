@@ -14,21 +14,23 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Convertir P9 (checkbox) a string separado por comas
 $p9_critica = isset($_POST['p9_critica']) ? implode(',', $_POST['p9_critica']) : '';
 
+// Valor del permiso de padres (para menores)
+$permiso_padres = isset($_POST['permiso_padres']) ? 'si' : 'no';
+
 $sql = "INSERT INTO respuestas (
-    ip, codigo_familiar, p1_anio, p2_parroquia, p3_pertenencia,
+    ip, p1_anio, p2_parroquia, p3_pertenencia,
     p4_atraccion, p5_espiritualidad, p6_familia, p7_proyecto,
-    p8_vocacion, p9_critica, p10_esperanza, campo_libre
+    p8_vocacion, p9_critica, p10_esperanza, campo_libre, permiso_padres
 ) VALUES (
-    :ip, :codigo_familiar, :p1_anio, :p2_parroquia, :p3_pertenencia,
+    :ip, :p1_anio, :p2_parroquia, :p3_pertenencia,
     :p4_atraccion, :p5_espiritualidad, :p6_familia, :p7_proyecto,
-    :p8_vocacion, :p9_critica, :p10_esperanza, :campo_libre
+    :p8_vocacion, :p9_critica, :p10_esperanza, :campo_libre, :permiso_padres
 )";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     ':ip' => $_SERVER['REMOTE_ADDR'],
-    ':codigo_familiar' => sanitizar($_POST['codigo_familiar'] ?? ''),
     ':p1_anio' => sanitizar($_POST['p1_anio'] ?? ''),
     ':p2_parroquia' => sanitizar($_POST['p2_parroquia'] ?? ''),
     ':p3_pertenencia' => sanitizar($_POST['p3_pertenencia'] ?? ''),
@@ -39,7 +41,8 @@ $stmt->execute([
     ':p8_vocacion' => sanitizar($_POST['p8_vocacion'] ?? ''),
     ':p9_critica' => $p9_critica,
     ':p10_esperanza' => sanitizar($_POST['p10_esperanza'] ?? ''),
-    ':campo_libre' => sanitizar($_POST['campo_libre'] ?? '')
+    ':campo_libre' => sanitizar($_POST['campo_libre'] ?? ''),
+    ':permiso_padres' => $permiso_padres
 ]);
 
 header('Location: gracias.php');

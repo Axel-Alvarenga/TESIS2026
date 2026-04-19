@@ -1,4 +1,5 @@
 <?php
+// Detectar si es respuesta repetida por el parámetro en la URL
 $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 ?>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #00093e 0%, #001a7a 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -29,10 +30,10 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
         .thanks-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 60px 40px;
+            text-align: center;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: fadeIn 0.5s ease-in;
-            text-align: center;
         }
 
         @keyframes fadeIn {
@@ -46,93 +47,62 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
             }
         }
 
-        /* Header compacto con logos y título */
-        .header-gracias {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e2e8f0;
-            text-align: center;
-        }
-
-        .logo-gracias {
-            flex-shrink: 0;
-            text-align: center;
-        }
-
-        .logo-gracias img {
-            height: 45px;
-            width: auto;
-            margin-bottom: 4px;
-        }
-
-        .logo-gracias p {
-            font-size: 8px;
-            color: #4a5568;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .logo-gracias p strong {
-            color: #00093e;
-        }
-
-        .titulo-gracias {
-            text-align: center;
-            flex: 1;
-        }
-
-        .titulo-gracias h2 {
-            color: #00093e;
-            font-size: 1.2em;
-            margin-bottom: 2px;
-        }
-
-        .titulo-gracias p {
-            color: #718096;
-            font-size: 0.65em;
-        }
-
-        /* Contenido centrado */
-        .contenido-centrado {
-            text-align: center;
-        }
-
         .thanks-card h1 {
-            color: #00093e;
-            font-size: 2em;
-            margin: 20px 0 15px 0;
+            color: #48bb78;
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
 
         .thanks-card p {
-            font-size: 1em;
+            font-size: 1.2em;
             color: #4a5568;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .warning-card {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .warning-card h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .warning-card p {
+            color: #856404;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+        }
+
+        .warning-card p:last-child {
+            margin-bottom: 0;
         }
 
         .info-message {
-            background: #e8f0fe;
-            padding: 18px;
+            background: #e6f7ff;
+            padding: 20px;
             border-radius: 10px;
-            margin: 25px 0;
-            border-left: 4px solid #00093e;
+            margin: 30px 0;
+            border-left: 4px solid #1890ff;
             text-align: left;
         }
 
         .info-message strong {
-            color: #00093e;
-            font-size: 1em;
+            color: #0050b3;
+            font-size: 1.1em;
         }
 
         .info-message p {
-            margin: 8px 0 0 0;
-            font-size: 0.9em;
+            margin: 10px 0 0 0;
+            font-size: 1em;
             color: #2c3e50;
-            margin-bottom: 0;
         }
 
         .suggestion-box {
@@ -145,25 +115,23 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
         }
 
         .suggestion-box strong {
-            color: #00093e;
+            color: #2d3748;
             display: block;
-            margin-bottom: 6px;
-            font-size: 0.9em;
+            margin-bottom: 8px;
         }
 
         .suggestion-box p {
             margin: 0;
-            font-size: 0.85em;
+            font-size: 0.95em;
             color: #4a5568;
-            margin-bottom: 0;
         }
 
         .btn-home {
-            background: linear-gradient(135deg, #00093e 0%, #001a7a 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 10px 25px;
-            font-size: 14px;
+            padding: 12px 30px;
+            font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
@@ -177,57 +145,41 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        .btn-home:active {
+            transform: translateY(0);
+        }
+
         .footer-note {
-            margin-top: 25px;
-            font-size: 0.75em;
+            margin-top: 30px;
+            font-size: 0.85em;
             color: #718096;
             border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
-            text-align: center;
+            padding-top: 20px;
         }
 
         .emoji-big {
-            font-size: 2.5em;
-            margin: 10px 0 5px 0;
+            font-size: 3em;
+            margin-bottom: 20px;
             display: inline-block;
         }
 
         @media (max-width: 768px) {
             .thanks-card {
-                padding: 25px 20px;
+                padding: 30px 20px;
             }
             
             .thanks-card h1 {
-                font-size: 1.6em;
+                font-size: 1.8em;
             }
             
             .thanks-card p {
-                font-size: 0.9em;
+                font-size: 1em;
             }
             
-            .header-gracias {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .logo-gracias img {
-                height: 40px;
-            }
-            
-            .titulo-gracias h2 {
-                font-size: 1.1em;
-            }
-            
-            .info-message {
-                padding: 15px;
-            }
-            
-            .info-message p {
-                font-size: 0.85em;
-            }
-            
+            .warning-card p,
+            .info-message p,
             .suggestion-box p {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
         }
     </style>
@@ -235,44 +187,32 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 <body>
     <div class="container">
         <div class="thanks-card">
-            <!-- HEADER COMPACTO: LOGOS + TÍTULO CENTRADO -->
-            <div class="header-gracias">
-                <div class="logo-gracias">
-                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica">
-                    <p><strong>Universidad Católica</strong><br>Campus Itapúa</p>
-                </div>
-                <div class="titulo-gracias">
-                    <h2>Voces del Sur</h2>
-                    <p>Proyecto de escucha genuina</p>
-                </div>
-                <div class="logo-gracias">
-                    <img src="img/logodio.png" alt="Diócesis de Encarnación">
-                    <p><strong>Diócesis de la</strong><br>Santísima Encarnación</p>
-                </div>
-            </div>
-            
-            <!-- CONTENIDO CENTRADO -->
-            <div class="contenido-centrado">
-                <?php if ($es_repetida): ?>
-                    <div class="emoji-big">⚠️</div>
-                    <h1>¡Gracias por tu voz!</h1>
-                    <p>Tu respuesta ha sido guardada correctamente.</p>
-                <?php else: ?>
-                    <div class="emoji-big">✨</div>
-                    <h1>¡Gracias por tu voz!</h1>
-                    <p>Tu participación es muy valiosa para este proyecto de escucha genuina. Cada respuesta nos ayuda a entender mejor la realidad de los jóvenes de Itapúa.</p>
-                <?php endif; ?>
-            </div>
+            <?php if ($es_repetida): ?>
+                <div class="emoji-big">⚠️</div>
+                <h1>¡Gracias por tu voz!</h1>
+                <p>Tu respuesta ha sido guardada correctamente.</p>
+            <?php else: ?>
+                <div class="emoji-big">✨</div>
+                <h1>¡Gracias por tu voz!</h1>
+                <p>Tu participación es muy valiosa para este proyecto de escucha genuina. Cada respuesta nos ayuda a entender mejor la realidad de los jóvenes de Itapúa.</p>
+            <?php endif; ?>
             
             <div class="info-message">
                 <strong>📢 Los resultados te van a llegar</strong>
                 <p>Los resultados de este laboratorio de escucha se comunicarán por los mismos canales por los que te llegó esta encuesta y también en las páginas y redes oficiales de la Diócesis de Encarnación y de la Universidad Católica. Tu voz no va al vacío.</p>
             </div>
             
-            <div class="suggestion-box">
-                <strong>🙏 Ayúdanos a llegar a más jóvenes</strong>
-                <p>Si conoces a otros jóvenes de Itapúa que aún no han participado, compárteles el enlace de esta encuesta. Entre más voces escuchemos, mejor podremos diseñar propuestas que realmente respondan a sus necesidades.</p>
-            </div>
+            <?php if ($es_repetida): ?>
+                <div class="suggestion-box">
+                    <strong>💡 Aviso</strong>
+                    <p>Hemos detectado que este dispositivo ya ha sido utilizado para responder la encuesta. Si eres un familiar diferente, tus respuestas han sido guardadas correctamente.</p>
+                </div>
+            <?php else: ?>
+                <div class="suggestion-box">
+                    <strong>🙏 Ayúdanos a llegar a más jóvenes</strong>
+                    <p>Si conoces a otros jóvenes de Itapúa que aún no han participado, compárteles el enlace de esta encuesta. Entre más voces escuchemos, mejor podremos diseñar propuestas que realmente respondan a sus necesidades.</p>
+                </div>
+            <?php endif; ?>
             
             <a href="index.php" class="btn-home">← Volver al inicio</a>
             

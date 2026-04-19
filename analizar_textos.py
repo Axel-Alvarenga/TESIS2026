@@ -28,7 +28,7 @@ for i, row in df.iterrows():
     texto = row['campo_libre'][:80] if row['campo_libre'] else ''
     print(f"  ID {row['id']}: {texto}...")
 
-# Palabras negativas (sin NLTK)
+
 palabras_negativas = {
     'malo', 'mal', 'problema', 'dificultad', 'triste', 'preocupación', 
     'miedo', 'injusticia', 'falta', 'no', 'nunca', 'nada', 'decepcion', 
