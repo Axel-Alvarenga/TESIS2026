@@ -46,31 +46,38 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
             }
         }
 
-        /* Header con logos en esquinas y logo central - SIN TEXTOS */
+        /* Header con logos - MISMO TAMAÑO QUE INDEX */
         .header-gracias {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 25px;
-            padding-bottom: 12px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #e2e8f0;
-            text-align: center;
+            min-height: 100px;
         }
 
         .logo-gracias {
             flex-shrink: 0;
             text-align: center;
+            flex: 1;
+        }
+
+        .logo-gracias-central {
+            flex-shrink: 0;
+            text-align: center;
+            flex: 1;
         }
 
         .logo-gracias img {
-            height: 45px;
-            width: auto;
+            max-width: 90px;
+            height: auto;
         }
 
         .logo-gracias-central img {
-            height: 40px;
-            width: auto;
+            max-width: 80px;
+            height: auto;
         }
 
         .titulo-gracias {
@@ -195,15 +202,16 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
             
             .header-gracias {
                 flex-direction: column;
-                gap: 12px;
+                gap: 15px;
+                min-height: auto;
             }
             
             .logo-gracias img {
-                height: 40px;
+                max-width: 70px;
             }
             
             .logo-gracias-central img {
-                height: 35px;
+                max-width: 60px;
             }
             
             .titulo-gracias h2 {
@@ -227,7 +235,7 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 <body>
     <div class="container">
         <div class="thanks-card">
-            <!-- HEADER: SOLO LOGOS SIN TEXTOS -->
+            <!-- HEADER: SOLO LOGOS - MISMO TAMAÑO QUE INDEX -->
             <div class="header-gracias">
                 <div class="logo-gracias">
                     <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica">

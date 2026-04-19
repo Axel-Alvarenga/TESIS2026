@@ -13,7 +13,7 @@ session_start();
     <div class="container">
         <!-- Pantalla de bienvenida -->
         <div class="welcome-card" id="welcomeCard">
-            <!-- HEADER: SOLO LOGOS SIN TEXTOS -->
+            <!-- HEADER: SOLO LOGOS SIN TEXTOS - TAMAÑO UNIFORME -->
             <div class="header-principal">
                 <div class="logo-izquierda">
                     <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica Campus Itapúa" class="logo-img">
@@ -76,16 +76,16 @@ session_start();
 
         <!-- Formulario de encuesta (inicialmente oculto) -->
         <div class="survey-form" id="surveyForm" style="display:none;">
-            <!-- HEADER: SOLO LOGOS SIN TEXTOS (versión más pequeña) -->
+            <!-- HEADER: SOLO LOGOS SIN TEXTOS - MISMO TAMAÑO QUE INICIO -->
             <div class="header-principal">
                 <div class="logo-izquierda">
-                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica" class="logo-img" style="max-width: 50px;">
+                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica" class="logo-img">
                 </div>
                 <div class="logo-central">
-                    <img src="img/bie-cat.jpeg" alt="BIE CAT" class="logo-img-central" style="max-width: 45px;">
+                    <img src="img/bie-cat.jpeg" alt="BIE CAT" class="logo-img-central">
                 </div>
                 <div class="logo-derecha">
-                    <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img" style="max-width: 50px;">
+                    <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img">
                 </div>
             </div>
             
