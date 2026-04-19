@@ -13,23 +13,24 @@ session_start();
     <div class="container">
         <!-- Pantalla de bienvenida -->
         <div class="welcome-card" id="welcomeCard">
-            <!-- HEADER: LOGOS + TÍTULO CENTRADO -->
+            <!-- HEADER: SOLO LOGOS SIN TEXTOS -->
             <div class="header-principal">
                 <div class="logo-izquierda">
                     <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica Campus Itapúa" class="logo-img">
-                    <p><strong>Universidad Católica</strong><br>Campus Itapúa</p>
                 </div>
-                <div class="titulo-central">
-                    <h2>Voces del Sur</h2>
-                    <p>Proyecto de escucha genuina</p>
+                <div class="logo-central">
+                    <img src="img/bie-cat.jpeg" alt="BIE CAT" class="logo-img-central">
                 </div>
                 <div class="logo-derecha">
                     <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img">
-                    <p><strong>Diócesis de la</strong><br>Santísima Encarnación</p>
                 </div>
             </div>
 
-
+            <!-- TÍTULO PRINCIPAL -->
+            <div class="titulo-principal">
+                <h2>Voces del Sur</h2>
+                <p>Proyecto de escucha genuina</p>
+            </div>
             
             <div class="message">
                 <p><strong>Hola, soy Felipe de la Parroquia.</strong></p>
@@ -40,15 +41,17 @@ session_start();
                 <div class="info-box">
                     ⏱ 5 a 7 minutos · 100% anónimo · Sin apellidos ni cédula · Caduca el 31/12/2026
                 </div>
-                            <!-- MENSAJE DE ADVERTENCIA - Una sola vez por persona -->
-            <div class="warning-message">
-                <span class="warning-icon">⚠️</span>
-                <div class="warning-text">
-                    <strong>Importante:</strong> Esta encuesta está diseñada para ser respondida <strong>UNA SOLA VEZ por persona</strong>. 
-                    Si ya la completaste anteriormente, por favor no la vuelvas a responder. 
-                    Esto nos ayuda a mantener la calidad y representatividad de los datos.
+                
+                <!-- MENSAJE DE ADVERTENCIA -->
+                <div class="warning-message">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="warning-text">
+                        <strong>Importante:</strong> Esta encuesta está diseñada para ser respondida <strong>UNA SOLA VEZ por persona</strong>. 
+                        Si ya la completaste anteriormente, por favor no la vuelvas a responder. 
+                        Esto nos ayuda a mantener la calidad y representatividad de los datos.
+                    </div>
                 </div>
-            </div>
+                
                 <div class="consent">
                     <p><em>Al continuar, acepto que mis respuestas sean usadas de forma anónima 
                     y agregada con fines académicos y pastorales por el CGC de la UC y la 
@@ -73,23 +76,26 @@ session_start();
 
         <!-- Formulario de encuesta (inicialmente oculto) -->
         <div class="survey-form" id="surveyForm" style="display:none;">
-            <!-- HEADER: LOGOS + TÍTULO CENTRADO (versión más pequeña) -->
+            <!-- HEADER: SOLO LOGOS SIN TEXTOS (versión más pequeña) -->
             <div class="header-principal">
                 <div class="logo-izquierda">
                     <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica" class="logo-img" style="max-width: 50px;">
-                    <p>Universidad Católica<br>Campus Itapúa</p>
                 </div>
-                <div class="titulo-central">
-                    <h2 style="font-size: 1.2em;">Voces del Sur</h2>
-                    <p style="font-size: 0.7em;">Proyecto de escucha genuina</p>
+                <div class="logo-central">
+                    <img src="img/bie-cat.jpeg" alt="BIE CAT" class="logo-img-central" style="max-width: 45px;">
                 </div>
                 <div class="logo-derecha">
                     <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img" style="max-width: 50px;">
-                    <p>Diócesis de Encarnación</p>
                 </div>
             </div>
             
-            <form action="procesar.php" method="POST" id="encuestaForm">
+            <!-- Título pequeño dentro del formulario -->
+            <div class="titulo-principal" style="margin-bottom: 20px;">
+                <h2 style="font-size: 1.3em;">Voces del Sur</h2>
+                <p style="font-size: 0.7em;">Proyecto de escucha genuina</p>
+            </div>
+            
+            <form action="procesar.php" method="POST" id="encuestaForm" autocomplete="off">
                 
                 <!-- Bloque I: Datos de clasificación -->
                 <div class="block">
@@ -123,17 +129,18 @@ session_start();
                         </select>
                     </div>
                     
-<div class="question">
-    <label><strong>Escribe aquí tu capilla</strong></label>
-    <p class="help-text">En este campo puedes escribir tu capilla.</p>
-    <input type="text" name="nombre_capilla" maxlength="50" 
-           placeholder="Ej: Catedral de Encarnación"
-           autocomplete="off"
-           autocorrect="off"
-           autocapitalize="none"
-           spellcheck="false">
-    <small>Este campo es opcional.</small>
-</div>
+                    <div class="question">
+                        <label><strong>Escribe aquí tu capilla</strong></label>
+                        <p class="help-text">En este campo puedes escribir tu capilla.</p>
+                        <input type="text" name="nombre_capilla" maxlength="50" 
+                               placeholder="Ej: Catedral de Encarnación"
+                               autocomplete="off"
+                               autocorrect="off"
+                               autocapitalize="none"
+                               spellcheck="false">
+                        <small>Este campo es opcional.</small>
+                    </div>
+                </div>
 
                 <!-- Bloque II: Vínculos y pertenencia -->
                 <div class="block">

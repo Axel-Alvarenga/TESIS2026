@@ -46,7 +46,7 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
             }
         }
 
-        /* Header compacto con logos y título */
+        /* Header con logos en esquinas y logo central - SIN TEXTOS */
         .header-gracias {
             display: flex;
             justify-content: space-between;
@@ -66,39 +66,27 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
         .logo-gracias img {
             height: 45px;
             width: auto;
-            margin-bottom: 4px;
         }
 
-        .logo-gracias p {
-            font-size: 8px;
-            color: #4a5568;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .logo-gracias p strong {
-            color: #00093e;
+        .logo-gracias-central img {
+            height: 40px;
+            width: auto;
         }
 
         .titulo-gracias {
             text-align: center;
-            flex: 1;
+            margin-bottom: 20px;
         }
 
         .titulo-gracias h2 {
             color: #00093e;
-            font-size: 1.2em;
-            margin-bottom: 2px;
+            font-size: 1.5em;
+            margin-bottom: 5px;
         }
 
         .titulo-gracias p {
             color: #718096;
-            font-size: 0.65em;
-        }
-
-        /* Contenido centrado */
-        .contenido-centrado {
-            text-align: center;
+            font-size: 0.8em;
         }
 
         .thanks-card h1 {
@@ -214,8 +202,12 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
                 height: 40px;
             }
             
+            .logo-gracias-central img {
+                height: 35px;
+            }
+            
             .titulo-gracias h2 {
-                font-size: 1.1em;
+                font-size: 1.3em;
             }
             
             .info-message {
@@ -235,34 +227,34 @@ $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 <body>
     <div class="container">
         <div class="thanks-card">
-            <!-- HEADER COMPACTO: LOGOS + TÍTULO CENTRADO -->
+            <!-- HEADER: SOLO LOGOS SIN TEXTOS -->
             <div class="header-gracias">
                 <div class="logo-gracias">
                     <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica">
-                    <p><strong>Universidad Católica</strong><br>Campus Itapúa</p>
                 </div>
-                <div class="titulo-gracias">
-                    <h2>Voces del Sur</h2>
-                    <p>Proyecto de escucha genuina</p>
+                <div class="logo-gracias-central">
+                    <img src="img/bie-cat.jpeg" alt="BIE CAT">
                 </div>
                 <div class="logo-gracias">
                     <img src="img/logodio.png" alt="Diócesis de Encarnación">
-                    <p><strong>Diócesis de la</strong><br>Santísima Encarnación</p>
                 </div>
             </div>
             
-            <!-- CONTENIDO CENTRADO -->
-            <div class="contenido-centrado">
-                <?php if ($es_repetida): ?>
-                    <div class="emoji-big">⚠️</div>
-                    <h1>¡Gracias por tu voz!</h1>
-                    <p>Tu respuesta ha sido guardada correctamente.</p>
-                <?php else: ?>
-                    <div class="emoji-big">✨</div>
-                    <h1>¡Gracias por tu voz!</h1>
-                    <p>Tu participación es muy valiosa para este proyecto de escucha genuina. Cada respuesta nos ayuda a entender mejor la realidad de los jóvenes de Itapúa.</p>
-                <?php endif; ?>
+            <!-- TÍTULO PRINCIPAL -->
+            <div class="titulo-gracias">
+                <h2>Voces del Sur</h2>
+                <p>Proyecto de escucha genuina</p>
             </div>
+            
+            <?php if ($es_repetida): ?>
+                <div class="emoji-big">⚠️</div>
+                <h1>¡Gracias por tu voz!</h1>
+                <p>Tu respuesta ha sido guardada correctamente.</p>
+            <?php else: ?>
+                <div class="emoji-big">✨</div>
+                <h1>¡Gracias por tu voz!</h1>
+                <p>Tu participación es muy valiosa para este proyecto de escucha genuina. Cada respuesta nos ayuda a entender mejor la realidad de los jóvenes de Itapúa.</p>
+            <?php endif; ?>
             
             <div class="info-message">
                 <strong>📢 Los resultados te van a llegar</strong>
