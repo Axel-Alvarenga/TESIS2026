@@ -1,0 +1,816 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #00093e 0%, #001a7a 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Tarjeta de bienvenida */
+.welcome-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Header con logos responsive */
+.header-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.logo-izquierda,
+.logo-central,
+.logo-derecha {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
+    width: 100%;
+    max-width: 90px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.logo-img-central {
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+/* Título principal fuera de la cabecera */
+.titulo-principal {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.titulo-principal h2 {
+    color: #00093e;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.titulo-principal p {
+    color: #718096;
+    font-size: 0.9em;
+}
+
+/* Mensaje de advertencia */
+.warning-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 25px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.warning-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.warning-text {
+    font-size: 13px;
+    color: #856404;
+    line-height: 1.4;
+}
+
+.warning-text strong {
+    color: #856404;
+}
+
+.info-box {
+    background: #e8f0fe;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+    color: #00093e;
+}
+
+.consent {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid #00093e;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00093e 0%, #001a7a 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.footer-note {
+    margin-top: 30px;
+    text-align: center;
+    color: #718096;
+    font-size: 12px;
+}
+
+/* Formulario de encuesta */
+.survey-form {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideUp 0.5s ease-in;
+}
+
+.block {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.block h2 {
+    color: #00093e;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.question {
+    margin-bottom: 25px;
+}
+
+.question label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.options {
+    padding-left: 20px;
+}
+
+.options label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.options input[type="radio"],
+.options input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* ==================== ESTILOS PARA SELECT (P1) ==================== */
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #00093e;
+    box-shadow: 0 0 0 3px rgba(0, 9, 62, 0.1);
+}
+
+select.error {
+    border-color: #e53e3e;
+    background-color: #fff5f5;
+}
+
+/* ==================== SELECTOR MODERNO DE PARROQUIAS ==================== */
+.parroquia-selector {
+    position: relative;
+    width: 100%;
+    font-family: inherit;
+}
+
+.selector-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.selector-input:hover {
+    border-color: #00093e;
+}
+
+.selector-input.active {
+    border-color: #00093e;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.selector-input.error {
+    border-color: #e53e3e;
+    background-color: #fff5f5;
+}
+
+.selector-arrow {
+    transition: transform 0.2s;
+    color: #718096;
+}
+
+.selector-input.active .selector-arrow {
+    transform: rotate(180deg);
+}
+
+#selectedParroquiaText {
+    color: #2d3748;
+    flex: 1;
+}
+
+#selectedParroquiaText.placeholder {
+    color: #a0aec0;
+}
+
+.selector-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #00093e;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    z-index: 1000;
+    display: none;
+    max-height: 320px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.selector-dropdown.show {
+    display: block;
+}
+
+.selector-search {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f7fafc;
+}
+
+.selector-search input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.selector-search input:focus {
+    border-color: #00093e;
+}
+
+.selector-options {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.parroquia-option {
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+.parroquia-option:hover {
+    background: #e8f0fe;
+}
+
+.parroquia-option.selected {
+    background: #00093e;
+    color: white;
+}
+
+.parroquia-option.selected:hover {
+    background: #001a7a;
+}
+
+.no-results {
+    padding: 20px;
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Mensaje de error para parroquia */
+.parroquia-error {
+    color: #e53e3e;
+    font-size: 0.75em;
+    margin-top: 8px;
+    display: none;
+}
+
+/* Texto de ayuda pequeño */
+.question small {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.75em;
+    color: #718096;
+}
+
+/* ==================== ESCALA DE ESPERANZA CON COLORES ==================== */
+.scale {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.scale-option {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+/* Escala 1 - Muy bajo (Rojo claro) */
+.scale-1 {
+    background: #fee2e2;
+    border-color: #fecaca;
+}
+
+.scale-1:hover {
+    background: #fecaca;
+    transform: translateY(-2px);
+}
+
+.scale-1:has(input:checked) {
+    background: #fca5a5;
+    border-color: #ef4444;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    transform: scale(1.02);
+}
+
+/* Escala 2 - Bajo (Naranja claro) */
+.scale-2 {
+    background: #ffedd5;
+    border-color: #fed7aa;
+}
+
+.scale-2:hover {
+    background: #fed7aa;
+    transform: translateY(-2px);
+}
+
+.scale-2:has(input:checked) {
+    background: #fdba74;
+    border-color: #f97316;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+    transform: scale(1.02);
+}
+
+/* Escala 3 - Medio (Gris claro) */
+.scale-3 {
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+}
+
+.scale-3:hover {
+    background: #e5e7eb;
+    transform: translateY(-2px);
+}
+
+.scale-3:has(input:checked) {
+    background: #d1d5db;
+    border-color: #9ca3af;
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
+    transform: scale(1.02);
+}
+
+/* Escala 4 - Alto (Verde claro) */
+.scale-4 {
+    background: #dcfce7;
+    border-color: #bbf7d0;
+}
+
+.scale-4:hover {
+    background: #bbf7d0;
+    transform: translateY(-2px);
+}
+
+.scale-4:has(input:checked) {
+    background: #86efac;
+    border-color: #22c55e;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+    transform: scale(1.02);
+}
+
+/* Escala 5 - Muy alto (Azul claro) */
+.scale-5 {
+    background: #dbeafe;
+    border-color: #bfdbfe;
+}
+
+.scale-5:hover {
+    background: #bfdbfe;
+    transform: translateY(-2px);
+}
+
+.scale-5:has(input:checked) {
+    background: #93c5fd;
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    transform: scale(1.02);
+}
+
+/* Estilos comunes para los radio buttons y labels dentro de scale-option */
+.scale-option input[type="radio"] {
+    margin-bottom: 8px;
+    cursor: pointer;
+    accent-color: currentColor;
+}
+
+.scale-option label {
+    cursor: pointer;
+    font-weight: normal;
+    display: block;
+}
+
+.scale-option small {
+    font-size: 11px;
+    color: #4a5568;
+    display: block;
+    margin-top: 5px;
+}
+
+/* ==================== BOTONES ==================== */
+.btn-submit {
+    background: linear-gradient(135deg, #00093e 0%, #001a7a 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.2s;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+}
+
+.submit-section {
+    margin-top: 30px;
+}
+
+/* ==================== ANIMACIONES ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    .logo-img {
+        max-width: 75px;
+    }
+    
+    .logo-img-central {
+        max-width: 65px;
+    }
+    
+    .header-principal {
+        gap: 12px;
+    }
+}
+
+/* Móviles grandes (600px - 768px) */
+@media (max-width: 768px) {
+    .welcome-card, .survey-form {
+        padding: 25px;
+    }
+    
+    .header-principal {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .logo-img {
+        max-width: 60px;
+    }
+    
+    .logo-img-central {
+        max-width: 50px;
+    }
+    
+    .titulo-principal h2 {
+        font-size: 1.5em;
+    }
+    
+    .warning-message {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .warning-icon {
+        font-size: 20px;
+    }
+    
+    .warning-text {
+        font-size: 11px;
+    }
+    
+    .block h2 {
+        font-size: 1.3em;
+    }
+    
+    /* Escala responsive */
+    .scale {
+        flex-direction: column;
+    }
+    
+    .scale-option {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+    }
+    
+    .scale-option input[type="radio"] {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .scale-option label {
+        flex: 1;
+        text-align: left;
+    }
+    
+    .scale-option small {
+        display: inline;
+        margin-left: 5px;
+        font-size: 10px;
+    }
+    
+    .scale-option:hover {
+        transform: translateX(4px) !important;
+    }
+    
+    .scale-option:has(input:checked) {
+        transform: scale(1.01) !important;
+    }
+    
+    /* Selector moderno responsive */
+    .selector-input {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .parroquia-option {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .selector-dropdown {
+        max-height: 300px;
+    }
+    
+    .selector-options {
+        max-height: 240px;
+    }
+    
+    /* Evitar zoom automático en iOS */
+    select,
+    input {
+        font-size: 16px !important;
+    }
+}
+
+/* Móviles pequeños (menos de 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .welcome-card, .survey-form {
+        padding: 20px;
+    }
+    
+    .header-principal {
+        gap: 8px;
+    }
+    
+    .logo-img {
+        max-width: 45px;
+    }
+    
+    .logo-img-central {
+        max-width: 38px;
+    }
+    
+    .titulo-principal h2 {
+        font-size: 1.3em;
+    }
+    
+    .titulo-principal p {
+        font-size: 0.8em;
+    }
+    
+    .info-box {
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    .btn-primary, .btn-submit {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+    
+    .block h2 {
+        font-size: 1.2em;
+    }
+    
+    .question label {
+        font-size: 14px;
+    }
+    
+    .options label {
+        font-size: 13px;
+    }
+    
+    select {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Móviles muy pequeños (menos de 360px) */
+@media (max-width: 360px) {
+    .logo-img {
+        max-width: 38px;
+    }
+    
+    .logo-img-central {
+        max-width: 32px;
+    }
+    
+    .titulo-principal h2 {
+        font-size: 1.2em;
+    }
+    
+    .warning-text {
+        font-size: 10px;
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .header-principal {
+        gap: 15px;
+    }
+    
+    .logo-img {
+        max-width: 50px;
+    }
+    
+    .logo-img-central {
+        max-width: 42px;
+    }
+}
+
+/* ==================== OTROS ESTILOS ==================== */
+.help-text {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 8px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #00093e;
+}
+
+small {
+    font-size: 12px;
+    color: #718096;
+    display: block;
+}
+
+.required-mark {
+    color: #e53e3e;
+    margin-left: 4px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #00093e;
+}
