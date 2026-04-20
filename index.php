@@ -1,246 +1,126 @@
-<?php
-session_start();
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Voces del Sur - Encuesta</title>
     <link rel="stylesheet" href="css/estilo.css">
-    <style>
-        /* Estilos adicionales para el formulario por pasos */
-        .step-indicator {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 10px 0;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        
-        .step-progress {
-            flex: 1;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .step-progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .step-text {
-            font-size: 14px;
-            color: #4a5568;
-            margin-right: 15px;
-        }
-        
-        .step-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .btn-step {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: transform 0.2s;
-        }
-        
-        .btn-step:hover {
-            transform: translateY(-2px);
-        }
-        
-        .btn-step-prev {
-            background: #a0aec0;
-        }
-        
-        .btn-step-submit {
-            background: linear-gradient(135deg, #48bb78 0%, #2c7a4d 100%);
-        }
-        
-        .step-page {
-            display: none;
-            animation: fadeInStep 0.3s ease;
-        }
-        
-        .step-page.active {
-            display: block;
-        }
-        
-        @keyframes fadeInStep {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .required-mark {
-            color: #e53e3e;
-            margin-left: 5px;
-        }
-        
-        .step-title {
-            font-size: 1.8em;
-            color: #4a5568;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-            display: inline-block;
-        }
-
-        .error {
-            border: 2px solid #e53e3e !important;
-            background-color: #fff5f5 !important;
-        }
-
-        select.error, input.error, textarea.error {
-            border: 2px solid #e53e3e !important;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <!-- Pantalla de bienvenida -->
-        <!-- Pantalla de bienvenida con logos -->
         <div class="welcome-card" id="welcomeCard">
-            <!-- Cabecera con logos -->
-            <div class="welcome-header">
-                <div class="logo-left">
-                    <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="UC Campus Itapúa" class="logo-img">
-                </div>
-                <div class="logo-center">
-                    <img src="img/bie-cat.jpeg" alt="Bienvenida" class="logo-img-center">
-                </div>
-                <div class="logo-right">
-                    <img src="img/logodio.png" alt="Diócesis de Encarnación" class="logo-img">
-                </div>
+            <div class="logos-header">
+                <div class="logo-left"><img src="img/LOGOUCCAMPUSITAPÚA.png" alt="UC" class="logo-img"></div>
+                <div class="logo-center"><img src="img/bie-cat.jpeg" alt="Bienvenida" class="logo-img-center"></div>
+                <div class="logo-right"><img src="img/logodio.png" alt="Diócesis" class="logo-img"></div>
             </div>
-            
-            <!-- Título y descripción -->
-            <div class="titulo-principal">
-                <h2>Voces del Sur</h2>
+            <div class="logo">
+                <h1>Voces del Sur</h1>
                 <p>Proyecto de escucha genuina</p>
             </div>
-            
             <div class="message">
                 <p><strong>Hola, soy Felipe de la Parroquia.</strong></p>
-                <p>Te invito a sumar tu voz a un laboratorio de escucha impulsado por la 
-                Diócesis de Encarnación y la Universidad Católica. No hay respuestas 
-                correctas ni incorrectas. Solo queremos escucharte de verdad.</p>
-                
-                <div class="info-box">
-                    ⏱ 5 a 7 minutos · 100% anónimo · Sin apellidos ni cédula · Caduca el 31/12/2026
-                </div>
-                
-                <!-- MENSAJE DE ADVERTENCIA -->
-                <div class="warning-message">
-                    <span class="warning-icon">⚠️</span>
-                    <div class="warning-text">
-                        <strong>Importante:</strong> Esta encuesta está diseñada para ser respondida <strong>UNA SOLA VEZ por persona</strong>. 
-                        Si ya la completaste anteriormente, por favor no la vuelvas a responder. 
-                        Esto nos ayuda a mantener la calidad y representatividad de los datos.
-                    </div>
-                </div>
-                
+                <p>Te invito a sumar tu voz a un laboratorio de escucha impulsado por la Diócesis de Encarnación y la Universidad Católica. No hay respuestas correctas ni incorrectas. Solo queremos escucharte de verdad.</p>
+                <div class="info-box">⏱ 5 a 7 minutos · 100% anónimo · Sin apellidos ni cédula · Caduca el 31/12/2026</div>
                 <div class="consent">
-                    <p><em>Al continuar, acepto que mis respuestas sean usadas de forma anónima 
-                    y agregada con fines académicos y pastorales por el Centro de gestion del conocimiento de la UC y la 
-                    Diócesis de Encarnación. No se almacenarán datos que permitan mi 
-                    identificación personal.</em></p>
-                    
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="consentCheckbox">
-                        <span>Acepto y quiero participar</span>
-                    </label>
+                    <p><em>Al continuar, acepto que mis respuestas sean usadas de forma anónima y agregada con fines académicos y pastorales por el equipo de investigación de la Universidad Católica y la Diócesis de Encarnación. No se almacenarán datos que permitan mi identificación personal.</em></p>
+                    <label class="checkbox-label"><input type="checkbox" id="consentCheckbox"><span>Acepto y quiero participar</span></label>
                 </div>
-                
                 <button class="btn-primary" id="startBtn" disabled>Comenzar encuesta</button>
-                
-                <div class="footer-note">
-                    <small>Si tienes dudas sobre la autenticidad de este enlace, puedes 
-                    verificarlo en la web oficial de la Diócesis (diocesisencarnacion.org) 
-                    o de la Universidad Católica.</small>
-                </div>
+                <div class="footer-note"><small>Si tienes dudas sobre la autenticidad de este enlace, puedes verificarlo en la web oficial de la Diócesis (diocesisencarnacion.org) o de la Universidad Católica.</small></div>
             </div>
         </div>
 
-        <!-- Formulario de encuesta por pasos -->
+        <!-- Formulario por pasos -->
         <div class="survey-form" id="surveyForm" style="display:none;">
             <form action="procesar.php" method="POST" id="encuestaForm">
-                
-                <!-- Indicador de progreso -->
-                <div class="step-indicator">
-                    <span class="step-text" id="stepCounter">Bloque 1 de 8</span>
-                    <div class="step-progress">
-                        <div class="step-progress-fill" id="stepProgressFill"></div>
-                    </div>
+                <!-- LOGOS DENTRO DEL FORMULARIO -->
+                <div class="logos-header">
+                    <div class="logo-left"><img src="img/LOGOUCCAMPUSITAPÚA.png" alt="UC" class="logo-img"></div>
+                    <div class="logo-center"><img src="img/bie-cat.jpeg" alt="Bienvenida" class="logo-img-center"></div>
+                    <div class="logo-right"><img src="img/logodio.png" alt="Diócesis" class="logo-img"></div>
                 </div>
                 
-                <!-- ==================== BLOQUE 1 ==================== -->
+                <div class="step-indicator">
+                    <span class="step-text" id="stepCounter">Bloque 1 de 8</span>
+                    <div class="step-progress"><div class="step-progress-fill" id="stepProgressFill"></div></div>
+                </div>
+                
+                <!-- BLOQUE 1 -->
                 <div class="step-page active" data-step="1">
-                    <h2 class="step-title">Bloque I · Datos de clasificación</h2>
-                    
+                    <div class="block"><h2>Bloque I · Datos de clasificación</h2></div>
                     <div class="question">
-                        <label><strong>P1. ¿En qué año naciste? <span class="required-mark">*</span></strong></label>
+                        <label>P1. ¿En qué año naciste? <span class="required-mark">*</span></label>
                         <select name="p1_anio" id="anioNacimiento" required>
-                            <option value="">Selecciona tu año de nacimiento</option>
-                            <?php
-                            for($i = 1991; $i <= 2011; $i++) {
-                                echo "<option value='$i'>$i</option>";
-                            }
-                            ?>
-                            <option value="antes_1991">Antes de 1991</option>
+                            <option value="">Selecciona tu año</option>
+                            <option value="antes_1991">Antes de 1992</option>
+                            <?php for($i = 1991; $i <= 2011; $i++) echo "<option value='$i'>$i</option>"; ?>
                             <option value="despues_2011">Después de 2011</option>
                         </select>
                     </div>
-                    
                     <div class="question">
-                        <label><strong>P2. ¿A qué parroquia o capilla estás más cerca, o en cuál participás? <span class="required-mark">*</span></strong></label>
-                        <select name="p2_parroquia" required>
-                            <option value="">Selecciona una opción</option>
-                            <option value="catedral">Catedral de Encarnación</option>
-                            <option value="santuario">Santuario de Itapúa</option>
-                            <option value="fram">Parroquia San José de Fram</option>
-                            <option value="trinidad">Parroquia Santísima Trinidad</option>
-                            <option value="encarnacion_centro">Parroquia Encarnación Centro</option>
-                            <option value="otra">Otra parroquia</option>
-                            <option value="no_frecuento">No frecuento ninguna comunidad, pero vivo en [barrio/compañía]</option>
-                        </select>
+                        <label>P2. ¿A qué parroquia o capilla estás más cerca? <span class="required-mark">*</span></label>
+                        <input type="text" name="p2_parroquia" list="parroquiasList" id="parroquiaInput" placeholder="Escribe o selecciona una parroquia..." autocomplete="off" required>
+                        <datalist id="parroquiasList">
+                            <option value="Nuestra Señora de la Santísima Encarnación">
+                            <option value="Inmaculada Concepción de María">
+                            <option value="San Roque González de Santa Cruz">
+                            <option value="San Pedro Apóstol - Encarnación">
+                            <option value="San Francisco de Asís">
+                            <option value="Sagrado Corazón de Jesús - Cambyreta">
+                            <option value="Santísimo Nombre de María">
+                            <option value="Presentación de María en el Templo">
+                            <option value="San Juan Bautista - San Juan del Paraná">
+                            <option value="San Miguel Arcángel - Santuario Itacuá">
+                            <option value="San Isidro Labrador">
+                            <option value="Nuestra Señora del Carmen">
+                            <option value="Espíritu Santo - Fram">
+                            <option value="Santa Cruz">
+                            <option value="San Luis Gonzága">
+                            <option value="Santos Cosme y Damián">
+                            <option value="Virgen del Rosario">
+                            <option value="San Pedro Apóstol - San Pedro del Paraná">
+                            <option value="Virgen de Lourdes">
+                            <option value="San José Obrero - Cap. Miranda">
+                            <option value="María Reina de la Paz">
+                            <option value="Niño Jesús">
+                            <option value="Cuasi Parroquia Santísima Trinidad">
+                            <option value="Espíritu Santo - Hohenau">
+                            <option value="Cristo Rey">
+                            <option value="26 Santos Mártires del Japón">
+                            <option value="Sagrado Corazón de Jesús - Caronay">
+                            <option value="San Cristóbal">
+                            <option value="San Juan Bautista - Yatytay">
+                            <option value="Virgen de Fátima">
+                            <option value="María Auxiliadora">
+                            <option value="Inmaculado Corazón de María">
+                            <option value="San José Obrero - Edelira">
+                            <option value="San Antonio de Padua - Cap. Meza">
+                            <option value="San Martín de Tours">
+                            <option value="San José Obrero - Naranjito">
+                            <option value="San Cayetano">
+                            <option value="San Juan Bautista - Itapua Poty">
+                            <option value="San Antonio de Padua - Carlos A. López">
+                            <option value="No frecuento ninguna comunidad">
+                        </datalist>
+                        <small id="parroquiaError" style="color: #e53e3e; display: none;">⚠️ Por favor, selecciona una parroquia válida de la lista.</small>
+                        <small>Escribe el nombre de tu parroquia o selecciona de la lista</small>
                     </div>
-                    
-                    <!-- Campo condicional para menores de edad -->
-                    <div id="permisoMenores" style="display: none; margin-top: 20px; margin-bottom: 20px; padding: 15px; background: #fef9e6; border-left: 4px solid #e67e22; border-radius: 8px;">
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <div id="permisoMenores" style="display: none; background: #fef9e6; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <label style="display: flex; align-items: center; gap: 10px;">
                             <input type="checkbox" name="permiso_padres" id="permisoPadres" value="si">
-                            <span>📋 <strong>Autorización requerida:</strong> Declaro que soy menor de 18 años y cuento con la autorización de mis padres o tutores para participar en esta encuesta.</span>
+                            <span>📋 Declaro que soy menor de 18 años y cuento con la autorización de mis padres o tutores.</span>
                         </label>
-                        <p style="font-size: 0.8em; margin-top: 8px; color: #7f8c8d; margin-left: 28px;">Si no tienes esta autorización, por favor no continúes.</p>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 2 ==================== -->
+
+                <!-- BLOQUE 2 -->
                 <div class="step-page" data-step="2">
-                    <h2 class="step-title">Bloque II · Vínculos y pertenencia</h2>
-                    
+                    <div class="block"><h2>Bloque II · Vínculos y pertenencia</h2></div>
                     <div class="question">
-                        <label><strong>P3. En el último mes, ¿en qué momento sentiste que pertenecías a algo más grande que vos mismo/a? <span class="required-mark">*</span></strong></label>
+                        <label>P3. En el último mes, ¿en qué momento sentiste que pertenecías a algo más grande que vos mismo/a? <span class="required-mark">*</span></label>
                         <div class="options">
                             <label><input type="radio" name="p3_pertenencia" value="A" required> A. En un grupo de amigos o de gente en quien confío</label>
                             <label><input type="radio" name="p3_pertenencia" value="B"> B. En la Eucaristía u otro momento de oración o liturgia</label>
@@ -252,9 +132,8 @@ session_start();
                             <label><input type="radio" name="p3_pertenencia" value="H"> H. No recuerdo haber sentido eso en el último mes</label>
                         </div>
                     </div>
-                    
                     <div class="question">
-                        <label><strong>P4. Si hoy te invitáramos a un espacio nuevo, ¿qué es lo que más te atraería? <span class="required-mark">*</span></strong></label>
+                        <label>P4. Si hoy te invitáramos a un espacio nuevo, ¿qué es lo que más te atraería? <span class="required-mark">*</span></label>
                         <div class="options">
                             <label><input type="radio" name="p4_atraccion" value="A" required> A. Conocer personas con valores similares y generar vínculos de confianza</label>
                             <label><input type="radio" name="p4_atraccion" value="B"> B. Un espacio donde pueda estar en silencio y pensar sin presiones</label>
@@ -266,13 +145,12 @@ session_start();
                         </div>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 3 ==================== -->
+
+                <!-- BLOQUE 3 -->
                 <div class="step-page" data-step="3">
-                    <h2 class="step-title">Bloque III · Espiritualidad</h2>
-                    
+                    <div class="block"><h2>Bloque III · Espiritualidad</h2></div>
                     <div class="question">
-                        <label><strong>P5. ¿Con qué frecuencia buscás respuestas a tus grandes preguntas ---la vida, la muerte, el amor, el sentido--- en la fe? <span class="required-mark">*</span></strong></label>
+                        <label>P5. ¿Con qué frecuencia buscás respuestas a tus grandes preguntas ---la vida, la muerte, el amor, el sentido--- en la fe? <span class="required-mark">*</span></label>
                         <div class="options">
                             <label><input type="radio" name="p5_espiritualidad" value="A" required> A. Es mi principal referencia: la fe me ayuda a comprender la vida</label>
                             <label><input type="radio" name="p5_espiritualidad" value="B"> B. A veces recurro a la fe, pero no siempre comprendo el lenguaje de la Iglesia</label>
@@ -281,13 +159,12 @@ session_start();
                         </div>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 4 ==================== -->
+
+                <!-- BLOQUE 4 -->
                 <div class="step-page" data-step="4">
-                    <h2 class="step-title">Bloque IV · Familia</h2>
-                    
+                    <div class="block"><h2>Bloque IV · Familia</h2></div>
                     <div class="question">
-                        <label><strong>P6. En los momentos de crisis o decisiones importantes, ¿qué representa tu familia para vos? <span class="required-mark">*</span></strong></label>
+                        <label>P6. En los momentos de crisis o decisiones importantes, ¿qué representa tu familia para vos? <span class="required-mark">*</span></label>
                         <div class="options">
                             <label><input type="radio" name="p6_familia" value="A" required> A. Mi principal apoyo y refugio emocional en situaciones difíciles</label>
                             <label><input type="radio" name="p6_familia" value="B"> B. Un lugar de tensiones que prefiero evitar cuando hay un problema</label>
@@ -297,13 +174,12 @@ session_start();
                         </div>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 5 ==================== -->
+
+                <!-- BLOQUE 5 -->
                 <div class="step-page" data-step="5">
-                    <h2 class="step-title">Bloque V · Proyecto de vida</h2>
-                    
+                    <div class="block"><h2>Bloque V · Proyecto de vida</h2></div>
                     <div class="question">
-                        <label><strong>P7. Al proyectar tu vida a 10 años, ¿cuál es tu prioridad fundamental? <span class="required-mark">*</span></strong></label>
+                        <label>P7. Al proyectar tu vida a 10 años, ¿cuál es tu prioridad fundamental? <span class="required-mark">*</span></label>
                         <div class="options">
                             <label><input type="radio" name="p7_proyecto" value="A" required> A. Alcanzar estabilidad económica y desarrollo profesional</label>
                             <label><input type="radio" name="p7_proyecto" value="B"> B. Formar una familia sólida y estar presente para ella</label>
@@ -313,13 +189,12 @@ session_start();
                         </div>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 6 ==================== -->
+
+                <!-- BLOQUE 6 -->
                 <div class="step-page" data-step="6">
-                    <h2 class="step-title">Bloque VI · Vocación</h2>
-                    
+                    <div class="block"><h2>Bloque VI · Vocación</h2></div>
                     <div class="question">
-                        <label><strong>P8. Al pensar en tu futuro, ¿cuál de estas frases describe mejor cómo te sentís respecto a tu vocación ---tu misión en el mundo? <span class="required-mark">*</span></strong></label>
+                        <label>P8. Al pensar en tu futuro, ¿cuál de estas frases describe mejor cómo te sentís respecto a tu vocación ---tu misión en el mundo? <span class="required-mark">*</span></label>
                         <div class="options">
                             <label><input type="radio" name="p8_vocacion" value="A" required> A. Siento que tengo una misión clara y estoy trabajando para cumplirla</label>
                             <label><input type="radio" name="p8_vocacion" value="B"> B. Tengo miedo de tomar decisiones equivocadas y desperdiciar mi vida</label>
@@ -329,13 +204,12 @@ session_start();
                         </div>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 7 ==================== -->
+
+                <!-- BLOQUE 7 -->
                 <div class="step-page" data-step="7">
-                    <h2 class="step-title">Bloque VII · Crítica institucional</h2>
-                    
+                    <div class="block"><h2>Bloque VII · Crítica institucional</h2></div>
                     <div class="question">
-                        <label><strong>P9. Si tuvieras que señalar qué es lo que más aleja a los jóvenes de la Iglesia hoy, ¿qué elegirías? (Puedes elegir hasta dos opciones)</strong></label>
+                        <label>P9. Si tuvieras que señalar qué es lo que más aleja a los jóvenes de la Iglesia hoy, ¿qué elegirías? (Puedes elegir hasta dos opciones)</label>
                         <div class="options">
                             <label><input type="checkbox" name="p9_critica[]" value="A"> A. El lenguaje anticuado: no habla como hablamos</label>
                             <label><input type="checkbox" name="p9_critica[]" value="B"> B. La falta de coherencia entre lo que predica y lo que hacen sus representantes</label>
@@ -348,49 +222,30 @@ session_start();
                         <small>Selecciona hasta dos opciones</small>
                     </div>
                 </div>
-                
-                <!-- ==================== BLOQUE 8 ==================== -->
+
+                <!-- BLOQUE 8 -->
                 <div class="step-page" data-step="8">
-                    <h2 class="step-title">Bloque VIII · Esperanza social + Campo libre</h2>
-                    
+                    <div class="block"><h2>Bloque VIII · Esperanza social</h2></div>
                     <div class="question">
-                        <label><strong>P10. Mirando al Paraguay de los próximos 5 años, ¿qué sentimiento predomina en vos? <span class="required-mark">*</span></strong></label>
+                        <label>P10. Mirando al Paraguay de los próximos 5 años, ¿qué sentimiento predomina en vos? <span class="required-mark">*</span></label>
                         <div class="scale">
-                            <div class="scale-option">
-                                <input type="radio" name="p10_esperanza" value="1" id="esperanza1" required>
-                                <label for="esperanza1">1 - Muy bajo<br><small>Miedo o angustia. Siento que mi futuro está fuera del país.</small></label>
-                            </div>
-                            <div class="scale-option">
-                                <input type="radio" name="p10_esperanza" value="2" id="esperanza2">
-                                <label for="esperanza2">2 - Bajo<br><small>Preocupación. No veo muchas oportunidades de futuro aquí.</small></label>
-                            </div>
-                            <div class="scale-option">
-                                <input type="radio" name="p10_esperanza" value="3" id="esperanza3">
-                                <label for="esperanza3">3 - Medio<br><small>Ni optimismo ni pesimismo; prefiero esperar y ver.</small></label>
-                            </div>
-                            <div class="scale-option">
-                                <input type="radio" name="p10_esperanza" value="4" id="esperanza4">
-                                <label for="esperanza4">4 - Alto<br><small>Esperanza. Creo que las cosas pueden mejorar si trabajamos.</small></label>
-                            </div>
-                            <div class="scale-option">
-                                <input type="radio" name="p10_esperanza" value="5" id="esperanza5">
-                                <label for="esperanza5">5 - Muy alto<br><small>Entusiasmo. Quiero construir mi futuro en Paraguay.</small></label>
-                            </div>
+                            <label class="scale-option"><input type="radio" name="p10_esperanza" value="1" required><span>1 - Muy bajo<br><small>Miedo o angustia. Siento que mi futuro está fuera del país.</small></span></label>
+                            <label class="scale-option"><input type="radio" name="p10_esperanza" value="2"><span>2 - Bajo<br><small>Preocupación. No veo muchas oportunidades de futuro aquí.</small></span></label>
+                            <label class="scale-option"><input type="radio" name="p10_esperanza" value="3"><span>3 - Medio<br><small>Ni optimismo ni pesimismo; prefiero esperar y ver.</small></span></label>
+                            <label class="scale-option"><input type="radio" name="p10_esperanza" value="4"><span>4 - Alto<br><small>Esperanza. Creo que las cosas pueden mejorar si trabajamos.</small></span></label>
+                            <label class="scale-option"><input type="radio" name="p10_esperanza" value="5"><span>5 - Muy alto<br><small>Entusiasmo. Quiero construir mi futuro en Paraguay.</small></span></label>
                         </div>
                     </div>
-                    
                     <div class="question">
-                        <label><strong>¿Hay algo que quisieras decirnos que ninguna de estas preguntas te permitió decir?</strong></label>
+                        <label>¿Hay algo que quisieras decirnos que ninguna de estas preguntas te permitió decir?</label>
                         <textarea name="campo_libre" rows="4" placeholder="Escribe aquí tus comentarios (máximo 300 caracteres)" maxlength="300"></textarea>
                     </div>
                 </div>
-                
-                <!-- Botones de navegación -->
+
                 <div class="step-buttons">
-                    <button type="button" class="btn-step btn-step-prev" id="prevBtn" style="visibility: hidden;">← Anterior</button>
-                    <button type="button" class="btn-step" id="nextBtn">Siguiente →</button>
+                    <button type="button" class="btn-secondary" id="prevBtn" style="visibility: hidden;">← Anterior</button>
+                    <button type="button" class="btn-primary" id="nextBtn">Siguiente →</button>
                 </div>
-                
             </form>
         </div>
     </div>
@@ -428,30 +283,63 @@ session_start();
             
             if (currentStep === totalSteps) {
                 nextBtn.textContent = 'Enviar respuestas ✓';
-                nextBtn.classList.add('btn-step-submit');
             } else {
                 nextBtn.textContent = 'Siguiente →';
-                nextBtn.classList.remove('btn-step-submit');
             }
         }
+        
+        // ==================== VALIDACIÓN DE PARROQUIA (debe coincidir con la lista) ====================
+        const parroquiaInput = document.getElementById('parroquiaInput');
+        const parroquiaError = document.getElementById('parroquiaError');
+        
+        const opcionesValidas = Array.from(document.querySelectorAll('#parroquiasList option')).map(opt => opt.value);
+        
+        function validarParroquia() {
+            const valor = parroquiaInput.value.trim();
+            if (valor === "") {
+                parroquiaError.style.display = 'none';
+                return false;
+            }
+            
+            if (opcionesValidas.includes(valor)) {
+                parroquiaError.style.display = 'none';
+                return true;
+            } else {
+                parroquiaError.style.display = 'block';
+                return false;
+            }
+        }
+        
+        parroquiaInput.addEventListener('input', validarParroquia);
+        parroquiaInput.addEventListener('blur', validarParroquia);
+        parroquiaInput.addEventListener('change', validarParroquia);
         
         function validateCurrentStep() {
             const currentPage = document.querySelector(`.step-page[data-step="${currentStep}"]`);
             const requiredFields = currentPage.querySelectorAll('[required]');
             let isValid = true;
             
+            if (currentStep === 1) {
+                const parroquiaEsValida = validarParroquia();
+                if (!parroquiaEsValida && parroquiaInput.value.trim() !== "") {
+                    isValid = false;
+                    parroquiaInput.classList.add('error');
+                } else if (parroquiaInput.value.trim() === "") {
+                    isValid = false;
+                    parroquiaInput.classList.add('error');
+                    parroquiaError.style.display = 'none';
+                } else {
+                    parroquiaInput.classList.remove('error');
+                }
+            }
+            
             requiredFields.forEach(field => {
+                if (field.id === 'parroquiaInput') return;
+                
                 if (field.type === 'radio') {
                     const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
                     const isChecked = Array.from(radioGroup).some(r => r.checked);
                     if (!isChecked) {
-                        isValid = false;
-                        field.classList.add('error');
-                    } else {
-                        field.classList.remove('error');
-                    }
-                } else if (field.type === 'checkbox' && field.required) {
-                    if (!field.checked) {
                         isValid = false;
                         field.classList.add('error');
                     } else {
@@ -470,7 +358,7 @@ session_start();
                 const permisoCheck = document.getElementById('permisoPadres');
                 if (permisoCheck && !permisoCheck.checked) {
                     isValid = false;
-                    alert('⚠️ Debes marcar la casilla de autorización parental para continuar (eres menor de 18 años).');
+                    alert('⚠️ Debes marcar la casilla de autorización parental (eres menor de 18 años).');
                 }
             }
             
