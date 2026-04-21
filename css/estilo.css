@@ -692,6 +692,140 @@ input[list].error {
     border-color: #e53e3e;
     background-color: #fff5f5;
 }
+/* ==================== SELECTOR MODERNO DE PARROQUIAS ==================== */
+.parroquia-selector {
+    position: relative;
+    width: 100%;
+}
+
+.selector-input {
+    width: 100%;
+    padding: 12px 15px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.selector-input:hover {
+    border-color: #cbd5e0;
+}
+
+.selector-input.active {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.selector-input.error {
+    border-color: #e53e3e;
+    background-color: #fff5f5;
+}
+
+#selectedParroquiaText {
+    color: #2d3748;
+    flex: 1;
+}
+
+#selectedParroquiaText.placeholder {
+    color: #a0aec0;
+}
+
+.selector-arrow {
+    color: #a0aec0;
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.selector-input.active .selector-arrow {
+    transform: rotate(180deg);
+}
+
+.selector-dropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.selector-dropdown.show {
+    display: block;
+}
+
+.selector-search {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.selector-search input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.selector-search input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.selector-options {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.parroquia-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.parroquia-option:hover {
+    background: #f7fafc;
+}
+
+.parroquia-option.selected {
+    background: #667eea;
+    color: white;
+}
+
+.no-results {
+    padding: 15px;
+    text-align: center;
+    color: #a0aec0;
+}
+
+.parroquia-error {
+    color: #e53e3e;
+    font-size: 0.8em;
+    margin-top: 8px;
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .selector-options {
+        max-height: 200px;
+    }
+    
+    .parroquia-option {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+}
 
 /* El datalist en sí no se puede estilizar completamente, 
    pero los navegadores modernos lo muestran correctamente */
