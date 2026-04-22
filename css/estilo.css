@@ -17,8 +17,8 @@ body {
     margin: 0 auto;
 }
 
-/* ==================== COMPONENTES REUTILIZABLES ==================== */
-.card {
+/* ==================== TARJETAS PRINCIPALES ==================== */
+.welcome-card, .survey-form {
     background: white;
     border-radius: 20px;
     padding: 40px;
@@ -37,6 +37,98 @@ body {
     }
 }
 
+/* ==================== HEADER CON LOGOS - SIEMPRE EN FILA ==================== */
+.header-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.logo-izquierda, .logo-central, .logo-derecha {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.logo-izquierda { justify-content: flex-start; }
+.logo-central { justify-content: center; }
+.logo-derecha { justify-content: flex-end; }
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 70px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ==================== TÍTULOS ==================== */
+.titulo-principal {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.titulo-principal h2 {
+    color: #4a5568;
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.titulo-principal p {
+    color: #718096;
+    font-size: 1em;
+}
+
+/* ==================== COMPONENTES DE TEXTO ==================== */
+.info-box {
+    background: #f0f4f8;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-weight: bold;
+    color: #2d3748;
+    text-align: center;
+}
+
+.warning-message {
+    background: #fef9e6;
+    border-left: 4px solid #e67e22;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.warning-icon { font-size: 1.5em; }
+.warning-text { flex: 1; font-size: 0.9em; color: #7f5a00; }
+
+/* ==================== CONSENTIMIENTO ==================== */
+.consent {
+    background: #fff3e0;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: left;
+    border-left: 4px solid #ff9800;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.checkbox-label input { margin-right: 10px; width: 20px; height: 20px; }
+
+/* ==================== BOTONES ==================== */
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -50,15 +142,8 @@ body {
     font-weight: 500;
 }
 
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.btn-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+.btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .btn-secondary {
     background: #00093e;
@@ -76,111 +161,9 @@ body {
     font-weight: 500;
 }
 
-.btn-secondary:hover {
-    background: #001a7a;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* ==================== HEADER CON LOGOS ==================== */
-.logos-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e2e8f0;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.logo-left, .logo-right {
-    flex: 1;
-    display: flex;
-}
-
-.logo-left {
-    justify-content: flex-start;
-}
-
-.logo-right {
-    justify-content: flex-end;
-}
-
-.logo-center {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-}
-
-.logo-img {
-    max-height: 70px;
-    width: auto;
-    object-fit: contain;
-}
-
-.logo-img-center {
-    max-height: 80px;
-    width: auto;
-    object-fit: contain;
-}
-
-/* ==================== PANTALLA DE BIENVENIDA ==================== */
-.welcome-card {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    animation: fadeIn 0.5s ease-in;
-    text-align: center;
-}
-
-.logo h1 {
-    color: #4a5568;
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
-.info-box {
-    background: #f0f4f8;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 20px 0;
-    font-weight: bold;
-    color: #2d3748;
-}
-
-.consent {
-    background: #fff3e0;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0;
-    text-align: left;
-    border-left: 4px solid #ff9800;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    cursor: pointer;
-}
-
-.checkbox-label input {
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-}
+.btn-secondary:hover { background: #001a7a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
 /* ==================== FORMULARIO POR PASOS ==================== */
-.survey-form {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    animation: fadeIn 0.5s ease-in;
-}
-
 .step-indicator {
     display: flex;
     align-items: center;
@@ -188,82 +171,31 @@ body {
     margin-bottom: 30px;
 }
 
-.step-text {
-    font-size: 14px;
-    color: #4a5568;
-    white-space: nowrap;
-}
+.step-text { font-size: 14px; color: #4a5568; white-space: nowrap; }
+.step-progress { flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+.step-progress-fill { height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 0%; transition: width 0.3s ease; }
 
-.step-progress {
-    flex: 1;
-    height: 8px;
-    background: #e2e8f0;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.step-progress-fill {
-    height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    width: 0%;
-    transition: width 0.3s ease;
-}
-
-.step-page {
-    display: none;
-    animation: fadeInStep 0.3s ease;
-}
-
-.step-page.active {
-    display: block;
-}
+.step-page { display: none; animation: fadeInStep 0.3s ease; }
+.step-page.active { display: block; }
 
 @keyframes fadeInStep {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
-.block h2 {
-    font-size: 1.5em;
-    color: #4a5568;
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #667eea;
-    display: inline-block;
-}
+.step-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+.step-buttons button { flex: 1; }
 
-.question {
-    margin-bottom: 25px;
-}
+/* ==================== BLOQUES Y PREGUNTAS ==================== */
+.block { margin-bottom: 30px; }
+.block h2 { font-size: 1.5em; color: #4a5568; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid #667eea; display: inline-block; }
 
-.question label {
-    display: block;
-    margin-bottom: 12px;
-    font-weight: bold;
-    color: #2d3748;
-}
+.question { margin-bottom: 25px; }
+.question label { display: block; margin-bottom: 12px; font-weight: bold; color: #2d3748; }
 
-.options {
-    padding-left: 20px;
-}
-
-.options label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: normal;
-    cursor: pointer;
-}
-
-.options input[type="radio"],
-.options input[type="checkbox"] {
-    margin-right: 10px;
-}
+.options { padding-left: 20px; }
+.options label { display: block; margin-bottom: 10px; font-weight: normal; cursor: pointer; }
+.options input { margin-right: 10px; }
 
 select, textarea {
     width: 100%;
@@ -274,22 +206,13 @@ select, textarea {
     font-family: inherit;
 }
 
-select:focus, textarea:focus {
-    outline: none;
-    border-color: #667eea;
-}
+select:focus, textarea:focus { outline: none; border-color: #667eea; }
 
-.required-mark {
-    color: #e53e3e;
-    margin-left: 5px;
-}
+.required-mark { color: #e53e3e; margin-left: 5px; }
 
-.error {
-    border: 2px solid #e53e3e !important;
-    background-color: #fff5f5 !important;
-}
+.error { border: 2px solid #e53e3e !important; background-color: #fff5f5 !important; }
 
-/* Escala de esperanza */
+/* ==================== ESCALA DE ESPERANZA CON COLORES ==================== */
 .scale {
     display: flex;
     justify-content: space-between;
@@ -300,403 +223,41 @@ select:focus, textarea:focus {
 .scale-option {
     flex: 1;
     text-align: center;
-    padding: 15px;
-    background: #f7fafc;
-    border-radius: 10px;
+    padding: 15px 10px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
 }
 
-.scale-option:hover {
-    background: #edf2f7;
-}
+.scale-option input { margin-bottom: 8px; accent-color: currentColor; }
+.scale-option span { display: block; font-weight: bold; }
+.scale-option small { font-size: 10px; display: block; margin-top: 5px; font-weight: normal; }
 
-.scale-option input[type="radio"] {
-    margin-bottom: 8px;
-}
+.scale-1 { background: #fee2e2; border-color: #fecaca; color: #991b1b; }
+.scale-1:hover { background: #fecaca; transform: translateY(-2px); }
+.scale-1 input { accent-color: #991b1b; }
 
-.scale-option label {
-    cursor: pointer;
-    font-weight: normal;
-}
+.scale-2 { background: #ffedd5; border-color: #fed7aa; color: #c2410c; }
+.scale-2:hover { background: #fed7aa; transform: translateY(-2px); }
+.scale-2 input { accent-color: #c2410c; }
 
-.scale-option small {
-    font-size: 11px;
-    color: #718096;
-    display: block;
-    margin-top: 5px;
-}
+.scale-3 { background: #fef9c3; border-color: #fde047; color: #854d0e; }
+.scale-3:hover { background: #fde047; transform: translateY(-2px); }
+.scale-3 input { accent-color: #854d0e; }
 
-/* Botones de navegación */
-.step-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    gap: 15px;
-}
+.scale-4 { background: #dcfce7; border-color: #bbf7d0; color: #166534; }
+.scale-4:hover { background: #bbf7d0; transform: translateY(-2px); }
+.scale-4 input { accent-color: #166534; }
 
-.step-buttons button {
-    flex: 1;
-}
+.scale-5 { background: #d1fae5; border-color: #a7f3d0; color: #064e3b; }
+.scale-5:hover { background: #a7f3d0; transform: translateY(-2px); }
+.scale-5 input { accent-color: #064e3b; }
 
-.help-text, small {
-    font-size: 0.85em;
-    color: #718096;
-    margin-top: 5px;
-    display: block;
-}
+.scale-option:has(input:checked) { border-color: currentColor; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-/* ==================== PÁGINA DE AGRADECIMIENTO ==================== */
-.thanks-card {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    animation: fadeIn 0.5s ease-in;
-}
-
-.thanks-card h1 {
-    color: #48bb78;
-    font-size: 2.5em;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.thanks-card p {
-    font-size: 1.2em;
-    color: #4a5568;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.warning-card {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0;
-    text-align: left;
-}
-
-.warning-card h3 {
-    color: #856404;
-    margin-bottom: 10px;
-}
-
-.warning-card p {
-    color: #856404;
-    text-align: left;
-    font-size: 1em;
-    margin-bottom: 10px;
-}
-
-.info-message {
-    background: #e6f7ff;
-    border-left: 4px solid #1890ff;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 30px 0;
-}
-
-.info-message strong {
-    color: #0050b3;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.suggestion-box {
-    background: #f8f9fa;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 20px 0;
-}
-
-.footer-note {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #e2e8f0;
-    text-align: center;
-    font-size: 0.8em;
-    color: #718096;
-}
-
-/* ==================== RESPONSIVE (MÓVIL) ==================== */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .welcome-card, .survey-form, .thanks-card {
-        padding: 20px;
-    }
-
-    .logos-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .logo-left, .logo-center, .logo-right {
-        justify-content: center;
-        flex: none;
-        width: 100%;
-    }
-
-    .logo-img, .logo-img-center {
-        max-height: 50px;
-    }
-
-    .block h2 {
-        font-size: 1.3em;
-    }
-
-    .scale {
-        flex-direction: column;
-    }
-
-    .scale-option {
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .scale-option input {
-        margin-bottom: 0;
-    }
-
-    .step-text {
-        font-size: 12px;
-    }
-
-    .btn-primary, .btn-secondary {
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-    
-    .thanks-card h1 {
-        font-size: 1.8em;
-    }
-    
-    .thanks-card p {
-        font-size: 1em;
-    }
-
-    select {
-        font-size: 16px !important;
-    }
-    
-    .options {
-        padding-left: 10px;
-    }
-    
-    .options label {
-        word-break: break-word;
-        line-height: 1.4;
-    }
-}
-/* ==================== CORRECCIÓN: LOGOS EN FILA SIEMPRE ==================== */
-.logos-header {
-    display: flex;
-    flex-direction: row !important;  /* Fuerza fila horizontal */
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap !important;    /* Evita que se apilen */
-    gap: 10px;
-}
-
-.logo-left, .logo-center, .logo-right {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    min-width: 0;  /* Permite que se encojan */
-}
-
-.logo-left {
-    justify-content: flex-start;
-}
-
-.logo-right {
-    justify-content: flex-end;
-}
-
-.logo-img, .logo-img-center {
-    max-width: 100%;
-    height: auto;
-    max-height: 60px;
-}
-
-/* En móvil, los logos se hacen más pequeños pero siguen en fila */
-@media (max-width: 768px) {
-    .logos-header {
-        gap: 5px;
-    }
-    .logo-img, .logo-img-center {
-        max-height: 40px;
-    }
-}
-
-/* ==================== CORRECCIÓN: SELECT NO SE SALE ==================== */
-select, textarea, input {
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-select option {
-    white-space: normal;
-    word-break: break-word;
-}
-
-/* ==================== CORRECCIÓN: CHECKBOX GRANDE CLICKEABLE ==================== */
-.scale-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    padding: 12px;
-    border-radius: 10px;
-    transition: background 0.2s;
-}
-
-.scale-option input {
-    margin: 0;
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-.scale-option label {
-    flex: 1;
-    margin: 0;
-    cursor: pointer;
-    font-weight: normal;
-}
-
-.scale-option small {
-    display: block;
-    font-size: 11px;
-    color: #718096;
-    margin-top: 3px;
-}
-
-/* Efecto hover en toda la tarjeta */
-.scale-option:hover {
-    background: #edf2f7;
-}
-
-/* En móvil, mantener legible */
-@media (max-width: 768px) {
-    .scale-option {
-        padding: 10px;
-        gap: 10px;
-    }
-    .scale-option small {
-        font-size: 10px;
-    }
-}
-
-/* ==================== CORRECCIÓN DEFINITIVA: SELECTS ==================== */
-select {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-    white-space: normal;
-    word-break: break-word;
-}
-
-/* Para que las opciones largas no se salgan */
-select option {
-    white-space: normal;
-    word-break: break-word;
-    padding: 8px;
-}
-
-/* Solución extrema para selects */
-select {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    display: block !important;
-    box-sizing: border-box !important;
-}
-
-body {
-    overflow-x: hidden;
-}
-
-.container {
-    overflow-x: hidden;
-}
-
-.survey-form {
-    overflow-x: hidden;
-}
-
-/* Estilo moderno para selects en PC */
-select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    background: white;
-    font-size: 16px;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px;
-}
-
-select:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-/* Estilo para el input de búsqueda de parroquias */
-input[list] {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: inherit;
-}
-
-input[list]:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-/* Mejora visual para el input con datalist */
-input[list] {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    background-color: white;
-    transition: all 0.2s;
-}
-
-input[list]:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-input[list].error {
-    border-color: #e53e3e;
-    background-color: #fff5f5;
-}
 /* ==================== SELECTOR MODERNO DE PARROQUIAS ==================== */
-.parroquia-selector {
-    position: relative;
-    width: 100%;
-}
+.parroquia-selector { position: relative; width: 100%; }
 
 .selector-input {
     width: 100%;
@@ -711,38 +272,15 @@ input[list].error {
     transition: all 0.2s;
 }
 
-.selector-input:hover {
-    border-color: #cbd5e0;
-}
+.selector-input:hover { border-color: #cbd5e0; }
+.selector-input.active { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+.selector-input.error { border-color: #e53e3e; background-color: #fff5f5; }
 
-.selector-input.active {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
+#selectedParroquiaText { color: #2d3748; flex: 1; }
+#selectedParroquiaText.placeholder { color: #a0aec0; }
 
-.selector-input.error {
-    border-color: #e53e3e;
-    background-color: #fff5f5;
-}
-
-#selectedParroquiaText {
-    color: #2d3748;
-    flex: 1;
-}
-
-#selectedParroquiaText.placeholder {
-    color: #a0aec0;
-}
-
-.selector-arrow {
-    color: #a0aec0;
-    font-size: 12px;
-    transition: transform 0.2s;
-}
-
-.selector-input.active .selector-arrow {
-    transform: rotate(180deg);
-}
+.selector-arrow { color: #a0aec0; font-size: 12px; transition: transform 0.2s; }
+.selector-input.active .selector-arrow { transform: rotate(180deg); }
 
 .selector-dropdown {
     position: absolute;
@@ -758,74 +296,79 @@ input[list].error {
     max-height: 300px;
     overflow: hidden;
 }
+.selector-dropdown.show { display: block; }
 
-.selector-dropdown.show {
-    display: block;
-}
+.selector-search { padding: 10px; border-bottom: 1px solid #e2e8f0; }
+.selector-search input { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; }
+.selector-search input:focus { outline: none; border-color: #667eea; }
 
-.selector-search {
-    padding: 10px;
-    border-bottom: 1px solid #e2e8f0;
-}
+.selector-options { max-height: 250px; overflow-y: auto; }
+.parroquia-option { padding: 10px 15px; cursor: pointer; transition: background 0.2s; }
+.parroquia-option:hover { background: #f7fafc; }
+.parroquia-option.selected { background: #667eea; color: white; }
 
-.selector-search input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-}
+.no-results { padding: 15px; text-align: center; color: #a0aec0; }
+.parroquia-error { color: #e53e3e; font-size: 0.8em; margin-top: 8px; display: none; }
 
-.selector-search input:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-.selector-options {
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-.parroquia-option {
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-size: 14px;
-}
-
-.parroquia-option:hover {
-    background: #f7fafc;
-}
-
-.parroquia-option.selected {
-    background: #667eea;
-    color: white;
-}
-
-.no-results {
+/* ==================== PERMISO MENORES ==================== */
+.permiso-menores {
+    background: #fef9e6;
     padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #e67e22;
+}
+.permiso-menores label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+
+/* ==================== FOOTER ==================== */
+.footer-note {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
     text-align: center;
-    color: #a0aec0;
+    font-size: 0.75em;
+    color: #718096;
 }
 
-.parroquia-error {
-    color: #e53e3e;
-    font-size: 0.8em;
-    margin-top: 8px;
-    display: none;
-}
+small { display: block; margin-top: 5px; font-size: 0.75em; color: #718096; }
 
-/* Responsive */
+/* ==================== RESPONSIVE (MÓVIL) ==================== */
 @media (max-width: 768px) {
-    .selector-options {
-        max-height: 200px;
+    body { padding: 10px; }
+    .welcome-card, .survey-form { padding: 20px; }
+
+    .header-principal {
+        gap: 5px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
     }
-    
-    .parroquia-option {
-        font-size: 13px;
-        padding: 10px 12px;
+    .logo-img { max-height: 40px; }
+
+    .titulo-principal h2 { font-size: 1.5em; }
+    .block h2 { font-size: 1.3em; }
+
+    .scale { flex-direction: column; gap: 8px; }
+    .scale-option {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 12px;
+        padding: 12px;
     }
+    .scale-option input { margin-bottom: 0; flex-shrink: 0; }
+    .scale-option span { flex: 1; }
+    .scale-option small { display: inline; margin-left: 5px; font-size: 10px; }
+
+    .step-text { font-size: 12px; }
+    .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 16px; }
+
+    select, input, textarea { font-size: 16px; }
+
+    .selector-options { max-height: 200px; }
+    .parroquia-option { font-size: 13px; padding: 10px 12px; }
 }
 
-/* El datalist en sí no se puede estilizar completamente, 
-   pero los navegadores modernos lo muestran correctamente */
+@media (max-width: 480px) {
+    .logo-img { max-height: 35px; }
+    .header-principal { gap: 8px; }
+}
