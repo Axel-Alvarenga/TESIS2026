@@ -13,7 +13,6 @@ session_start();
     <div class="container">
         <!-- Pantalla de bienvenida -->
         <div class="welcome-card" id="welcomeCard">
-            <!-- HEADER: LOGOS SIEMPRE EN FILA -->
             <div class="header-principal">
                 <div class="logo-izquierda">
                     <img src="img/LOGOUCCAMPUSITAPÚA.png" alt="Universidad Católica Campus Itapúa" class="logo-img">
@@ -26,7 +25,6 @@ session_start();
                 </div>
             </div>
 
-            <!-- TÍTULO PRINCIPAL -->
             <div class="titulo-principal">
                 <h2>Voces del Sur</h2>
                 <p>Proyecto de escucha genuina</p>
@@ -233,7 +231,7 @@ session_start();
                         <div class="options">
                             <label><input type="checkbox" name="p9_critica[]" value="A"> A. El lenguaje anticuado: no habla como hablamos</label>
                             <label><input type="checkbox" name="p9_critica[]" value="B"> B. La falta de coherencia entre lo que predica y lo que hacen sus representantes</label>
-                            <label><input type="checkbox" name="p9_critica[]" value="C"> C. Que no trata temas que me importan: trabajo, tecnología, afectividad, ecología</label>
+                            <label><input type="checkbox" name="p9_critica[]" value="C"> C. Que no trata temas que me importan: trabajo, tecnologia, afectividad, ecología</label>
                             <label><input type="checkbox" name="p9_critica[]" value="D"> D. Que se siente como un lugar de reglas y prohibiciones más que de vida</label>
                             <label><input type="checkbox" name="p9_critica[]" value="E"> E. Que las decisiones importantes las toman siempre los adultos, sin escucharnos</label>
                             <label><input type="checkbox" name="p9_critica[]" value="F"> F. Malas experiencias personales que me dejaron lastimado/a o decepcionado/a</label>
@@ -285,219 +283,11 @@ session_start();
         </div>
     </div>
 
-    <script>
-        // ==================== CONTROL DE CONSENTIMIENTO ====================
-        const consentCheckbox = document.getElementById('consentCheckbox');
-        const startBtn = document.getElementById('startBtn');
-        const welcomeCard = document.getElementById('welcomeCard');
-        const surveyForm = document.getElementById('surveyForm');
-
-        consentCheckbox.addEventListener('change', function() {
-            startBtn.disabled = !this.checked;
-        });
-
-        startBtn.addEventListener('click', function() {
-            welcomeCard.style.display = 'none';
-            surveyForm.style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        // ==================== LIMITAR A 2 SELECCIONES EN P9 ====================
-        const checkboxes = document.querySelectorAll('input[name="p9_critica[]"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const checked = document.querySelectorAll('input[name="p9_critica[]"]:checked');
-                if (checked.length > 2) {
-                    this.checked = false;
-                    alert('Solo puedes seleccionar hasta 2 opciones');
-                }
-            });
-        });
-        
-        // ==================== CONTROL DE PERMISO PARA MENORES ====================
-        const anioSelect = document.getElementById('anioNacimiento');
-        const permisoDiv = document.getElementById('permisoMenores');
-        const permisoCheckbox = document.getElementById('permisoPadres');
-        
-        function verificarEdadYPermiso() {
-            const anioSeleccionado = anioSelect.value;
-            const anioActual = 2026;
-            let esMenor = false;
-            
-            if (anioSeleccionado && !isNaN(anioSeleccionado) && anioSeleccionado.length === 4) {
-                const edad = anioActual - parseInt(anioSeleccionado);
-                if (edad < 18 && edad > 0) esMenor = true;
-            }
-            if (anioSeleccionado === 'despues_2011') esMenor = true;
-            
-            if (esMenor) {
-                permisoDiv.style.display = 'block';
-                if (permisoCheckbox) permisoCheckbox.required = true;
-            } else {
-                permisoDiv.style.display = 'none';
-                if (permisoCheckbox) {
-                    permisoCheckbox.required = false;
-                    permisoCheckbox.checked = false;
-                }
-            }
-        }
-        if (anioSelect) anioSelect.addEventListener('change', verificarEdadYPermiso);
-        
-        // ==================== FORMULARIO POR PASOS ====================
-        const pages = document.querySelectorAll('.step-page');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const stepCounter = document.getElementById('stepCounter');
-        const stepProgressFill = document.getElementById('stepProgressFill');
-        const formulario = document.getElementById('encuestaForm');
-        
-        let currentStep = 1;
-        const totalSteps = pages.length;
-        
-        function updateStepVisibility() {
-            pages.forEach((page, index) => {
-                if (index + 1 === currentStep) page.classList.add('active');
-                else page.classList.remove('active');
-            });
-            stepCounter.textContent = `Bloque ${currentStep} de ${totalSteps}`;
-            stepProgressFill.style.width = `${(currentStep / totalSteps) * 100}%`;
-            prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
-            nextBtn.textContent = currentStep === totalSteps ? 'Enviar respuestas ✓' : 'Siguiente →';
-        }
-        
-        function validateCurrentStep() {
-            const currentPage = document.querySelector(`.step-page[data-step="${currentStep}"]`);
-            const requiredFields = currentPage.querySelectorAll('[required]');
-            let isValid = true;
-            
-            if (currentStep === 1 && selectedParroquia === '') {
-                isValid = false;
-                parroquiaError.style.display = 'block';
-                selectorInput.classList.add('error');
-            } else if (currentStep === 1) {
-                parroquiaError.style.display = 'none';
-                selectorInput.classList.remove('error');
-            }
-            
-            requiredFields.forEach(field => {
-                if (field.id === 'parroquiaInput') return;
-                if (field.type === 'radio') {
-                    const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
-                    if (!Array.from(radioGroup).some(r => r.checked)) {
-                        isValid = false;
-                        field.classList.add('error');
-                    } else field.classList.remove('error');
-                } else if (field.type === 'checkbox' && field.required && !field.checked) {
-                    isValid = false;
-                    field.classList.add('error');
-                } else if ((field.value === '' || field.value === null) && field.type !== 'checkbox') {
-                    isValid = false;
-                    field.classList.add('error');
-                } else field.classList.remove('error');
-            });
-            
-            if (permisoDiv && permisoDiv.style.display === 'block' && permisoCheckbox && !permisoCheckbox.checked) {
-                isValid = false;
-                alert('⚠️ Debes marcar la casilla de autorización parental (eres menor de 18 años).');
-            }
-            if (!isValid) alert('Por favor, completa todos los campos obligatorios (marcados con *) antes de continuar.');
-            return isValid;
-        }
-        
-        function nextStep() {
-            if (validateCurrentStep()) {
-                if (currentStep < totalSteps) {
-                    currentStep++;
-                    updateStepVisibility();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else formulario.submit();
-            }
-        }
-        
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateStepVisibility();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-        
-        nextBtn.addEventListener('click', nextStep);
-        prevBtn.addEventListener('click', prevStep);
-        
-        // ==================== SELECTOR MODERNO DE PARROQUIAS ====================
-        const parroquiasList = [
-            "Nuestra Señora de la Santísima Encarnación", "Inmaculada Concepción de María",
-            "San Roque González de Santa Cruz", "San Pedro Apóstol - Encarnación",
-            "San Francisco de Asís", "Sagrado Corazón de Jesús - Cambyreta",
-            "Santísimo Nombre de María", "Presentación de María en el Templo",
-            "San Juan Bautista - San Juan del Paraná", "San Miguel Arcángel - Santuario Itacuá",
-            "San Isidro Labrador", "Nuestra Señora del Carmen", "Espíritu Santo - Fram",
-            "Santa Cruz", "San Luis Gonzága", "Santos Cosme y Damián", "Virgen del Rosario",
-            "San Pedro Apóstol - San Pedro del Paraná", "Virgen de Lourdes",
-            "San José Obrero - Cap. Miranda", "María Reina de la Paz", "Niño Jesús",
-            "Cuasi Parroquia Santísima Trinidad", "Espíritu Santo - Hohenau", "Cristo Rey",
-            "26 Santos Mártires del Japón", "Sagrado Corazón de Jesús - Caronay",
-            "San Cristóbal", "San Juan Bautista - Yatytay", "Virgen de Fátima",
-            "María Auxiliadora", "Inmaculado Corazón de María", "San José Obrero - Edelira",
-            "San Antonio de Padua - Cap. Meza", "San Martín de Tours", "San José Obrero - Naranjito",
-            "San Cayetano", "San Juan Bautista - Itapua Poty", "San Antonio de Padua - Carlos A. López"
-        ];
-
-        let selectedParroquia = '';
-        let filteredParroquias = [...parroquiasList];
-
-        const selectorInput = document.getElementById('selectorInput');
-        const selectorDropdown = document.getElementById('selectorDropdown');
-        const selectedParroquiaText = document.getElementById('selectedParroquiaText');
-        const parroquiaSearch = document.getElementById('parroquiaSearch');
-        const parroquiaOptions = document.getElementById('parroquiaOptions');
-        const parroquiaHidden = document.getElementById('parroquiaHidden');
-        const parroquiaError = document.getElementById('parroquiaError');
-
-        function renderizarOpciones() {
-            parroquiaOptions.innerHTML = '';
-            if (filteredParroquias.length === 0) {
-                parroquiaOptions.innerHTML = '<div class="no-results">❌ No se encontraron parroquias</div>';
-                return;
-            }
-            filteredParroquias.forEach(parroquia => {
-                const option = document.createElement('div');
-                option.className = 'parroquia-option';
-                if (parroquia === selectedParroquia) option.classList.add('selected');
-                option.textContent = parroquia;
-                option.onclick = () => seleccionarParroquia(parroquia);
-                parroquiaOptions.appendChild(option);
-            });
-        }
-
-        function seleccionarParroquia(parroquia) {
-            selectedParroquia = parroquia;
-            selectedParroquiaText.textContent = parroquia;
-            selectedParroquiaText.classList.remove('placeholder');
-            parroquiaHidden.value = parroquia;
-            parroquiaError.style.display = 'none';
-            selectorInput.classList.remove('error');
-            cerrarDropdown();
-            document.querySelectorAll('.parroquia-option').forEach(opt => {
-                opt.classList.remove('selected');
-                if (opt.textContent === parroquia) opt.classList.add('selected');
-            });
-        }
-
-        function abrirDropdown() { selectorDropdown.classList.add('show'); selectorInput.classList.add('active'); setTimeout(() => parroquiaSearch?.focus(), 50); }
-        function cerrarDropdown() { selectorDropdown.classList.remove('show'); selectorInput.classList.remove('active'); }
-        function toggleParroquiaDropdown() { selectorDropdown.classList.contains('show') ? cerrarDropdown() : abrirDropdown(); }
-        function filtrarParroquias() {
-            const searchText = parroquiaSearch.value.toLowerCase().trim();
-            filteredParroquias = searchText === '' ? [...parroquiasList] : parroquiasList.filter(p => p.toLowerCase().includes(searchText));
-            renderizarOpciones();
-        }
-
-        document.addEventListener('click', (e) => { const selector = document.querySelector('.parroquia-selector'); if (selector && !selector.contains(e.target)) cerrarDropdown(); });
-        if (parroquiaSearch) parroquiaSearch.addEventListener('input', filtrarParroquias);
-        if (selectorInput) selectorInput.addEventListener('click', (e) => { e.stopPropagation(); toggleParroquiaDropdown(); });
-        renderizarOpciones();
-    </script>
+    <!-- ==================== SCRIPTS ORGANIZADOS ==================== -->
+    <script src="js/consentimiento.js"></script>
+    <script src="js/limite-checkboxes.js"></script>
+    <script src="js/validador-edad.js"></script>
+    <script src="js/selector-parroquia.js"></script>
+    <script src="js/navegacion-pasos.js"></script>
 </body>
 </html>
