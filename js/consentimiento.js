@@ -10,12 +10,10 @@ if (consentCheckbox && startBtn) {
     });
 }
 
-if (startBtn) {
+if (startBtn && welcomeCard && surveyForm) {
     startBtn.addEventListener('click', function() {
-        if (welcomeCard && surveyForm) {
-            welcomeCard.style.display = 'none';
-            surveyForm.style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        welcomeCard.style.display = 'none';
+        surveyForm.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }

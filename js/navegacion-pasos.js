@@ -1,4 +1,4 @@
-// ==================== FORMULARIO POR PASOS ====================
+// navegacion-pasos.js - Control de navegación entre bloques
 const pages = document.querySelectorAll('.step-page');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
@@ -11,25 +11,37 @@ const totalSteps = pages.length;
 
 function updateStepVisibility() {
     pages.forEach((page, index) => {
-        if (index + 1 === currentStep) page.classList.add('active');
-        else page.classList.remove('active');
+        if (index + 1 === currentStep) {
+            page.classList.add('active');
+        } else {
+            page.classList.remove('active');
+        }
     });
     
-    if (stepCounter) stepCounter.textContent = `Bloque ${currentStep} de ${totalSteps}`;
-    if (stepProgressFill) stepProgressFill.style.width = `${(currentStep / totalSteps) * 100}%`;
-    if (prevBtn) prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
-    if (nextBtn) nextBtn.textContent = currentStep === totalSteps ? 'Enviar respuestas ✓' : 'Siguiente →';
+    stepCounter.textContent = `Bloque ${currentStep} de ${totalSteps}`;
+    const progress = (currentStep / totalSteps) * 100;
+    stepProgressFill.style.width = `${progress}%`;
+    
+    if (currentStep === 1) {
+        prevBtn.style.visibility = 'hidden';
+    } else {
+        prevBtn.style.visibility = 'visible';
+    }
+    
+    if (currentStep === totalSteps) {
+        nextBtn.textContent = 'Enviar respuestas ✓';
+    } else {
+        nextBtn.textContent = 'Siguiente →';
+    }
 }
 
 function validateCurrentStep() {
     const currentPage = document.querySelector(`.step-page[data-step="${currentStep}"]`);
-    if (!currentPage) return true;
-    
     const requiredFields = currentPage.querySelectorAll('[required]');
     let isValid = true;
     
-    // Validar parroquia en paso 1
-    if (currentStep === 1 && window.selectedParroquia !== undefined && window.selectedParroquia === '') {
+    // Validación especial para parroquia en el paso 1
+    if (currentStep === 1 && typeof selectedParroquia !== 'undefined' && selectedParroquia === '') {
         isValid = false;
         const parroquiaError = document.getElementById('parroquiaError');
         const selectorInput = document.getElementById('selectorInput');
@@ -46,17 +58,22 @@ function validateCurrentStep() {
         if (field.id === 'parroquiaInput') return;
         if (field.type === 'radio') {
             const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
-            if (!Array.from(radioGroup).some(r => r.checked)) {
+            const isChecked = Array.from(radioGroup).some(r => r.checked);
+            if (!isChecked) {
                 isValid = false;
                 field.classList.add('error');
-            } else field.classList.remove('error');
+            } else {
+                field.classList.remove('error');
+            }
         } else if (field.type === 'checkbox' && field.required && !field.checked) {
             isValid = false;
             field.classList.add('error');
         } else if ((field.value === '' || field.value === null) && field.type !== 'checkbox') {
             isValid = false;
             field.classList.add('error');
-        } else field.classList.remove('error');
+        } else {
+            field.classList.remove('error');
+        }
     });
     
     const permisoDiv = document.getElementById('permisoMenores');
@@ -66,7 +83,10 @@ function validateCurrentStep() {
         alert('⚠️ Debes marcar la casilla de autorización parental (eres menor de 18 años).');
     }
     
-    if (!isValid) alert('Por favor, completa todos los campos obligatorios (marcados con *) antes de continuar.');
+    if (!isValid) {
+        alert('Por favor, completa todos los campos obligatorios (marcados con *) antes de continuar.');
+    }
+    
     return isValid;
 }
 
@@ -76,7 +96,7 @@ function nextStep() {
             currentStep++;
             updateStepVisibility();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if (formulario) {
+        } else {
             formulario.submit();
         }
     }
@@ -90,8 +110,8 @@ function prevStep() {
     }
 }
 
-if (nextBtn) nextBtn.addEventListener('click', nextStep);
-if (prevBtn) prevBtn.addEventListener('click', prevStep);
+nextBtn.addEventListener('click', nextStep);
+prevBtn.addEventListener('click', prevStep);
 
 // Inicializar
 updateStepVisibility();

@@ -1,5 +1,9 @@
 <?php
 session_start();
+// Generar token CSRF si no existe (seguridad)
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -85,13 +89,15 @@ session_start();
             </div>
             
             <form action="procesar.php" method="POST" id="encuestaForm" autocomplete="off">
+                <!-- Token CSRF para seguridad -->
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 
                 <div class="step-indicator">
                     <span class="step-text" id="stepCounter">Bloque 1 de 8</span>
                     <div class="step-progress"><div class="step-progress-fill" id="stepProgressFill"></div></div>
                 </div>
                 
-                <!-- ==================== BLOQUE 1 ==================== -->
+                <!-- ==================== BLOQUE 1 (SIN COMENTARIO) ==================== -->
                 <div class="step-page active" data-step="1">
                     <div class="block"><h2>Bloque I · Datos de clasificación</h2></div>
                     
@@ -162,6 +168,12 @@ session_start();
                             <label><input type="radio" name="p4_atraccion" value="G"> G. Integrarme a un proyecto concreto donde mi participación genere un cambio real</label>
                         </div>
                     </div>
+                    <!-- Campo de comentario libre para Bloque II -->
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu experiencia de pertenencia o vínculos?</strong></label>
+                        <textarea name="comentario_bloque2" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                    </div>
                 </div>
 
                 <!-- ==================== BLOQUE 3 ==================== -->
@@ -175,6 +187,12 @@ session_start();
                             <label><input type="radio" name="p5_espiritualidad" value="C"> C. Prefiero buscar respuestas en otros ámbitos: la filosofía, los libros, la ciencia, otras personas</label>
                             <label><input type="radio" name="p5_espiritualidad" value="D"> D. No suelo hacerme esas preguntas; vivo el día a día</label>
                         </div>
+                    </div>
+                    <!-- Campo de comentario libre para Bloque III -->
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu espiritualidad o búsqueda de sentido?</strong></label>
+                        <textarea name="comentario_bloque3" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
                     </div>
                 </div>
 
@@ -191,6 +209,12 @@ session_start();
                             <label><input type="radio" name="p6_familia" value="E"> E. No tengo una familia de referencia clara en este momento de mi vida</label>
                         </div>
                     </div>
+                    <!-- Campo de comentario libre para Bloque IV -->
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu experiencia familiar?</strong></label>
+                        <textarea name="comentario_bloque4" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                    </div>
                 </div>
 
                 <!-- ==================== BLOQUE 5 ==================== -->
@@ -205,6 +229,12 @@ session_start();
                             <label><input type="radio" name="p7_proyecto" value="D"> D. Encontrar paz interior y encontrar un sentido profundo de mi existencia</label>
                             <label><input type="radio" name="p7_proyecto" value="E"> E. Todavía no tengo una dirección clara; estoy en proceso de descubrirla</label>
                         </div>
+                    </div>
+                    <!-- Campo de comentario libre para Bloque V -->
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu proyecto de vida a futuro?</strong></label>
+                        <textarea name="comentario_bloque5" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
                     </div>
                 </div>
 
@@ -221,6 +251,12 @@ session_start();
                             <label><input type="radio" name="p8_vocacion" value="E"> E. No suelo pensar en mi vocación; busco una profesión que me dé estabilidad</label>
                         </div>
                     </div>
+                    <!-- Campo de comentario libre para Bloque VI -->
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu vocación o misión en el mundo?</strong></label>
+                        <textarea name="comentario_bloque6" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                    </div>
                 </div>
 
                 <!-- ==================== BLOQUE 7 ==================== -->
@@ -231,13 +267,19 @@ session_start();
                         <div class="options">
                             <label><input type="checkbox" name="p9_critica[]" value="A"> A. El lenguaje anticuado: no habla como hablamos</label>
                             <label><input type="checkbox" name="p9_critica[]" value="B"> B. La falta de coherencia entre lo que predica y lo que hacen sus representantes</label>
-                            <label><input type="checkbox" name="p9_critica[]" value="C"> C. Que no trata temas que me importan: trabajo, tecnologia, afectividad, ecología</label>
+                            <label><input type="checkbox" name="p9_critica[]" value="C"> C. Que no trata temas que me importan: trabajo, tecnología, afectividad, ecología</label>
                             <label><input type="checkbox" name="p9_critica[]" value="D"> D. Que se siente como un lugar de reglas y prohibiciones más que de vida</label>
                             <label><input type="checkbox" name="p9_critica[]" value="E"> E. Que las decisiones importantes las toman siempre los adultos, sin escucharnos</label>
                             <label><input type="checkbox" name="p9_critica[]" value="F"> F. Malas experiencias personales que me dejaron lastimado/a o decepcionado/a</label>
                             <label><input type="checkbox" name="p9_critica[]" value="G"> G. No me siento alejado/a; la Iglesia sigue siendo importante en mi vida</label>
                         </div>
                         <small>Selecciona hasta dos opciones</small>
+                    </div>
+                    <!-- Campo de comentario libre para Bloque VII -->
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu visión de la Iglesia?</strong></label>
+                        <textarea name="comentario_bloque7" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
                     </div>
                 </div>
 
@@ -269,8 +311,15 @@ session_start();
                             </label>
                         </div>
                     </div>
+                    <!-- Campo de comentario libre para Bloque VIII -->
                     <div class="question">
-                        <label>¿Hay algo que quisieras decirnos que ninguna de estas preguntas te permitió decir?</label>
+                        <label><strong>¿Quieres añadir algo sobre tu esperanza en el Paraguay?</strong></label>
+                        <textarea name="comentario_bloque8" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con este bloque..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                    </div>
+                    <!-- Campo libre general (ya existente) -->
+                    <div class="question">
+                        <label><strong>¿Hay algo que quisieras decirnos que ninguna de estas preguntas te permitió decir?</strong></label>
                         <textarea name="campo_libre" rows="4" placeholder="Escribe aquí tus comentarios (máximo 300 caracteres)" maxlength="300"></textarea>
                     </div>
                 </div>
