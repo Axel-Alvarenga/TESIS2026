@@ -1,44 +1,113 @@
 /**
- * cruces.js - Funciones para la tabla dinamica
+ * cruces.js - Tabla Dinámica con mejoras
+ * - Cruces predefinidos pastorales
+ * - Análisis de sentimiento
+ * - Insights automáticos
  */
 
 // ==================== VARIABLES GLOBALES ====================
 let datosOriginales = [];
 let filtros = [];
 
-const ordenVariables = ['p1_anio', 'p2_parroquia', 'p3_pertenencia', 'p4_atraccion', 'p5_espiritualidad', 'p6_familia', 'p7_proyecto', 'p8_vocacion', 'p10_esperanza'];
+const ordenVariables = [
+    'p1_anio', 'p2_parroquia', 'p3_pertenencia', 'p4_atraccion', 
+    'p5_espiritualidad', 'p6_familia', 'p7_proyecto', 'p8_vocacion', 
+    'p10_esperanza', 'sentimiento', 'p9_critica_1'
+];
 
 const nombresVariables = {
-    p1_anio: 'Ano de nacimiento',
+    p1_anio: 'Año de nacimiento',
     p2_parroquia: 'Parroquia',
     p3_pertenencia: 'P3 - Pertenencia',
-    p4_atraccion: 'P4 - Atraccion',
+    p4_atraccion: 'P4 - Atracción',
     p5_espiritualidad: 'P5 - Espiritualidad',
     p6_familia: 'P6 - Familia',
     p7_proyecto: 'P7 - Proyecto de vida',
-    p8_vocacion: 'P8 - Vocacion',
-    p10_esperanza: 'P10 - Esperanza'
+    p8_vocacion: 'P8 - Vocación',
+    p10_esperanza: 'P10 - Esperanza',
+    sentimiento: '😊 Sentimiento (NLP)',
+    p9_critica_1: 'P9 - Crítica principal'
 };
 
 const etiquetas = {
-    p3_pertenencia: { 'A': 'A. Amigos/confianza', 'B': 'B. Eucaristia', 'C': 'C. Ayudar', 'D': 'D. Redes sociales', 'E': 'E. Naturaleza', 'F': 'F. Deporte', 'G': 'G. Silencio', 'H': 'H. No recuerdo' },
-    p4_atraccion: { 'A': 'A. Vinculos confianza', 'B': 'B. Silencio', 'C': 'C. Liderazgo', 'D': 'D. Habilidades tecnicas', 'E': 'E. Emprendimiento', 'F': 'F. Sin juicios', 'G': 'G. Cambio real' },
-    p5_espiritualidad: { 'A': 'A. Fe como referencia', 'B': 'B. A veces fe', 'C': 'C. Otros ambitos', 'D': 'D. No me pregunto' },
-    p6_familia: { 'A': 'A. Apoyo y refugio', 'B': 'B. Tensiones', 'C': 'C. No me entienden', 'D': 'D. Motivacion', 'E': 'E. Sin referencia' },
-    p7_proyecto: { 'A': 'A. Estabilidad economica', 'B': 'B. Formar familia', 'C': 'C. Impacto social', 'D': 'D. Paz interior', 'E': 'E. En proceso' },
-    p8_vocacion: { 'A': 'A. Mision clara', 'B': 'B. Miedo a equivocarme', 'C': 'C. Presion social', 'D': 'D. Plan de Dios', 'E': 'E. No lo pienso' },
-    p10_esperanza: { '1': '1 - Muy bajo', '2': '2 - Bajo', '3': '3 - Medio', '4': '4 - Alto', '5': '5 - Muy alto' }
+    p3_pertenencia: { 
+        'A': 'A. Amigos/confianza', 'B': 'B. Eucaristía', 'C': 'C. Ayudar', 
+        'D': 'D. Redes sociales', 'E': 'E. Naturaleza', 'F': 'F. Deporte', 
+        'G': 'G. Silencio', 'H': 'H. No recuerdo' 
+    },
+    p4_atraccion: { 
+        'A': 'A. Vínculos confianza', 'B': 'B. Silencio', 'C': 'C. Liderazgo', 
+        'D': 'D. Habilidades técnicas', 'E': 'E. Emprendimiento', 'F': 'F. Sin juicios', 
+        'G': 'G. Cambio real' 
+    },
+    p5_espiritualidad: { 
+        'A': 'A. Fe como referencia', 'B': 'B. A veces fe', 
+        'C': 'C. Otros ámbitos', 'D': 'D. No me pregunto' 
+    },
+    p6_familia: { 
+        'A': 'A. Apoyo y refugio', 'B': 'B. Tensiones', 
+        'C': 'C. No me entienden', 'D': 'D. Motivación', 'E': 'E. Sin referencia' 
+    },
+    p7_proyecto: { 
+        'A': 'A. Estabilidad económica', 'B': 'B. Formar familia', 
+        'C': 'C. Impacto social', 'D': 'D. Paz interior', 'E': 'E. En proceso' 
+    },
+    p8_vocacion: { 
+        'A': 'A. Misión clara', 'B': 'B. Miedo a equivocarme', 
+        'C': 'C. Presión social', 'D': 'D. Plan de Dios', 'E': 'E. No lo pienso' 
+    },
+    p10_esperanza: { 
+        '1': '1 - Muy bajo', '2': '2 - Bajo', '3': '3 - Medio', 
+        '4': '4 - Alto', '5': '5 - Muy alto' 
+    },
+    sentimiento: {
+        'positivo': '😊 Positivo', 'negativo': '😞 Negativo', 'neutral': '😐 Neutral'
+    }
 };
 
-let resumenActual = {};
-
-// ==================== FUNCIONES AUXILIARES ====================
-function obtenerEtiqueta(variable, valor) {
-    if (!valor || valor === 'null') return '-';
-    if (etiquetas[variable] && etiquetas[variable][valor]) return etiquetas[variable][valor];
-    if (variable === 'p1_anio') return `${valor} (${2026 - parseInt(valor)}a)`;
-    if (variable === 'p2_parroquia') return valor.length > 25 ? valor.substring(0, 22) + '...' : valor;
-    return valor;
+// ==================== CRUCES PREDEFINIDOS PASTORALES ====================
+function crucePredefinido(tipo) {
+    const presets = {
+        'esperanza_vs_edad': { filas: ['p10_esperanza'], columnas: ['p1_anio'], mensaje: '📊 ¿Los jóvenes de diferentes edades tienen niveles distintos de esperanza?' },
+        'sentimiento_vs_parroquia': { filas: ['sentimiento'], columnas: ['p2_parroquia'], mensaje: '😊 ¿En qué parroquias hay más jóvenes con sentimiento negativo?' },
+        'vocacion_vs_familia': { filas: ['p8_vocacion'], columnas: ['p6_familia'], mensaje: '🏠 ¿Los que tienen apoyo familiar tienen más clara su vocación?' },
+        'critica_vs_edad': { filas: ['p9_critica_1'], columnas: ['p1_anio'], mensaje: '🗣️ ¿Qué críticas predominan según la edad?' },
+        'pertenencia_vs_edad': { filas: ['p3_pertenencia'], columnas: ['p1_anio'], mensaje: '🤝 ¿Los jóvenes se sienten parte de algo según su edad?' },
+        'esperanza_vs_parroquia': { filas: ['p10_esperanza'], columnas: ['p2_parroquia'], mensaje: '🏛️ ¿Qué parroquias tienen la esperanza más baja?' }
+    };
+    
+    const preset = presets[tipo];
+    if (!preset) return;
+    
+    // Limpiar selecciones actuales
+    document.querySelectorAll('.chk-fila, .chk-columna').forEach(cb => cb.checked = false);
+    
+    // Marcar las nuevas
+    preset.filas.forEach(f => {
+        const cb = document.querySelector(`.chk-fila[value="${f}"]`);
+        if (cb) {
+            cb.checked = true;
+            cb.dispatchEvent(new Event('change'));
+        }
+    });
+    preset.columnas.forEach(c => {
+        const cb = document.querySelector(`.chk-columna[value="${c}"]`);
+        if (cb) {
+            cb.checked = true;
+            cb.dispatchEvent(new Event('change'));
+        }
+    });
+    
+    // Mostrar mensaje informativo
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'mensaje-info';
+    infoDiv.innerHTML = `<i class="fas fa-info-circle"></i> ${preset.mensaje}`;
+    infoDiv.style.cssText = 'background:#e6f7ff; padding:10px; border-radius:12px; margin:10px 0; font-size:13px;';
+    document.querySelector('.selector-panel').insertBefore(infoDiv, document.querySelector('.filtros-extra'));
+    setTimeout(() => infoDiv.remove(), 5000);
+    
+    // Generar tablas
+    setTimeout(() => generarTablas(), 100);
 }
 
 // ==================== SELECTORES ====================
@@ -50,6 +119,7 @@ function cargarSelectores() {
     containerColumna.innerHTML = '';
     
     for (const varId of ordenVariables) {
+        if (!nombresVariables[varId]) continue;
         const nombre = nombresVariables[varId];
         
         const labelFila = document.createElement('label');
@@ -61,16 +131,17 @@ function cargarSelectores() {
         containerColumna.appendChild(labelCol);
     }
     
+    // Mutual exclusion
     document.querySelectorAll('.chk-fila').forEach(cb => {
         cb.addEventListener('change', function() {
             const valor = this.value;
             const colCheckbox = document.querySelector(`.chk-columna[value="${valor}"]`);
             if (colCheckbox && this.checked) {
                 colCheckbox.disabled = true;
-                colCheckbox.closest('label').classList.add('disabled');
+                colCheckbox.closest('label')?.classList.add('disabled');
             } else if (colCheckbox && !this.checked) {
                 colCheckbox.disabled = false;
-                colCheckbox.closest('label').classList.remove('disabled');
+                colCheckbox.closest('label')?.classList.remove('disabled');
             }
         });
     });
@@ -81,10 +152,10 @@ function cargarSelectores() {
             const filaCheckbox = document.querySelector(`.chk-fila[value="${valor}"]`);
             if (filaCheckbox && this.checked) {
                 filaCheckbox.disabled = true;
-                filaCheckbox.closest('label').classList.add('disabled');
+                filaCheckbox.closest('label')?.classList.add('disabled');
             } else if (filaCheckbox && !this.checked) {
                 filaCheckbox.disabled = false;
-                filaCheckbox.closest('label').classList.remove('disabled');
+                filaCheckbox.closest('label')?.classList.remove('disabled');
             }
         });
     });
@@ -94,15 +165,22 @@ function cargarSelectores() {
 async function cargarDatos() {
     const fd = document.getElementById('fecha_desde').value;
     const fh = document.getElementById('fecha_hasta').value;
-    const res = await fetch(`ajax_datos_completos.php?fecha_desde=${fd}&fecha_hasta=${fh}`);
-    datosOriginales = await res.json();
-    return datosOriginales;
+    try {
+        const res = await fetch(`../ajax_datos_completos.php?fecha_desde=${fd}&fecha_hasta=${fh}`);
+        datosOriginales = await res.json();
+        return datosOriginales;
+    } catch (error) {
+        console.error('Error al cargar datos:', error);
+        return [];
+    }
 }
 
 function aplicarFiltros(datos) {
     let filtrados = [...datos];
     for (const f of filtros) {
-        if (f.valor) filtrados = filtrados.filter(row => String(row[f.campo]) === f.valor);
+        if (f.valor) {
+            filtrados = filtrados.filter(row => String(row[f.campo]) === f.valor);
+        }
     }
     return filtrados;
 }
@@ -115,10 +193,14 @@ function obtenerValoresUnicos(datos, variable) {
     let arr = Array.from(valores);
     if (variable === 'p10_esperanza') arr.sort((a, b) => parseInt(a) - parseInt(b));
     if (variable === 'p1_anio') arr.sort((a, b) => parseInt(a) - parseInt(b));
+    if (variable === 'sentimiento') {
+        const orden = ['positivo', 'neutral', 'negativo'];
+        arr.sort((a, b) => orden.indexOf(a) - orden.indexOf(b));
+    }
     return arr;
 }
 
-// ==================== GENERAR TABLAS ====================
+// ==================== GENERAR TABLAS (optimizado) ====================
 function generarTablaUnica(datos, varFila, variablesColumna, titulo) {
     const valoresFila = obtenerValoresUnicos(datos, varFila);
     const columnasData = [];
@@ -129,8 +211,8 @@ function generarTablaUnica(datos, varFila, variablesColumna, titulo) {
     }
     
     let html = `<div class="tabla-individual" id="tabla_${varFila}"><h4>${titulo}</h4>`;
-    html += '<table class="tabla-dinamica"><thead><tr>';
-    html += '<th>' + nombresVariables[varFila] + '</th>';
+    html += '<div class="table-responsive"><table class="tabla-dinamica"><thead>';
+    html += '<tr><th>' + (nombresVariables[varFila] || varFila) + '</th>';
     
     for (const col of columnasData) {
         for (const val of col.valores) {
@@ -140,6 +222,19 @@ function generarTablaUnica(datos, varFila, variablesColumna, titulo) {
     html += '<th>Total</th></tr></thead><tbody>';
     
     let totalGeneral = 0;
+    const counts = {};
+    
+    // Pre-calcular counts para optimizar
+    for (const row of datos) {
+        const filaVal = row[varFila];
+        if (!filaVal) continue;
+        for (const col of columnasData) {
+            const colVal = row[col.variable];
+            if (!colVal) continue;
+            const key = `${filaVal}|${col.variable}|${colVal}`;
+            counts[key] = (counts[key] || 0) + 1;
+        }
+    }
     
     for (const valorFila of valoresFila) {
         let rowHtml = `<tr><td style="text-align:left;">${obtenerEtiqueta(varFila, valorFila)}</td>`;
@@ -147,17 +242,14 @@ function generarTablaUnica(datos, varFila, variablesColumna, titulo) {
         
         for (const col of columnasData) {
             for (const valorCol of col.valores) {
-                let count = 0;
-                for (const row of datos) {
-                    if (row[varFila] === valorFila && row[col.variable] === valorCol) count++;
-                }
+                const key = `${valorFila}|${col.variable}|${valorCol}`;
+                const count = counts[key] || 0;
                 totalFila += count;
                 totalGeneral += count;
                 rowHtml += `<td>${count}</td>`;
             }
         }
-        rowHtml += `<td style="background:#f3f4f6; font-weight:500;">${totalFila}</td>`;
-        rowHtml += `</tr>`;
+        rowHtml += `<td style="background:#f3f4f6; font-weight:500;">${totalFila}</td></tr>`;
         html += rowHtml;
     }
     
@@ -171,29 +263,81 @@ function generarTablaUnica(datos, varFila, variablesColumna, titulo) {
             totalRow += `<td style="font-weight:600;">${totalCol}</td>`;
         }
     }
-    totalRow += `<td style="font-weight:700;">${totalGeneral}</td>`;
-    totalRow += '</tr>';
+    totalRow += `<td style="font-weight:700;">${totalGeneral}</td></tr>`;
     html += totalRow;
-    html += '</tbody></table></div>';
+    html += '</tbody></table></div></div>';
     
     return { html, totalGeneral };
 }
 
-function generarResumenHtml(datosFiltrados, variablesFila, variablesColumna) {
-    const fechaDesde = document.getElementById('fecha_desde').value;
-    const fechaHasta = document.getElementById('fecha_hasta').value;
+// ==================== GENERAR INSIGHTS AUTOMÁTICOS ====================
+function generarInsights(datos) {
+    if (!datos.length) return '<p>No hay suficientes datos para generar insights</p>';
+    
+    const insights = [];
+    const total = datos.length;
+    
+    // 1. Esperanza baja por parroquia
+    const esperanzaBaja = datos.filter(r => r.p10_esperanza <= 2);
+    if (esperanzaBaja.length > 0) {
+        const parroquiasBaja = {};
+        esperanzaBaja.forEach(r => {
+            if (r.p2_parroquia) parroquiasBaja[r.p2_parroquia] = (parroquiasBaja[r.p2_parroquia] || 0) + 1;
+        });
+        const peorParroquia = Object.entries(parroquiasBaja).sort((a,b) => b[1] - a[1])[0];
+        if (peorParroquia) {
+            insights.push(`🔍 <strong>${peorParroquia[0]}</strong> es la parroquia con más jóvenes con esperanza baja (${peorParroquia[1]} respuestas)`);
+        }
+    }
+    
+    // 2. Sentimiento negativo por parroquia
+    const sentimientoNegativo = datos.filter(r => r.sentimiento === 'negativo');
+    if (sentimientoNegativo.length > 0) {
+        const porcentaje = ((sentimientoNegativo.length / total) * 100).toFixed(1);
+        insights.push(`😞 <strong>${porcentaje}%</strong> de los jóvenes expresan sentimiento negativo en sus comentarios`);
+    }
+    
+    // 3. Jóvenes con miedo vocacional
+    const miedoVocacional = datos.filter(r => r.p8_vocacion === 'B');
+    if (miedoVocacional.length > 0) {
+        const porcentaje = ((miedoVocacional.length / total) * 100).toFixed(1);
+        insights.push(`🎯 <strong>${porcentaje}%</strong> de los jóvenes tienen miedo a equivocarse en su vocación`);
+    }
+    
+    // 4. Crítica más común
+    const criticas = {};
+    datos.forEach(r => {
+        if (r.p9_critica_1) criticas[r.p9_critica_1] = (criticas[r.p9_critica_1] || 0) + 1;
+    });
+    const criticaTop = Object.entries(criticas).sort((a,b) => b[1] - a[1])[0];
+    if (criticaTop) {
+        const letra = criticaTop[0];
+        const textos = { 'A': 'Lenguaje anticuado', 'B': 'Falta de coherencia', 'C': 'No trata temas importantes', 'D': 'Lugar de reglas', 'E': 'Adultos no escuchan', 'F': 'Malas experiencias', 'G': 'No me siento alejado' };
+        insights.push(`🗣️ La crítica más mencionada es: <strong>${textos[letra] || letra}</strong>`);
+    }
+    
+    // 5. Esperanza promedio general
+    const esperanzaPromedio = (datos.reduce((sum, r) => sum + (parseInt(r.p10_esperanza) || 0), 0) / total).toFixed(1);
+    insights.push(`📈 El nivel de esperanza promedio es de <strong>${esperanzaPromedio}/5</strong>`);
     
     return `
-        <div><strong>Total registros:</strong> ${datosFiltrados.length}</div>
-        <div><strong>Periodo:</strong> ${fechaDesde} al ${fechaHasta}</div>
-        <div><strong>Variables en filas:</strong> ${variablesFila.length} (${variablesFila.map(v => nombresVariables[v]).join(', ')})</div>
-        <div><strong>Variables en columnas:</strong> ${variablesColumna.length} (${variablesColumna.map(v => nombresVariables[v]).join(', ')})</div>
-        <div><strong>Filtros activos:</strong> ${filtros.length}</div>
+        <div class="insights-card">
+            <h4><i class="fas fa-lightbulb"></i> Insights pastorales automáticos</h4>
+            <ul>
+                ${insights.map(i => `<li>${i}</li>`).join('')}
+            </ul>
+            <small style="color:#718096;">Basado en ${total} respuestas analizadas</small>
+        </div>
     `;
 }
 
+// ==================== GENERAR TABLAS PRINCIPAL ====================
 async function generarTablas() {
     await cargarDatos();
+    if (!datosOriginales.length) {
+        document.getElementById('tablasResultado').innerHTML = '<div class="mensaje-error">No hay datos para el período seleccionado</div>';
+        return;
+    }
     
     const filasCheck = document.querySelectorAll('.chk-fila:checked');
     const columnasCheck = document.querySelectorAll('.chk-columna:checked');
@@ -213,140 +357,72 @@ async function generarTablas() {
     
     let tablasHtml = '';
     for (const varFila of variablesFila) {
-        const titulo = `Cruce: ${nombresVariables[varFila]} vs columnas seleccionadas`;
+        const titulo = `📊 Cruce: ${nombresVariables[varFila]} vs columnas seleccionadas`;
         const resultado = generarTablaUnica(datosFiltrados, varFila, variablesColumna, titulo);
         tablasHtml += resultado.html;
     }
     
+    // Agregar insights
+    tablasHtml = generarInsights(datosFiltrados) + tablasHtml;
+    
     document.getElementById('tablasResultado').innerHTML = tablasHtml;
     document.getElementById('resumenTabla').innerHTML = generarResumenHtml(datosFiltrados, variablesFila, variablesColumna);
-    
-    resumenActual = {
-        datosFiltrados: datosFiltrados.length,
-        fechaDesde: document.getElementById('fecha_desde').value,
-        fechaHasta: document.getElementById('fecha_hasta').value,
-        variablesFila: variablesFila,
-        variablesColumna: variablesColumna,
-        filtrosActivos: filtros.length
-    };
 }
 
-// ==================== EXPORTACION ====================
+function generarResumenHtml(datosFiltrados, variablesFila, variablesColumna) {
+    const fechaDesde = document.getElementById('fecha_desde').value;
+    const fechaHasta = document.getElementById('fecha_hasta').value;
+    
+    return `
+        <div class="resumen-card" style="background:#f8fafc; padding:15px; border-radius:16px; margin-top:20px;">
+            <strong>📋 Resumen:</strong>
+            <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:10px;">
+                <span>📄 ${datosFiltrados.length} registros</span>
+                <span>📅 ${fechaDesde} al ${fechaHasta}</span>
+                <span>📊 Filas: ${variablesFila.map(v => nombresVariables[v]).join(', ')}</span>
+                <span>📊 Columnas: ${variablesColumna.map(v => nombresVariables[v]).join(', ')}</span>
+                <span>🔍 Filtros: ${filtros.length}</span>
+            </div>
+        </div>
+    `;
+}
+
+// ==================== EXPORTACIÓN ====================
 function copiarTodasLasTablas() {
     let contenido = '';
-    
     const resumenDiv = document.getElementById('resumenTabla');
-    if (resumenDiv) {
-        contenido += 'RESUMEN DE EXPORTACION\n';
-        contenido += resumenDiv.innerText + '\n\n';
-    }
+    if (resumenDiv) contenido += resumenDiv.innerText + '\n\n';
     
     const tablas = document.querySelectorAll('#tablasResultado .tabla-individual');
     tablas.forEach((tabla) => {
         const titulo = tabla.querySelector('h4')?.innerText || 'Tabla';
         const tablaHtml = tabla.querySelector('.tabla-dinamica');
-        if (tablaHtml) {
-            contenido += titulo + '\n';
-            contenido += tablaHtml.innerText + '\n\n';
-        }
+        if (tablaHtml) contenido += titulo + '\n' + tablaHtml.innerText + '\n\n';
     });
     
-    navigator.clipboard.writeText(contenido).then(() => {
-        alert('Tablas y resumen copiados al portapapeles');
-    }).catch(() => {
-        alert('Error al copiar. Intenta manualmente.');
-    });
+    navigator.clipboard.writeText(contenido).then(() => alert('Tablas copiadas al portapapeles'));
 }
 
 function exportarTodasLasTablas() {
     try {
         const wb = XLSX.utils.book_new();
-        let datosHoja = [];
+        const datosHoja = [['VOCES DEL SUR - TABLA DINÁMICA'], ['Generado: ' + new Date().toLocaleString()], ['']];
         
-        // Encabezado principal
-        datosHoja.push(['VOCES DEL SUR']);
-        datosHoja.push(['Tabla Dinamica de Cruces']);
-        datosHoja.push(['']);
-        datosHoja.push(['FECHA DE EXPORTACION: ' + new Date().toLocaleString()]);
-        datosHoja.push(['']);
-        datosHoja.push(['']);
-        
-        // Filtros aplicados
-        const fechaDesde = document.getElementById('fecha_desde').value;
-        const fechaHasta = document.getElementById('fecha_hasta').value;
-        
-        datosHoja.push(['=== FILTROS APLICADOS ===']);
-        datosHoja.push(['Periodo:', fechaDesde + ' al ' + fechaHasta]);
-        datosHoja.push(['Total registros:', resumenActual.datosFiltrados || datosOriginales.length]);
-        datosHoja.push(['Variables en filas:', (resumenActual.variablesFila || []).map(v => nombresVariables[v]).join(', ') || 'Ninguna']);
-        datosHoja.push(['Variables en columnas:', (resumenActual.variablesColumna || []).map(v => nombresVariables[v]).join(', ') || 'Ninguna']);
-        datosHoja.push(['Filtros adicionales:', filtros.length > 0 ? filtros.map(f => `${f.campo}=${f.valor}`).join(', ') : 'Ninguno']);
-        datosHoja.push(['']);
-        datosHoja.push(['']);
-        
-        // Tablas
         const tablas = document.querySelectorAll('#tablasResultado .tabla-individual');
-        
         tablas.forEach((tabla, idx) => {
-            const titulo = tabla.querySelector('h4')?.innerText || `Tabla ${idx + 1}`;
-            const tablaHtml = tabla.querySelector('.tabla-dinamica');
-            
-            if (tablaHtml) {
-                // Separador
-                datosHoja.push(['--------------------------------------------------']);
-                datosHoja.push([titulo]);
-                datosHoja.push(['--------------------------------------------------']);
-                datosHoja.push([]);
-                
-                const filas = tablaHtml.querySelectorAll('tr');
-                filas.forEach(fila => {
-                    const celdas = fila.querySelectorAll('th, td');
-                    const filaDatos = [];
-                    celdas.forEach(celda => {
-                        let texto = celda.innerText.trim();
-                        texto = texto.replace(/[\\/?*[\]:]/g, '');
-                        filaDatos.push(texto);
-                    });
-                    datosHoja.push(filaDatos);
-                });
-                
-                datosHoja.push([]);
-                datosHoja.push([]);
-                datosHoja.push([]);
-            }
+            datosHoja.push([''], ['=== ' + (tabla.querySelector('h4')?.innerText || `Tabla ${idx + 1}`) + ' ==='], ['']);
+            const filas = tabla.querySelectorAll('tr');
+            filas.forEach(fila => {
+                const celdas = fila.querySelectorAll('th, td');
+                datosHoja.push(Array.from(celdas).map(c => c.innerText.trim()));
+            });
         });
         
-        datosHoja.push(['']);
-        datosHoja.push(['']);
-        datosHoja.push(['=== FIN DEL REPORTE ===']);
-        datosHoja.push(['Generado por el sistema Voces del Sur']);
-        
         const ws = XLSX.utils.aoa_to_sheet(datosHoja);
-        
-        const colWidths = [];
-        if (datosHoja.length > 0) {
-            const maxCols = Math.max(...datosHoja.map(row => row.length));
-            for (let i = 0; i < maxCols; i++) {
-                let maxWidth = 20;
-                for (let j = 0; j < datosHoja.length; j++) {
-                    if (datosHoja[j][i]) {
-                        const cellLength = String(datosHoja[j][i]).length;
-                        if (cellLength > maxWidth) maxWidth = Math.min(cellLength, 60);
-                    }
-                }
-                colWidths.push({ wch: maxWidth + 2 });
-            }
-        }
-        ws['!cols'] = colWidths;
-        
         XLSX.utils.book_append_sheet(wb, ws, 'Cruces');
-        
-        const fileName = `cruces_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.xlsx`;
-        XLSX.writeFile(wb, fileName);
-        
-        alert('Exportacion completada con exito');
+        XLSX.writeFile(wb, `cruces_${new Date().toISOString().slice(0, 19)}.xlsx`);
+        alert('Exportación completada');
     } catch (error) {
-        console.error('Error al exportar:', error);
         alert('Error al exportar: ' + error.message);
     }
 }
@@ -363,10 +439,7 @@ function cerrarModalFiltros() {
 function agregarFiltro() {
     const campo = document.getElementById('filtroCampo').value;
     const valor = document.getElementById('filtroValor').value.trim();
-    if (!valor) {
-        alert('Ingresa un valor');
-        return;
-    }
+    if (!valor) { alert('Ingresa un valor'); return; }
     filtros.push({ campo, valor });
     actualizarListaFiltros();
     cerrarModalFiltros();
@@ -386,26 +459,32 @@ function actualizarListaFiltros() {
     }
     c.innerHTML = '';
     filtros.forEach((f, i) => {
-        c.innerHTML += `<div class="filtro-tag">${f.campo} = "${f.valor}" <button onclick="eliminarFiltro(${i})">x</button></div>`;
+        c.innerHTML += `<div class="filtro-tag">${f.campo} = "${f.valor}" <button onclick="eliminarFiltro(${i})">✕</button></div>`;
     });
 }
 
-// ==================== INICIALIZACION ====================
+function obtenerEtiqueta(variable, valor) {
+    if (!valor || valor === 'null') return '-';
+    if (etiquetas[variable] && etiquetas[variable][valor]) return etiquetas[variable][valor];
+    if (variable === 'p1_anio') return `${valor} (${2026 - parseInt(valor)}a)`;
+    if (variable === 'p2_parroquia') return valor.length > 25 ? valor.substring(0, 22) + '...' : valor;
+    if (variable === 'sentimiento' && etiquetas.sentimiento[valor]) return etiquetas.sentimiento[valor];
+    return valor;
+}
+
+// ==================== INICIALIZACIÓN ====================
 document.addEventListener('DOMContentLoaded', function() {
     cargarSelectores();
     cargarDatos();
     
+    // Selección por defecto
     setTimeout(() => {
         const p3Fila = document.querySelector('.chk-fila[value="p3_pertenencia"]');
-        const p6Fila = document.querySelector('.chk-fila[value="p6_familia"]');
-        const p10Col = document.querySelector('.chk-columna[value="p10_esperanza"]');
+        const sentimientoCol = document.querySelector('.chk-columna[value="sentimiento"]');
         if (p3Fila) p3Fila.checked = true;
-        if (p6Fila) p6Fila.checked = true;
-        if (p10Col) p10Col.checked = true;
+        if (sentimientoCol) sentimientoCol.checked = true;
         if (p3Fila) p3Fila.dispatchEvent(new Event('change'));
-        if (p6Fila) p6Fila.dispatchEvent(new Event('change'));
-        if (p10Col) p10Col.dispatchEvent(new Event('change'));
-        
+        if (sentimientoCol) sentimientoCol.dispatchEvent(new Event('change'));
         generarTablas();
     }, 100);
 });
