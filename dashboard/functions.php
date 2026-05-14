@@ -1,34 +1,27 @@
 <?php
-// ==================== FUNCIONES REUTILIZABLES ====================
-
-// Validar formato de email
-function validarEmail($email) {
+function validarEmail(string $email): bool {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-// Mostrar mensajes de éxito/error
-function mostrarMensaje($tipo, $mensaje) {
+function mostrarMensaje(string $tipo, string $mensaje): string {
     $icono = ($tipo == 'exito') ? 'check-circle' : 'exclamation-triangle';
     $clase = ($tipo == 'exito') ? 'mensaje-exito' : 'mensaje-error';
     return "<div class='mensaje $clase'><i class='fas fa-$icono'></i> $mensaje</div>";
 }
 
-// Obtener usuario por ID
-function obtenerUsuarioPorId($pdo, $id) {
+function obtenerUsuarioPorId($pdo, int $id) {
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
     $stmt->execute([$id]);
     return $stmt->fetch();
 }
 
-// Obtener usuario por email
-function obtenerUsuarioPorEmail($pdo, $email) {
+function obtenerUsuarioPorEmail($pdo, string $email) {
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
     $stmt->execute([$email]);
     return $stmt->fetch();
 }
 
-// Verificar si un email ya existe (excluyendo un ID opcional)
-function emailExiste($pdo, $email, $excluirId = null) {
+function emailExiste($pdo, string $email, ?int $excluirId = null): bool {
     if ($excluirId) {
         $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ? AND id != ?");
         $stmt->execute([$email, $excluirId]);
@@ -39,30 +32,25 @@ function emailExiste($pdo, $email, $excluirId = null) {
     return $stmt->fetch() !== false;
 }
 
-// Sanitizar entrada
-function sanitizar($dato) {
+function sanitizar(string $dato): string {
     return htmlspecialchars(strip_tags(trim($dato)));
 }
 
-// Generar hash de contraseña
-function hashPassword($password) {
+function hashPassword(string $password): string {
     return password_hash($password, PASSWORD_DEFAULT);
 }
 
-// Verificar contraseña
-function verificarPassword($password, $hash) {
+function verificarPassword(string $password, string $hash): bool {
     return password_verify($password, $hash);
 }
 
-// Redirigir con mensaje
-function redirigirConMensaje($url, $tipo, $mensaje) {
+function redirigirConMensaje(string $url, string $tipo, string $mensaje): void {
     $_SESSION['flash_message'] = ['tipo' => $tipo, 'mensaje' => $mensaje];
     header("Location: $url");
     exit;
 }
 
-// Mostrar mensaje flash (si existe)
-function mostrarFlashMessage() {
+function mostrarFlashMessage(): string {
     if (isset($_SESSION['flash_message'])) {
         $msg = $_SESSION['flash_message'];
         unset($_SESSION['flash_message']);

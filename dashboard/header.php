@@ -7,7 +7,7 @@ if (!isset($active)) $active = '';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title><?= $titulo ?> - Voces del Sur</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
@@ -44,6 +44,8 @@ if (!isset($active)) $active = '';
                 </a>
             </nav>
         </aside>
+
+        <!-- Botón para abrir menú en móvil (se crea con JS) -->
 
         <!-- Contenido principal -->
         <main class="main-content">
