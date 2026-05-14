@@ -2,7 +2,7 @@
 $host = 'localhost';
 $dbname = 'voces_del_sur';
 $username = 'root';
-$password = '';
+$password = ''; // Si pusiste contraseña en MySQL, escríbela aquí
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
