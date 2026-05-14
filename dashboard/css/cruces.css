@@ -1,0 +1,282 @@
+/* ==================== ESTILOS PARA CRUCES.PHP ==================== */
+
+.dinamic-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.selector-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid #e5e7eb;
+}
+
+.grid-2cols {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.col {
+    flex: 1;
+    min-width: 280px;
+}
+
+.col label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.multi-select {
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+}
+
+.multi-select label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    font-weight: normal;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 0;
+    color: #1f2937;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.multi-select label:hover {
+    background: #f3f4f6;
+}
+
+.multi-select input {
+    margin: 0;
+}
+
+.multi-select .disabled {
+    opacity: 0.5;
+    background: #f9fafb;
+    cursor: not-allowed;
+}
+
+.btn-aplicar {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.btn-aplicar:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+.tabla-container {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 24px;
+    border: 1px solid #e5e7eb;
+    overflow-x: auto;
+}
+
+.tabla-individual {
+    margin-bottom: 40px;
+}
+
+.tabla-individual h4 {
+    background: #f3f4f6;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.tabla-dinamica {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    background: white;
+    margin-bottom: 20px;
+}
+
+.tabla-dinamica th {
+    background: #f3f4f6;
+    color: #1f2937;
+    padding: 10px 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid #e5e7eb;
+}
+
+.tabla-dinamica td {
+    padding: 8px 6px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+}
+
+.tabla-dinamica td:first-child {
+    background: #f9fafb;
+    font-weight: 500;
+    text-align: left;
+}
+
+.tabla-dinamica tr:hover td {
+    background: #f9fafb;
+}
+
+.total-row td {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.boton-copiar, .boton-excel {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    border: none;
+    margin-left: 8px;
+}
+
+.boton-copiar {
+    background: #4f46e5;
+    color: white;
+}
+
+.boton-excel {
+    background: #10b981;
+    color: white;
+}
+
+.resumen-card {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 13px;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+}
+
+.filtros-extra {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.filtros-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.btn-filtro {
+    background: #6b7280;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.filtros-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filtro-tag {
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filtro-tag button {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content select,
+.modal-content input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .grid-2cols {
+        flex-direction: column;
+    }
+    
+    .tabla-dinamica {
+        font-size: 10px;
+    }
+    
+    .tabla-dinamica th,
+    .tabla-dinamica td {
+        padding: 4px 2px;
+    }
+    
+    .boton-copiar,
+    .boton-excel {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+}

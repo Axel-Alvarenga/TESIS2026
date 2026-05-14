@@ -11,6 +11,9 @@ if (!isset($active)) $active = '';
     <title><?= $titulo ?> - Voces del Sur</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Scripts para exportar a Excel (SheetJS) -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
