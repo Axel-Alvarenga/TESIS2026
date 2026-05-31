@@ -7,7 +7,7 @@ const stepProgressFill = document.getElementById('stepProgressFill');
 const formulario = document.getElementById('encuestaForm');
 
 let currentStep = 1;
-const totalSteps = pages.length;
+const totalSteps = 9; // Cambiado de 8 a 9
 
 function updateStepVisibility() {
     pages.forEach((page, index) => {

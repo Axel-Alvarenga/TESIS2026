@@ -38,13 +38,15 @@ $sql = "INSERT INTO respuestas (
     p5_espiritualidad, p6_familia, p7_proyecto, p8_vocacion,
     p9_critica, p10_esperanza, campo_libre, permiso_padres,
     comentario_bloque2, comentario_bloque3, comentario_bloque4,
-    comentario_bloque5, comentario_bloque6, comentario_bloque7, comentario_bloque8
+    comentario_bloque5, comentario_bloque6, comentario_bloque7, 
+    comentario_bloque8, comentario_bloque9
 ) VALUES (
     :ip, :p1_anio, :p2_parroquia, :p3_pertenencia, :p4_atraccion,
     :p5_espiritualidad, :p6_familia, :p7_proyecto, :p8_vocacion,
     :p9_critica, :p10_esperanza, :campo_libre, :permiso_padres,
     :comentario_bloque2, :comentario_bloque3, :comentario_bloque4,
-    :comentario_bloque5, :comentario_bloque6, :comentario_bloque7, :comentario_bloque8
+    :comentario_bloque5, :comentario_bloque6, :comentario_bloque7, 
+    :comentario_bloque8, :comentario_bloque9
 )";
 
 $stmt = $pdo->prepare($sql);
@@ -69,7 +71,8 @@ $stmt->execute([
     ':comentario_bloque5' => sanitizar($_POST['comentario_bloque5'] ?? ''),
     ':comentario_bloque6' => sanitizar($_POST['comentario_bloque6'] ?? ''),
     ':comentario_bloque7' => sanitizar($_POST['comentario_bloque7'] ?? ''),
-    ':comentario_bloque8' => sanitizar($_POST['comentario_bloque8'] ?? '')
+    ':comentario_bloque8' => sanitizar($_POST['comentario_bloque8'] ?? ''),
+    ':comentario_bloque9' => sanitizar($_POST['comentario_bloque9'] ?? '')
 ]);
 
 // Redirigir a la página de agradecimiento
