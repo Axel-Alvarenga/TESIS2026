@@ -93,11 +93,11 @@ if (empty($_SESSION['csrf_token'])) {
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 
                 <div class="step-indicator">
-                    <span class="step-text" id="stepCounter">Bloque 1 de 9</span>
+                    <span class="step-text" id="stepCounter">Bloque 1 de 12</span>
                     <div class="step-progress"><div class="step-progress-fill" id="stepProgressFill"></div></div>
                 </div>
                 
-                <!-- ==================== BLOQUE 1 ==================== -->
+                <!-- ==================== BLOQUE 1 (P1, P2) ==================== -->
                 <div class="step-page active" data-step="1">
                     <div class="block"><h2>Bloque I · Datos de clasificación</h2></div>
                     
@@ -189,8 +189,93 @@ if (empty($_SESSION['csrf_token'])) {
                     </div>
                 </div>
 
-                <!-- ==================== BLOQUE 4 (P5) ==================== -->
+                <!-- ==================== BLOQUE 4 (P4b-1 - Situación principal) ==================== -->
                 <div class="step-page" data-step="4">
+                    <div class="block">
+                        <h2>Bloque II-C1 · Contexto de vida (Parte 1)</h2>
+                        <p style="font-size: 0.85em; color: #718096; margin-top: -10px; margin-bottom: 15px;">
+                            Pregunta para el cruce con actores económicos e institucionales del departamento.
+                        </p>
+                    </div>
+                    
+                    <div class="question">
+                        <label>P4b-1. ¿Cuál es tu situación principal ahora? <span class="required-mark">*</span></label>
+                        <div class="options">
+                            <label><input type="radio" name="p4b_situacion" value="A" required> A. Estudio (secundaria, terciario o universidad)</label>
+                            <label><input type="radio" name="p4b_situacion" value="B"> B. Trabajo (en relación de dependencia o cuenta propia)</label>
+                            <label><input type="radio" name="p4b_situacion" value="C"> C. Estudio y trabajo al mismo tiempo</label>
+                            <label><input type="radio" name="p4b_situacion" value="D"> D. Busco trabajo o estudio activamente</label>
+                            <label><input type="radio" name="p4b_situacion" value="E"> E. Me dedico al hogar o al cuidado de familia</label>
+                            <label><input type="radio" name="p4b_situacion" value="F"> F. Otra situación</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu situación principal actual?</strong></label>
+                        <textarea name="comentario_p4b1" rows="3" placeholder="Opcional: comparte aquí cualquier comentario sobre tu situación laboral, educativa o personal..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tu realidad.</small>
+                    </div>
+                </div>
+
+                <!-- ==================== BLOQUE 5 (P4b-2 - Área de interés) ==================== -->
+                <div class="step-page" data-step="5">
+                    <div class="block">
+                        <h2>Bloque II-C2 · Contexto de vida (Parte 2)</h2>
+                        <p style="font-size: 0.85em; color: #718096; margin-top: -10px; margin-bottom: 15px;">
+                            Pregunta para el cruce con actores económicos e institucionales del departamento.
+                        </p>
+                    </div>
+                    
+                    <div class="question">
+                        <label>P4b-2. Si pensás en formarte o trabajar en los próximos años, ¿en qué área te ves más? <span class="required-mark">*</span></label>
+                        <div class="options">
+                            <label><input type="radio" name="p4b_area" value="A" required> A. Salud y cuidado de personas</label>
+                            <label><input type="radio" name="p4b_area" value="B"> B. Tecnología, sistemas o datos</label>
+                            <label><input type="radio" name="p4b_area" value="C"> C. Agro, campo o medio ambiente</label>
+                            <label><input type="radio" name="p4b_area" value="D"> D. Educación o trabajo social</label>
+                            <label><input type="radio" name="p4b_area" value="E"> E. Comercio, servicios o logística</label>
+                            <label><input type="radio" name="p4b_area" value="F"> F. Arte, comunicación o medios</label>
+                            <label><input type="radio" name="p4b_area" value="G"> G. Construcción, industria o energía</label>
+                            <label><input type="radio" name="p4b_area" value="H"> H. Emprendimiento propio (cualquier rubro)</label>
+                            <label><input type="radio" name="p4b_area" value="I"> I. Todavía no lo tengo claro</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu área de interés o tus metas a futuro?</strong></label>
+                        <textarea name="comentario_p4b2" rows="3" placeholder="Opcional: comparte aquí cualquier comentario sobre qué te gustaría estudiar, emprender o trabajar..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor tus intereses.</small>
+                    </div>
+                </div>
+
+                <!-- ==================== BLOQUE 6 (P4b-3 - Movilidad territorial) ==================== -->
+                <div class="step-page" data-step="6">
+                    <div class="block">
+                        <h2>Bloque II-C3 · Contexto de vida (Parte 3)</h2>
+                        <p style="font-size: 0.85em; color: #718096; margin-top: -10px; margin-bottom: 15px;">
+                            Pregunta para el cruce con actores económicos e institucionales del departamento.
+                        </p>
+                    </div>
+                    
+                    <div class="question">
+                        <label>P4b-3. ¿Estarías dispuesto/a a formarte o trabajar en otro distrito de Itapúa si hubiera una buena oportunidad? <span class="required-mark">*</span></label>
+                        <div class="options">
+                            <label><input type="radio" name="p4b_movilidad" value="A" required> A. Sí, sin problema</label>
+                            <label><input type="radio" name="p4b_movilidad" value="B"> B. Sí, pero solo si la oportunidad es realmente buena</label>
+                            <label><input type="radio" name="p4b_movilidad" value="C"> C. Preferiría quedarme cerca de donde vivo</label>
+                            <label><input type="radio" name="p4b_movilidad" value="D"> D. No, necesito quedarme en mi zona</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label><strong>¿Quieres añadir algo sobre tu disponibilidad para moverte o tus motivos para quedarte?</strong></label>
+                        <textarea name="comentario_p4b3" rows="3" placeholder="Opcional: comparte aquí cualquier comentario sobre tu disposición a moverte, distancias, transporte, familia, etc..." maxlength="500"></textarea>
+                        <small>Este campo es opcional y nos ayuda a entender mejor las barreras o facilitadores para la movilidad.</small>
+                    </div>
+                </div>
+
+                <!-- ==================== BLOQUE 7 (P5) ==================== -->
+                <div class="step-page" data-step="7">
                     <div class="block">
                         <h2>Bloque III · Espiritualidad</h2>
                     </div>
@@ -210,8 +295,8 @@ if (empty($_SESSION['csrf_token'])) {
                     </div>
                 </div>
 
-                <!-- ==================== BLOQUE 5 (P6) ==================== -->
-                <div class="step-page" data-step="5">
+                <!-- ==================== BLOQUE 8 (P6) ==================== -->
+                <div class="step-page" data-step="8">
                     <div class="block">
                         <h2>Bloque IV · Familia</h2>
                     </div>
@@ -232,8 +317,8 @@ if (empty($_SESSION['csrf_token'])) {
                     </div>
                 </div>
 
-                <!-- ==================== BLOQUE 6 (P7) ==================== -->
-                <div class="step-page" data-step="6">
+                <!-- ==================== BLOQUE 9 (P7) ==================== -->
+                <div class="step-page" data-step="9">
                     <div class="block">
                         <h2>Bloque V · Proyecto de vida</h2>
                     </div>
@@ -254,8 +339,8 @@ if (empty($_SESSION['csrf_token'])) {
                     </div>
                 </div>
 
-                <!-- ==================== BLOQUE 7 (P8) ==================== -->
-                <div class="step-page" data-step="7">
+                <!-- ==================== BLOQUE 10 (P8) ==================== -->
+                <div class="step-page" data-step="10">
                     <div class="block">
                         <h2>Bloque VI · Vocación</h2>
                     </div>
@@ -276,8 +361,8 @@ if (empty($_SESSION['csrf_token'])) {
                     </div>
                 </div>
 
-                <!-- ==================== BLOQUE 8 (P9) ==================== -->
-                <div class="step-page" data-step="8">
+                <!-- ==================== BLOQUE 11 (P9) ==================== -->
+                <div class="step-page" data-step="11">
                     <div class="block">
                         <h2>Bloque VII · Crítica institucional</h2>
                     </div>
@@ -301,8 +386,8 @@ if (empty($_SESSION['csrf_token'])) {
                     </div>
                 </div>
 
-                <!-- ==================== BLOQUE 9 (P10) ==================== -->
-                <div class="step-page" data-step="9">
+                <!-- ==================== BLOQUE 12 (P10) ==================== -->
+                <div class="step-page" data-step="12">
                     <div class="block">
                         <h2>Bloque VIII · Esperanza social</h2>
                     </div>
