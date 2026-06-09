@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2026 a las 21:49:23
+-- Tiempo de generación: 10-06-2026 a las 00:45:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `analisis_texto` (
   `tema_principal` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `analisis_texto`
+--
+
+INSERT INTO `analisis_texto` (`id`, `respuesta_id`, `texto_original`, `sentimiento`, `palabras_clave`, `tema_principal`) VALUES
+(1, 1, 'a', 'neutral', '', 'general');
+
 -- --------------------------------------------------------
 
 --
@@ -64,15 +71,29 @@ CREATE TABLE `respuestas` (
   `comentario_bloque5` text DEFAULT NULL COMMENT 'Comentario bloque V - Proyecto de vida',
   `comentario_bloque6` text DEFAULT NULL COMMENT 'Comentario bloque VI - Vocación',
   `comentario_bloque7` text DEFAULT NULL COMMENT 'Comentario bloque VII - Crítica',
-  `comentario_bloque8` text DEFAULT NULL COMMENT 'Comentario bloque VIII - Esperanza'
+  `comentario_bloque8` text DEFAULT NULL COMMENT 'Comentario bloque VIII - Esperanza',
+  `comentario_bloque9` text DEFAULT NULL COMMENT 'Comentario bloque VIII - Esperanza social',
+  `p4b_situacion` varchar(5) DEFAULT NULL COMMENT 'P4b-1: Situación principal (estudio/trabajo/busco/etc)',
+  `p4b_area` varchar(5) DEFAULT NULL COMMENT 'P4b-2: Área de interés formativo/laboral',
+  `p4b_movilidad` varchar(5) DEFAULT NULL COMMENT 'P4b-3: Disposición a movilidad territorial',
+  `comentario_p4b1` text DEFAULT NULL COMMENT 'Comentario P4b-1 - Situación principal',
+  `comentario_p4b2` text DEFAULT NULL COMMENT 'Comentario P4b-2 - Área de interés',
+  `comentario_p4b3` text DEFAULT NULL COMMENT 'Comentario P4b-3 - Movilidad territorial'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `respuestas`
 --
 
-INSERT INTO `respuestas` (`id`, `fecha`, `ip`, `p1_anio`, `p2_parroquia`, `p3_pertenencia`, `p4_atraccion`, `p5_espiritualidad`, `p6_familia`, `p7_proyecto`, `p8_vocacion`, `p9_critica`, `p10_esperanza`, `campo_libre`, `permiso_padres`, `comentario_bloque2`, `comentario_bloque3`, `comentario_bloque4`, `comentario_bloque5`, `comentario_bloque6`, `comentario_bloque7`, `comentario_bloque8`) VALUES
-(1, '2026-05-13 23:44:49', '::1', '2010', 'Nuestra Señora de la Santísima Encarnación', 'A', 'D', 'A', 'B', 'B', 'B', 'C', 4, 'a', 'si', 'a', 'a', 'a', 'a', 'a', 'a', 'a');
+INSERT INTO `respuestas` (`id`, `fecha`, `ip`, `p1_anio`, `p2_parroquia`, `p3_pertenencia`, `p4_atraccion`, `p5_espiritualidad`, `p6_familia`, `p7_proyecto`, `p8_vocacion`, `p9_critica`, `p10_esperanza`, `campo_libre`, `permiso_padres`, `comentario_bloque2`, `comentario_bloque3`, `comentario_bloque4`, `comentario_bloque5`, `comentario_bloque6`, `comentario_bloque7`, `comentario_bloque8`, `comentario_bloque9`, `p4b_situacion`, `p4b_area`, `p4b_movilidad`, `comentario_p4b1`, `comentario_p4b2`, `comentario_p4b3`) VALUES
+(1, '2026-05-13 23:44:49', '::1', '2010', 'Nuestra Señora de la Santísima Encarnación', 'A', 'D', 'A', 'B', 'B', 'B', 'C', 4, 'a', 'si', 'a', 'a', 'a', 'a', 'a', 'a', 'a', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '2026-05-31 01:25:04', '::1', '2009', 'San Roque González de Santa Cruz', 'B', 'C', 'B', 'C', 'C', 'D', 'B,D', 5, 'sdfaf', 'si', 'ad', 'dad', 'dad', 'fa', 'faf', 'faf', 'adad', 'adad', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, '2026-05-31 01:48:04', '::1', '2009', 'San Pedro Apóstol - Encarnación', 'D', 'C', 'B', 'C', 'D', 'D', 'D', 5, 'dad', 'si', 'dad', 'dada', 'dad', 'dad', 'dad', 'adad', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '2026-05-31 02:11:22', '::1', '2006', 'San Pedro Apóstol - Encarnación', 'B', 'C', 'C', 'D', 'C', 'C', 'C,E', 5, 'adas', 'no', 'adfa', 'fafas', 'ad', 'ad', 'dada', 'dad', 'das', '', '', '', '', NULL, NULL, NULL),
+(5, '2026-05-31 02:38:11', '::1', '2009', 'San Pedro Apóstol - Encarnación', 'B', 'D', 'C', 'C', 'C', 'C', 'D,F', 2, 'sdasf', 'si', 'asdas', '', 'asdas', 'dasd', 'adas', 'asdasd', 'asda', 'sdasd', 'C', 'D', 'C', 'asdad', 'asdas', 'asds'),
+(6, '2026-05-31 02:38:50', '::1', '2010', 'San Roque González de Santa Cruz', 'D', 'C', 'C', 'B', 'B', 'B', 'C,E', 2, 'asfasf', 'si', 'dasdasf', 'fsfassdas', 'fsfsaf', 'sfasfsafas', 'safsfs', 'safafsa', 'safasfs', 'sfsf', 'D', 'B', 'B', 'sfasfs', 'saffsas', 'asfasf'),
+(7, '2026-05-31 02:39:42', '::1', '2002', 'Inmaculada Concepción de María', 'E', 'E', 'D', 'D', 'D', 'C', 'D,G', 2, 'fsafasf', 'no', 'fsfas', 'sfasf', 'sfasfs', 'sfas', 'sfasfa', 'safasfs', 'sfsf', 'sfafs', 'D', 'E', 'D', 'fasfas', 'sfafs', 'sffs'),
+(8, '2026-05-31 02:45:08', '::1', '2010', 'San Pedro Apóstol - Encarnación', 'C', 'E', 'C', 'E', 'D', 'C', 'B,D', 2, 'fasfawf', 'si', 'asffs', 'sfasf', 'fasfafw', 'sfawf', 'fsafasf', 'fsafawf', 'sfafa', 'sfafw', 'B', 'F', 'B', 'fasf', 'fasfas', 'fasfaf');
 
 -- --------------------------------------------------------
 
@@ -96,7 +117,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `email`, `password`, `nombre`, `rol`, `activo`, `fecha_creacion`, `ultimo_acceso`) VALUES
-(5, 'admin@vocesdelsur.com', '$2y$12$ifb2esB1LQDNjHY2FMYoHe0DHNolhV.cSwnSEp7sUExUy2aiBTEbi', 'Administrador Principal', 'admin', 1, '2026-05-13 21:59:21', '2026-05-13 22:46:11'),
+(5, 'admin@vocesdelsur.com', '$2y$12$ifb2esB1LQDNjHY2FMYoHe0DHNolhV.cSwnSEp7sUExUy2aiBTEbi', 'Administrador Principal', 'admin', 1, '2026-05-13 21:59:21', '2026-05-15 19:35:59'),
 (7, 'lector@vocesdelsur.com', '$2y$12$GRqSYs5QrpRhLfJb5fJrdeX.aVDJXrJnjdspkXy4rwTCr8YAB/OCa', 'Yonathan Gale', 'lector', 1, '2026-05-13 22:03:53', '2026-05-13 22:14:38');
 
 --
@@ -137,13 +158,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `analisis_texto`
 --
 ALTER TABLE `analisis_texto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

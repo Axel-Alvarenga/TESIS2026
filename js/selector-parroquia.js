@@ -1,4 +1,6 @@
 // selector-parroquia.js - Selector moderno de parroquias con búsqueda
+// Ignora acentos y mayúsculas/minúsculas
+
 const parroquiasList = [
     "Nuestra Señora de la Santísima Encarnación", "Inmaculada Concepción de María",
     "San Roque González de Santa Cruz", "San Pedro Apóstol - Encarnación",
@@ -28,6 +30,16 @@ const parroquiaSearch = document.getElementById('parroquiaSearch');
 const parroquiaOptions = document.getElementById('parroquiaOptions');
 const parroquiaHidden = document.getElementById('parroquiaHidden');
 const parroquiaError = document.getElementById('parroquiaError');
+
+// ==================== FUNCIÓN PARA NORMALIZAR TEXTO (SIN ACENTOS) ====================
+function normalizarTexto(texto) {
+    return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ñ/g, "n")
+        .replace(/ü/g, "u");
+}
 
 function renderizarOpciones() {
     parroquiaOptions.innerHTML = '';
@@ -75,9 +87,20 @@ function toggleParroquiaDropdown() {
     else abrirDropdown(); 
 }
 
+// ==================== BÚSQUEDA CON IGNORAR ACENTOS Y MAYÚSCULAS ====================
 function filtrarParroquias() {
-    const searchText = parroquiaSearch.value.toLowerCase().trim();
-    filteredParroquias = searchText === '' ? [...parroquiasList] : parroquiasList.filter(p => p.toLowerCase().includes(searchText));
+    const searchText = parroquiaSearch.value.trim();
+    const searchNormalizado = normalizarTexto(searchText);
+    
+    if (searchText === '') {
+        filteredParroquias = [...parroquiasList];
+    } else {
+        filteredParroquias = parroquiasList.filter(parroquia => {
+            const parroquiaNormalizada = normalizarTexto(parroquia);
+            return parroquiaNormalizada.includes(searchNormalizado);
+        });
+    }
+    
     renderizarOpciones();
 }
 
