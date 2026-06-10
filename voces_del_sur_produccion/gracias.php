@@ -1,16 +1,4 @@
 <?php
-session_start();
-
-// Verificar que el formulario haya sido enviado
-if (!isset($_SESSION['encuesta_enviada']) || $_SESSION['encuesta_enviada'] !== true) {
-    // Si no hay marca de envío, redirigir a la encuesta
-    header('Location: index.php');
-    exit;
-}
-
-// Limpiar la marca para que no se pueda recargar la página de gracias
-unset($_SESSION['encuesta_enviada']);
-
 $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 ?>
 <!DOCTYPE html>

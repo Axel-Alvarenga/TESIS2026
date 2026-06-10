@@ -3,17 +3,69 @@ session_start();
 require_once 'db_config.php';
 require_once 'rate_limit.php';
 
-// ==================== VALIDACIONES DE SEGURIDAD ====================
+$ip = $_SERVER['REMOTE_ADDR'];
 
-// 1. Rate limiting (máximo 5 envíos por IP cada 60 segundos)
-check_rate_limit($_SERVER['REMOTE_ADDR'], 5, 60);
-
-// 2. Verificar CSRF token
-if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    die('❌ Error de seguridad: token CSRF inválido. Por favor, recarga la página y vuelve a intentar.');
+// ==================== LIMPIAR REGISTROS ANTIGUOS ====================
+if (function_exists('limpiarRegistrosAntiguos')) {
+    limpiarRegistrosAntiguos();
 }
 
-// 3. Verificar método POST
+// ==================== LIMPIAR SESIÓN SI PASÓ EL TIEMPO ====================
+// Esto permite que después de 1 minuto se pueda volver a responder
+$clave_tiempo_envio = 'ultimo_envio_timestamp';
+
+if (isset($_SESSION[$clave_tiempo_envio])) {
+    $tiempo_transcurrido = time() - $_SESSION[$clave_tiempo_envio];
+    if ($tiempo_transcurrido >= 60) {
+        // Si pasó más de 1 minuto, limpiar toda la sesión de envíos
+        unset($_SESSION['envios_realizados']);
+        unset($_SESSION[$clave_tiempo_envio]);
+        unset($_SESSION['encuesta_enviada']);
+    }
+}
+
+// ==================== VERIFICAR IP BLOQUEADA ====================
+if (function_exists('ipBloqueada') && ipBloqueada($ip)) {
+    http_response_code(403);
+    die('❌ Acceso denegado. IP bloqueada.');
+}
+
+// ==================== RATE LIMITING (1 envío cada 60 segundos) ====================
+if (function_exists('check_rate_limit')) {
+    check_rate_limit($ip, 1, 60);
+}
+
+// ==================== VERIFICAR SI YA RESPONDIÓ EN ESTA SESIÓN ====================
+if (isset($_SESSION['envios_realizados']) && $_SESSION['envios_realizados'] >= 1) {
+    // Ya hay un registro de envío, verificar tiempo
+    if (isset($_SESSION[$clave_tiempo_envio])) {
+        $tiempo_transcurrido = time() - $_SESSION[$clave_tiempo_envio];
+        
+        if ($tiempo_transcurrido < 60) {
+            // Aún no ha pasado 1 minuto
+            $espera = 60 - $tiempo_transcurrido;
+            header('Location: error_rate_limit.php?espera=' . $espera);
+            exit;
+        }
+        // Si pasó 1 minuto, el código de arriba ya limpió la sesión
+        // Por lo tanto, no debería entrar aquí
+    }
+}
+
+// ==================== HONEYPOT (Anti-bot) ====================
+if (!empty($_POST['website']) || isset($_POST['confirm'])) {
+    error_log("🤖 Bot detectado - IP: $ip");
+    http_response_code(403);
+    die('❌ Acceso denegado.');
+}
+
+// ==================== VALIDAR CSRF ====================
+if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    error_log("⚠️ CSRF inválido - IP: $ip");
+    die('❌ Error de seguridad: token CSRF inválido.');
+}
+
+// ==================== VERIFICAR MÉTODO POST ====================
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
     exit;
@@ -25,14 +77,9 @@ function sanitizar($dato) {
 }
 
 // ==================== PROCESAR DATOS ====================
-
-// Convertir P9 (checkbox) a string separado por comas
 $p9_critica = isset($_POST['p9_critica']) ? implode(',', $_POST['p9_critica']) : '';
-
-// Valor del permiso de padres (para menores)
 $permiso_padres = isset($_POST['permiso_padres']) ? 'si' : 'no';
 
-// Valores de P4b (Contexto de vida)
 $p4b_situacion = sanitizar($_POST['p4b_situacion'] ?? '');
 $p4b_area = sanitizar($_POST['p4b_area'] ?? '');
 $p4b_movilidad = sanitizar($_POST['p4b_movilidad'] ?? '');
@@ -59,9 +106,8 @@ $sql = "INSERT INTO respuestas (
 )";
 
 $stmt = $pdo->prepare($sql);
-
 $stmt->execute([
-    ':ip' => $_SERVER['REMOTE_ADDR'],
+    ':ip' => $ip,
     ':p1_anio' => sanitizar($_POST['p1_anio'] ?? ''),
     ':p2_parroquia' => sanitizar($_POST['p2_parroquia'] ?? ''),
     ':p3_pertenencia' => sanitizar($_POST['p3_pertenencia'] ?? ''),
@@ -90,7 +136,9 @@ $stmt->execute([
     ':comentario_bloque9' => sanitizar($_POST['comentario_bloque9'] ?? '')
 ]);
 
-// ==================== MARCAR QUE EL FORMULARIO FUE ENVIADO ====================
+// Marcar que ya envió en esta sesión (con timestamp)
+$_SESSION['envios_realizados'] = ($_SESSION['envios_realizados'] ?? 0) + 1;
+$_SESSION[$clave_tiempo_envio] = time();
 $_SESSION['encuesta_enviada'] = true;
 
 // Redirigir a la página de agradecimiento
