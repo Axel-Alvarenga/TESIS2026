@@ -90,6 +90,9 @@ $stmt->execute([
     ':comentario_bloque9' => sanitizar($_POST['comentario_bloque9'] ?? '')
 ]);
 
+// ==================== MARCAR QUE EL FORMULARIO FUE ENVIADO ====================
+$_SESSION['encuesta_enviada'] = true;
+
 // Redirigir a la página de agradecimiento
 header('Location: gracias.php');
 exit;
