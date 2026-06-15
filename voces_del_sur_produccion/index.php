@@ -98,7 +98,7 @@
 
             <!-- FOOTER -->
             <div class="footer-note">
-                <small>Diócesis de la Santísima Encarnación · Universidad Católica Nuestra Señora de la Asunción · Pastoral de Juventud · Encarnación, Paraguay · 2026</small>
+                <small>Diócesis de la Santísima Encarnación y la Universidad Católica "Nuestra Señora de la Asunción" Campus Itapúa · Encarnación, Paraguay · 2026</small>
             </div>
         </div>
     </div>
