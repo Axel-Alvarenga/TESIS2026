@@ -1,10 +1,30 @@
 <?php
-// rate_limit.php - Control de tasa avanzado (Anti-DDoS)
+// rate_limit.php - Control de tasa por sesión/navegador
+// Permite que múltiples dispositivos en el mismo WiFi respondan sin bloquearse
 
-// ==================== LÍMITE PRINCIPAL (1 envío cada 60 segundos) ====================
-function check_rate_limit(string $ip, int $limite = 1, int $tiempo = 60): bool {
+// ==================== GENERAR ID ÚNICO POR NAVEGADOR ====================
+function getVisitorId() {
+    // Iniciar sesión si no está activa
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Generar ID único para este navegador/dispositivo si no existe
+    if (!isset($_SESSION['visitor_id'])) {
+        $_SESSION['visitor_id'] = bin2hex(random_bytes(16));
+    }
+    
+    return $_SESSION['visitor_id'];
+}
+
+// ==================== CHECK RATE LIMIT POR VISITANTE ====================
+// La función mantiene la misma firma para no romper procesar.php
+function check_rate_limit(string $ip, int $limite = 1, int $tiempo = 60): void {
     $archivo = __DIR__ . '/datos/rate_limit.json';
     $ahora = time();
+    
+    // Usamos visitor_id en lugar de IP como identificador principal
+    $visitorId = getVisitorId();
     
     // Cargar registros existentes
     $datos = [];
@@ -20,11 +40,11 @@ function check_rate_limit(string $ip, int $limite = 1, int $tiempo = 60): bool {
         }
     }
     
-    // Contar cuántos intentos hizo esta IP en el tiempo especificado
+    // Contar cuántos intentos hizo este visitante en el tiempo especificado
     $contador = 0;
     $ultimo_envio = null;
     foreach ($datos as $item) {
-        if ($item['ip'] === $ip && $item['tiempo'] > $ahora - $tiempo) {
+        if ($item['visitor_id'] === $visitorId && $item['tiempo'] > $ahora - $tiempo) {
             $contador++;
             if ($item['tiempo'] > $ultimo_envio) {
                 $ultimo_envio = $item['tiempo'];
@@ -37,61 +57,23 @@ function check_rate_limit(string $ip, int $limite = 1, int $tiempo = 60): bool {
         $tiempo_restante = $tiempo - ($ahora - $ultimo_envio);
         if ($tiempo_restante < 0) $tiempo_restante = 0;
         
-        // Si el tiempo restante es 0, permitir nuevo envío (limpiar registro antiguo)
-        if ($tiempo_restante <= 0) {
-            // Limpiar registros antiguos de esta IP
-            foreach ($datos as $key => $item) {
-                if ($item['ip'] === $ip) {
-                    unset($datos[$key]);
-                }
-            }
-            file_put_contents($archivo, json_encode(array_values($datos)));
-            return true; // Permitir envío
-        }
-        
-        // Registrar intento de ataque en log
-        error_log("⚠️ Rate limit excedido para IP: $ip - Debe esperar {$tiempo_restante} segundos");
+        // Registrar intento bloqueado en log
+        error_log("⏳ Rate limit excedido para visitor: $visitorId - IP: $ip - Debe esperar {$tiempo_restante} segundos");
         
         // Redirigir a la página de error bonita
         header('Location: error_rate_limit.php?espera=' . $tiempo_restante);
         exit;
     }
     
-    // Registrar este intento
+    // Registrar este intento (guardamos visitor_id + ip para referencia)
     $datos[] = [
+        'visitor_id' => $visitorId,
         'ip' => $ip,
         'tiempo' => $ahora,
         'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? ''
     ];
     
     file_put_contents($archivo, json_encode(array_values($datos)));
-    return true;
-}
-
-// ==================== VERIFICAR TIEMPO MÍNIMO POR SESIÓN ====================
-function check_min_time(string $ip, int $min_segundos = 60): bool {
-    session_start();
-    
-    $clave_sesion = 'ultimo_envio_' . md5($ip);
-    $clave_tiempo = 'tiempo_restante_' . md5($ip);
-    
-    if (isset($_SESSION[$clave_sesion])) {
-        $tiempo_transcurrido = time() - $_SESSION[$clave_sesion];
-        
-        // Si ya pasó el tiempo mínimo, limpiar y permitir
-        if ($tiempo_transcurrido >= $min_segundos) {
-            unset($_SESSION[$clave_sesion]);
-            unset($_SESSION[$clave_tiempo]);
-            return true;
-        }
-        
-        $espera = $min_segundos - $tiempo_transcurrido;
-        header('Location: error_rate_limit.php?espera=' . $espera);
-        exit;
-    }
-    
-    $_SESSION[$clave_sesion] = time();
-    return true;
 }
 
 // ==================== VERIFICAR IP BLOQUEADA ====================
