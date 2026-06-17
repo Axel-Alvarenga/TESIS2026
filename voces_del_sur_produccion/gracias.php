@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// ==================== VERIFICAR ACCESO ====================
+if (!isset($_SESSION['acceso_verificado']) || $_SESSION['acceso_verificado'] !== true) {
+    header('Location: index.php?error=acceso_no_autorizado');
+    exit;
+}
+
 $es_repetida = isset($_GET['repetida']) && $_GET['repetida'] == '1';
 ?>
 <!DOCTYPE html>
