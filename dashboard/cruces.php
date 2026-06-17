@@ -13,13 +13,13 @@ $fecha_hasta = $_GET['fecha_hasta'] ?? date('Y-m-d');
 require_once 'header.php';
 ?>
 
-<!-- ==================== CONTENEDOR PRINCIPAL CON SCROLL FORZADO ==================== -->
-<div style="max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 5px; box-sizing: border-box;">
-
 <link rel="stylesheet" href="css/cruces.css">
 
+<!-- ==================== CONTENEDOR PRINCIPAL CON SCROLL ==================== -->
+<div style="max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; padding: 0 !important; margin: 0 !important;">
+
 <!-- CRUCES RÁPIDOS PASTORALES -->
-<div class="cruces-rapidos" style="max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+<div class="cruces-rapidos" style="max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;">
     <div class="cruce-card" onclick="crucePredefinido('esperanza_vs_edad')">
         <i class="fas fa-chart-line"></i> Esperanza vs Edad
     </div>
@@ -41,7 +41,7 @@ require_once 'header.php';
 </div>
 
 <!-- FILTROS DE FECHA -->
-<div class="filtros-card" style="max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+<div class="filtros-card" style="max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;">
     <h3><i class="fas fa-calendar"></i> Filtros de fecha</h3>
     <div class="filtros-grid">
         <div class="filtro-group">
@@ -59,7 +59,7 @@ require_once 'header.php';
 </div>
 
 <!-- SELECTORES -->
-<div class="selector-panel" style="max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+<div class="selector-panel" style="max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;">
     <div class="grid-2cols">
         <div class="col">
             <label><i class="fas fa-arrow-down"></i> Variables en FILAS</label>
@@ -71,7 +71,7 @@ require_once 'header.php';
         </div>
     </div>
 
-    <div class="filtros-extra" style="max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+    <div class="filtros-extra" style="max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;">
         <div class="filtros-header">
             <h4><i class="fas fa-filter"></i> Filtros adicionales (opcional)</h4>
             <button class="btn-filtro" onclick="mostrarModalFiltros()">+ Agregar filtro</button>

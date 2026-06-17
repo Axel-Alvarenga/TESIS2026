@@ -341,7 +341,7 @@ function generarInsights(datos) {
     `;
 }
 
-// ==================== GENERAR TABLAS PRINCIPAL (VERSIÓN CON WRAPPER FORZADO) ====================
+// ==================== GENERAR TABLAS PRINCIPAL (VERSIÓN CORREGIDA) ====================
 async function generarTablas() {
     await cargarDatos();
     if (!datosOriginales.length) {

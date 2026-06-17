@@ -11,9 +11,9 @@
     padding: 20px;
     margin-bottom: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .tabla-container {
@@ -21,22 +21,22 @@
     border-radius: 24px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .tabla-individual {
     margin-bottom: 32px;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .table-responsive {
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 /* ==================== GRID DE SELECTORES ==================== */
@@ -112,9 +112,9 @@
     padding: 12px;
     background: #f8fafc;
     border-radius: 16px;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .cruce-card {
@@ -179,9 +179,9 @@
     padding: 16px;
     margin-bottom: 20px;
     border-left: 4px solid #667eea;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .insights-card h4 {
@@ -210,9 +210,9 @@
     padding: 12px;
     background: #f8fafc;
     border-radius: 12px;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .filtros-header {
@@ -292,6 +292,7 @@
     cursor: pointer;
     font-size: 12px;
     margin-left: 8px;
+    white-space: nowrap;
 }
 
 .boton-copiar {
@@ -580,18 +581,6 @@
     width: auto !important;
     display: table !important;
     table-layout: auto !important;
-}
-
-/* Para móviles */
-@media (max-width: 768px) {
-    #tablasResultado .tabla-dinamica {
-        font-size: 10px !important;
-    }
-    
-    #tablasResultado th,
-    #tablasResultado td {
-        padding: 4px 6px !important;
-    }
 }
 
 /* Scrollbar personalizada */

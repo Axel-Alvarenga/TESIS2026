@@ -1,7 +1,7 @@
 /* ==================== DASHBOARD MODERNO Y RESPONSIVE ==================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ==================== RESET FUERTE ==================== */
+/* ==================== RESET FUERTE - EVITA DESBORDES ==================== */
 * {
     margin: 0;
     padding: 0;
@@ -32,6 +32,7 @@ body {
 /* ==================== SIDEBAR ==================== */
 .sidebar {
     width: 280px;
+    flex-shrink: 0;
     background: linear-gradient(180deg, #0a0f2a 0%, #05091f 100%);
     color: white;
     display: flex;
@@ -41,7 +42,6 @@ body {
     overflow-y: auto;
     z-index: 100;
     transition: all 0.3s ease;
-    flex-shrink: 0;
 }
 
 .sidebar-header {
@@ -87,6 +87,7 @@ body {
 .nav-item i {
     width: 22px;
     font-size: 1.1em;
+    flex-shrink: 0;
 }
 
 .nav-item:hover {
@@ -161,83 +162,48 @@ body {
     }
 }
 
-/* ==================== MAIN CONTENT - FUERZA SCROLL ==================== */
+/* ==================== MAIN CONTENT ==================== */
 .main-content {
     flex: 1;
     margin-left: 280px;
     padding: 24px 32px;
     transition: margin-left 0.3s ease;
-    width: 100%;
-    max-width: 100% !important;
+    width: calc(100% - 280px);
+    max-width: calc(100% - 280px);
     overflow-x: auto !important;
-    overflow-y: visible !important;
     -webkit-overflow-scrolling: touch !important;
-    box-sizing: border-box !important;
-    min-width: 0;
+    min-height: 100vh;
 }
 
-/* TODOS los hijos directos del main-content deben tener scroll */
+/* FORZAR QUE TODO EL CONTENIDO DENTRO DE MAIN-CONTENT NO SE DESBORDE */
 .main-content > * {
     max-width: 100% !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     box-sizing: border-box !important;
-    flex-shrink: 0;
-    min-width: 0;
 }
 
-/* Forzar que el contenedor del contenido de cruces.php no se desborde */
-.main-content .tabla-container,
-.main-content .selector-panel,
-.main-content .filtros-card,
-.main-content .cruces-rapidos,
-.main-content .filtros-extra,
-.main-content .insights-card,
-.main-content .resumen-card,
-.main-content #tablasResultado,
-.main-content #tablasContainer {
+/* CONTENEDOR PRINCIPAL DE CRUCES */
+.main-content .wrapper-principal {
     max-width: 100% !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    box-sizing: border-box !important;
-}
-
-/* Forzar que las tablas no rompan el layout */
-.main-content .tabla-dinamica {
-    max-width: 100% !important;
-    min-width: 600px !important;
-    display: table !important;
-}
-
-/* Contenedor de resultados */
-#tablasResultado {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 @media (max-width: 768px) {
     .main-content {
         margin-left: 0;
-        padding: 70px 10px 20px 10px !important;
-        overflow-x: auto !important;
-    }
-    
-    .main-content .tabla-dinamica {
-        min-width: 500px !important;
-        font-size: 11px !important;
+        padding: 70px 10px 20px 10px;
+        width: 100%;
+        max-width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .main-content {
-        padding: 60px 5px 15px 5px !important;
-        overflow-x: auto !important;
-    }
-    
-    .main-content .tabla-dinamica {
-        min-width: 400px !important;
-        font-size: 10px !important;
+        padding: 60px 5px 15px 5px;
     }
 }
 
@@ -267,6 +233,7 @@ body {
     color: #4a5568;
     font-weight: 500;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .user-info i {
@@ -309,6 +276,7 @@ body {
     justify-content: center;
     font-size: 1.8em;
     color: #667eea;
+    flex-shrink: 0;
 }
 
 .stat-info h3 {
@@ -494,6 +462,7 @@ body {
     align-items: center;
     gap: 8px;
     transition: transform 0.2s;
+    white-space: nowrap;
 }
 
 .btn-filtrar:hover {
@@ -513,6 +482,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
 .btn-limpiar:hover {
@@ -532,6 +502,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
 .btn-excel:hover {
@@ -551,6 +522,7 @@ body {
     font-weight: 500;
     text-decoration: none;
     transition: all 0.2s;
+    white-space: nowrap;
 }
 
 .btn-crear {
@@ -649,6 +621,7 @@ body {
     font-size: 11px;
     font-weight: 600;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .badge-lector {
@@ -659,6 +632,7 @@ body {
     font-size: 11px;
     font-weight: 600;
     display: inline-block;
+    white-space: nowrap;
 }
 
 /* ==================== ESPERANZA ==================== */
@@ -775,60 +749,4 @@ body {
 
 .fade-in {
     animation: fadeIn 0.3s ease;
-}
-
-/* ==================== SCROLLBARS PERSONALIZADAS ==================== */
-.main-content::-webkit-scrollbar,
-.table-container::-webkit-scrollbar,
-.tabla-container::-webkit-scrollbar,
-.tabla-individual::-webkit-scrollbar,
-.table-responsive::-webkit-scrollbar,
-#tablasResultado::-webkit-scrollbar,
-.filtros-card::-webkit-scrollbar,
-.selector-panel::-webkit-scrollbar,
-.cruces-rapidos::-webkit-scrollbar,
-.filtros-extra::-webkit-scrollbar {
-    height: 8px !important;
-    width: 8px !important;
-}
-
-.main-content::-webkit-scrollbar-track,
-.table-container::-webkit-scrollbar-track,
-.tabla-container::-webkit-scrollbar-track,
-.tabla-individual::-webkit-scrollbar-track,
-.table-responsive::-webkit-scrollbar-track,
-#tablasResultado::-webkit-scrollbar-track,
-.filtros-card::-webkit-scrollbar-track,
-.selector-panel::-webkit-scrollbar-track,
-.cruces-rapidos::-webkit-scrollbar-track,
-.filtros-extra::-webkit-scrollbar-track {
-    background: #f1f1f1 !important;
-    border-radius: 10px !important;
-}
-
-.main-content::-webkit-scrollbar-thumb,
-.table-container::-webkit-scrollbar-thumb,
-.tabla-container::-webkit-scrollbar-thumb,
-.tabla-individual::-webkit-scrollbar-thumb,
-.table-responsive::-webkit-scrollbar-thumb,
-#tablasResultado::-webkit-scrollbar-thumb,
-.filtros-card::-webkit-scrollbar-thumb,
-.selector-panel::-webkit-scrollbar-thumb,
-.cruces-rapidos::-webkit-scrollbar-thumb,
-.filtros-extra::-webkit-scrollbar-thumb {
-    background: #c1c1c1 !important;
-    border-radius: 10px !important;
-}
-
-.main-content::-webkit-scrollbar-thumb:hover,
-.table-container::-webkit-scrollbar-thumb:hover,
-.tabla-container::-webkit-scrollbar-thumb:hover,
-.tabla-individual::-webkit-scrollbar-thumb:hover,
-.table-responsive::-webkit-scrollbar-thumb:hover,
-#tablasResultado::-webkit-scrollbar-thumb:hover,
-.filtros-card::-webkit-scrollbar-thumb:hover,
-.selector-panel::-webkit-scrollbar-thumb:hover,
-.cruces-rapidos::-webkit-scrollbar-thumb:hover,
-.filtros-extra::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8 !important;
 }

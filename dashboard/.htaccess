@@ -1,14 +1,56 @@
-# Proteger el directorio dashboard
+# ==================== PROTECCIÓN DEL DASHBOARD ====================
+
+# 1. Evitar listado de directorios
 Options -Indexes
 
-# Redirigir al login si no está autenticado
+# 2. Activar el motor de reescritura
 RewriteEngine On
+
+# 3. Redirigir al login si no está autenticado (solo para archivos PHP)
+RewriteCond %{REQUEST_URI} !/dashboard/login\.php$
+RewriteCond %{REQUEST_URI} !/dashboard/logout\.php$
+RewriteCond %{REQUEST_URI} !/dashboard/css/.*$
+RewriteCond %{REQUEST_URI} !/dashboard/js/.*$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L]
 
-# Deshabilitar acceso a archivos sensibles
-<FilesMatch "\.(json|log)$">
+# 4. Proteger archivos de configuración y datos (NO bloquear ajax)
+<FilesMatch "\.(json|log|txt|sql|bak|zip)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
+
+# 5. Proteger archivos de configuración
+<FilesMatch "^(\.htaccess|\.htpasswd|\.env|\.git|composer\.json|composer\.lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 6. Proteger db_config.php y config.php (permitir inclusiones desde PHP)
+<FilesMatch "^(db_config\.php|config\.php|rate_limit\.php|functions\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 7. PERMITIR el acceso a ajax_datos_completos.php SOLO desde el mismo servidor
+#    (esto permite que cruces.js lo llame internamente)
+<Files "ajax_datos_completos.php">
+    Order Deny,Allow
+    Deny from all
+    # Permitir desde el mismo servidor (localhost)
+    Allow from 127.0.0.1
+    Allow from ::1
+    # Permitir desde el dominio (para peticiones AJAX)
+    SetEnvIf Host "centroconocimiento\.com" allow
+    Allow from env=allow
+</Files>
+
+# 8. Bloquear archivos que contengan "config" o "db" pero NO ajax
+<FilesMatch "(config|database|credentials|password)\.(php|ini|json|yml)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 9. Deshabilitar el seguimiento de symlinks
+Options -FollowSymLinks

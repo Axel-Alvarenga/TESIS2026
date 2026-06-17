@@ -11,7 +11,7 @@ $active = 'exportar';
 $fecha_desde = $_GET['fecha_desde'] ?? date('Y-m-d', strtotime('-30 days'));
 $fecha_hasta = $_GET['fecha_hasta'] ?? date('Y-m-d');
 $parroquia_filtro = $_GET['parroquia'] ?? '';
-$formato = $_GET['formato'] ?? 'excel';
+$exportar = isset($_GET['exportar']) && $_GET['exportar'] == '1';
 
 // Construir WHERE dinámico
 $where = [];
@@ -28,53 +28,59 @@ if ($parroquia_filtro) {
 }
 $where_sql = !empty($where) ? "WHERE " . implode(" AND ", $where) : "";
 
-// Obtener datos
-$sql = "SELECT 
-            id, fecha, ip, 
-            p1_anio, 
-            CASE 
-                WHEN p1_anio >= 2009 THEN '15-17 años'
-                WHEN p1_anio BETWEEN 2001 AND 2008 THEN '18-25 años'
-                WHEN p1_anio BETWEEN 1991 AND 2000 THEN '26-35 años'
-                WHEN p1_anio = 'antes_1991' THEN 'Antes de 1991'
-                WHEN p1_anio = 'despues_2011' THEN 'Después de 2011'
-                ELSE 'No especificado'
-            END as grupo_edad,
-            p2_parroquia,
-            p3_pertenencia, p4_atraccion, p5_espiritualidad, p6_familia, 
-            p7_proyecto, p8_vocacion, p9_critica, p10_esperanza,
-            campo_libre, permiso_padres,
-            comentario_bloque2, comentario_bloque3, comentario_bloque4,
-            comentario_bloque5, comentario_bloque6, comentario_bloque7, comentario_bloque8
-        FROM respuestas 
-        $where_sql 
-        ORDER BY id DESC";
-
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$respuestas = $stmt->fetchAll();
-
-// Obtener lista de parroquias para el filtro
-$parroquias = $pdo->query("SELECT DISTINCT p2_parroquia FROM respuestas WHERE p2_parroquia IS NOT NULL AND p2_parroquia != '' ORDER BY p2_parroquia")->fetchAll();
-
-require_once 'header.php';
-
-// Etiquetas para valores
-$opcionesP3 = ['A' => 'Grupo de amigos', 'B' => 'Eucaristía/liturgia', 'C' => 'Ayudar a alguien', 'D' => 'Redes sociales', 'E' => 'Naturaleza', 'F' => 'Deporte', 'G' => 'Silencio/reflexión', 'H' => 'No recuerdo'];
-$opcionesP4 = ['A' => 'Vínculos de confianza', 'B' => 'Silencio', 'C' => 'Liderazgo', 'D' => 'Habilidades técnicas', 'E' => 'Emprendimiento', 'F' => 'Sin juicios', 'G' => 'Cambio real'];
-$opcionesP5 = ['A' => 'Fe como referencia', 'B' => 'A veces la fe', 'C' => 'Otros ámbitos', 'D' => 'No me pregunto'];
-$opcionesP6 = ['A' => 'Apoyo y refugio', 'B' => 'Tensiones', 'C' => 'No me entienden', 'D' => 'Motivación', 'E' => 'Sin referencia'];
-$opcionesP7 = ['A' => 'Estabilidad económica', 'B' => 'Familia', 'C' => 'Impacto social', 'D' => 'Paz interior', 'E' => 'En proceso'];
-$opcionesP8 = ['A' => 'Misión clara', 'B' => 'Miedo a equivocarme', 'C' => 'Presión social', 'D' => 'Plan de Dios', 'E' => 'No lo pienso'];
-
-// Si se solicita exportar directamente
-if ($formato === 'csv' && isset($_GET['exportar'])) {
+// ==================== SI SE SOLICITA EXPORTAR ====================
+if ($exportar) {
+    // Limpiar buffer de salida
+    ob_clean();
+    
+    // Configurar cabeceras para descarga forzada
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="voces_del_sur_' . date('Y-m-d') . '.csv"');
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    
+    // Obtener datos
+    $sql = "SELECT 
+                id, fecha, ip, 
+                p1_anio, 
+                CASE 
+                    WHEN p1_anio >= 2009 THEN '15-17 años'
+                    WHEN p1_anio BETWEEN 2001 AND 2008 THEN '18-25 años'
+                    WHEN p1_anio BETWEEN 1991 AND 2000 THEN '26-35 años'
+                    WHEN p1_anio = 'antes_1991' THEN 'Antes de 1991'
+                    WHEN p1_anio = 'despues_2011' THEN 'Después de 2011'
+                    ELSE 'No especificado'
+                END as grupo_edad,
+                p2_parroquia,
+                p3_pertenencia, p4_atraccion, p5_espiritualidad, p6_familia, 
+                p7_proyecto, p8_vocacion, p9_critica, p10_esperanza,
+                campo_libre, permiso_padres,
+                comentario_bloque2, comentario_bloque3, comentario_bloque4,
+                comentario_bloque5, comentario_bloque6, comentario_bloque7, comentario_bloque8
+            FROM respuestas 
+            $where_sql 
+            ORDER BY id DESC";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $respuestas = $stmt->fetchAll();
+    
+    // Etiquetas
+    $opcionesP3 = ['A' => 'Grupo de amigos', 'B' => 'Eucaristía/liturgia', 'C' => 'Ayudar a alguien', 'D' => 'Redes sociales', 'E' => 'Naturaleza', 'F' => 'Deporte', 'G' => 'Silencio/reflexión', 'H' => 'No recuerdo'];
+    $opcionesP4 = ['A' => 'Vínculos de confianza', 'B' => 'Silencio', 'C' => 'Liderazgo', 'D' => 'Habilidades técnicas', 'E' => 'Emprendimiento', 'F' => 'Sin juicios', 'G' => 'Cambio real'];
+    $opcionesP5 = ['A' => 'Fe como referencia', 'B' => 'A veces la fe', 'C' => 'Otros ámbitos', 'D' => 'No me pregunto'];
+    $opcionesP6 = ['A' => 'Apoyo y refugio', 'B' => 'Tensiones', 'C' => 'No me entienden', 'D' => 'Motivación', 'E' => 'Sin referencia'];
+    $opcionesP7 = ['A' => 'Estabilidad económica', 'B' => 'Familia', 'C' => 'Impacto social', 'D' => 'Paz interior', 'E' => 'En proceso'];
+    $opcionesP8 = ['A' => 'Misión clara', 'B' => 'Miedo a equivocarme', 'C' => 'Presión social', 'D' => 'Plan de Dios', 'E' => 'No lo pienso'];
     
     $output = fopen('php://output', 'w');
+    fwrite($output, "\xEF\xBB\xBF"); // BOM para Excel
+    
+    // Cabeceras
     fputcsv($output, ['ID', 'Fecha', 'IP', 'Año', 'Grupo edad', 'Parroquia', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'Comentario general', 'Permiso padres', 'Comentario B2', 'Comentario B3', 'Comentario B4', 'Comentario B5', 'Comentario B6', 'Comentario B7', 'Comentario B8']);
     
+    // Datos
     foreach ($respuestas as $r) {
         fputcsv($output, [
             $r['id'],
@@ -102,9 +108,40 @@ if ($formato === 'csv' && isset($_GET['exportar'])) {
             $r['comentario_bloque8']
         ]);
     }
+    
     fclose($output);
     exit;
 }
+
+// ==================== SI NO SE EXPORTA, MOSTRAR LA PÁGINA ====================
+
+// Obtener datos para vista previa
+$sql = "SELECT 
+            id, fecha, ip, 
+            p1_anio, 
+            CASE 
+                WHEN p1_anio >= 2009 THEN '15-17 años'
+                WHEN p1_anio BETWEEN 2001 AND 2008 THEN '18-25 años'
+                WHEN p1_anio BETWEEN 1991 AND 2000 THEN '26-35 años'
+                WHEN p1_anio = 'antes_1991' THEN 'Antes de 1991'
+                WHEN p1_anio = 'despues_2011' THEN 'Después de 2011'
+                ELSE 'No especificado'
+            END as grupo_edad,
+            p2_parroquia,
+            p10_esperanza,
+            campo_libre
+        FROM respuestas 
+        $where_sql 
+        ORDER BY id DESC";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$respuestas = $stmt->fetchAll();
+
+// Obtener lista de parroquias para el filtro
+$parroquias = $pdo->query("SELECT DISTINCT p2_parroquia FROM respuestas WHERE p2_parroquia IS NOT NULL AND p2_parroquia != '' ORDER BY p2_parroquia")->fetchAll();
+
+require_once 'header.php';
 ?>
 
 <!-- FILTROS -->
@@ -133,7 +170,7 @@ if ($formato === 'csv' && isset($_GET['exportar'])) {
             </div>
             <div class="filtro-group botones-group">
                 <button type="submit" class="btn-filtrar"><i class="fas fa-search"></i> Filtrar</button>
-                <button type="submit" name="formato" value="csv" class="btn-excel"><i class="fas fa-file-excel"></i> Exportar CSV</button>
+                <button type="submit" name="exportar" value="1" class="btn-excel"><i class="fas fa-file-excel"></i> Exportar CSV</button>
             </div>
         </div>
     </form>
@@ -173,10 +210,21 @@ if ($formato === 'csv' && isset($_GET['exportar'])) {
     </div>
 </div>
 
-<script src="js/dashboard.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Exportar - Listo, <?= count($respuestas) ?> registros disponibles');
+        
+        // Forzar que el formulario se envíe correctamente
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const exportBtn = this.querySelector('button[name="exportar"]');
+                if (exportBtn && exportBtn === document.activeElement) {
+                    // Si se hizo clic en Exportar CSV, asegurar que el parámetro se envía
+                    console.log('Exportando CSV...');
+                }
+            });
+        }
     });
 </script>
 

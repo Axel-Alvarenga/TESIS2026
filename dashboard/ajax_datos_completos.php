@@ -1,24 +1,28 @@
 <?php
 /**
  * ajax_datos_completos.php
- * Endpoint que devuelve TODOS los datos necesarios para la tabla dinámica multivariable
- * Incluye todas las variables que pueden ser usadas en filas, columnas y filtros
+ * Endpoint para la tabla dinámica - PROTEGIDO
  */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
+// ==================== VERIFICAR AUTENTICACIÓN ====================
+session_start();
+
+// Verificar que el usuario haya iniciado sesión
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    http_response_code(401);
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'No autorizado. Inicia sesión para acceder a estos datos.']);
+    exit;
+}
+
+// ==================== RESTO DEL CÓDIGO ====================
 require_once '../db_config.php';
 
 // ==================== PARÁMETROS ====================
 $fecha_desde = $_GET['fecha_desde'] ?? date('Y-m-d', strtotime('-30 days'));
 $fecha_hasta = $_GET['fecha_hasta'] ?? date('Y-m-d');
 
-// Variables adicionales para filtros futuros (opcional)
-$filtro_extra = $_GET['filtro'] ?? '';
-
 // ==================== CONSTRUCCIÓN DE LA CONSULTA ====================
-// Seleccionamos TODAS las variables que pueden ser usadas en cruces
 $campos = [
     'p3_pertenencia',
     'p4_atraccion', 
@@ -50,13 +54,11 @@ $stmt->execute($params);
 $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // ==================== POST-PROCESAMIENTO ====================
-// Convertir valores nulos a null para JSON
 foreach ($datos as &$fila) {
     foreach ($fila as $key => $valor) {
         if ($valor === '') {
             $fila[$key] = null;
         }
-        // Convertir p10_esperanza a entero
         if ($key === 'p10_esperanza' && $valor !== null) {
             $fila[$key] = intval($valor);
         }
