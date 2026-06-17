@@ -1,0 +1,14 @@
+# Proteger el directorio dashboard
+Options -Indexes
+
+# Redirigir al login si no está autenticado
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+# Deshabilitar acceso a archivos sensibles
+<FilesMatch "\.(json|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

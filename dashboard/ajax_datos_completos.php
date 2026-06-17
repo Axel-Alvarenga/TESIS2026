@@ -4,6 +4,9 @@
  * Endpoint que devuelve TODOS los datos necesarios para la tabla dinámica multivariable
  * Incluye todas las variables que pueden ser usadas en filas, columnas y filtros
  */
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once '../db_config.php';
 

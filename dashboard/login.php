@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="../img/LOGOUCCAMPUSITAPÚA.png" alt="UC">
                 <img src="../img/logodio.png" alt="Diócesis">
             </div>
-            <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+            <h1><i class="fas fa-chart-line"></i> Panel de administración</h1>
             <p>Voces del Sur</p>
             
             <?php if ($error): ?>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
             </form>
             <div class="footer-note">
-                <small>Panel de administración - Voces del Sur</small>
+                <small>Voces del Sur</small>
             </div>
         </div>
     </div>

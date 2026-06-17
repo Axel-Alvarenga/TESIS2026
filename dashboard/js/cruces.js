@@ -3,6 +3,7 @@
  * - Cruces predefinidos pastorales
  * - Análisis de sentimiento
  * - Insights automáticos
+ * - Scroll horizontal forzado en contenedores
  */
 
 // ==================== VARIABLES GLOBALES ====================
@@ -166,11 +167,20 @@ async function cargarDatos() {
     const fd = document.getElementById('fecha_desde').value;
     const fh = document.getElementById('fecha_hasta').value;
     try {
-        const res = await fetch(`../ajax_datos_completos.php?fecha_desde=${fd}&fecha_hasta=${fh}`);
+        const res = await fetch(`ajax_datos_completos.php?fecha_desde=${fd}&fecha_hasta=${fh}`);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
         datosOriginales = await res.json();
         return datosOriginales;
     } catch (error) {
         console.error('Error al cargar datos:', error);
+        document.getElementById('tablasResultado').innerHTML = `
+            <div class="mensaje-error">
+                ❌ Error al cargar datos: ${error.message}
+                <br><small>Verifica que el archivo ajax_datos_completos.php exista en la carpeta dashboard/</small>
+            </div>
+        `;
         return [];
     }
 }
@@ -331,7 +341,7 @@ function generarInsights(datos) {
     `;
 }
 
-// ==================== GENERAR TABLAS PRINCIPAL ====================
+// ==================== GENERAR TABLAS PRINCIPAL (VERSIÓN CON WRAPPER FORZADO) ====================
 async function generarTablas() {
     await cargarDatos();
     if (!datosOriginales.length) {
@@ -365,8 +375,45 @@ async function generarTablas() {
     // Agregar insights
     tablasHtml = generarInsights(datosFiltrados) + tablasHtml;
     
-    document.getElementById('tablasResultado').innerHTML = tablasHtml;
+    // ENVOLVER EL RESULTADO EN UN CONTENEDOR CON SCROLL FORZADO
+    document.getElementById('tablasResultado').innerHTML = `
+        <div style="max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; padding: 5px 0; box-sizing: border-box !important;">
+            ${tablasHtml}
+        </div>
+    `;
     document.getElementById('resumenTabla').innerHTML = generarResumenHtml(datosFiltrados, variablesFila, variablesColumna);
+    
+    // ✅ FORZAR SCROLL EN TODOS LOS CONTENEDORES ANIDADOS
+    setTimeout(() => {
+        // Contenedor principal de resultados
+        const resultado = document.getElementById('tablasResultado');
+        if (resultado) {
+            resultado.style.maxWidth = '100%';
+            resultado.style.overflowX = 'auto';
+            resultado.style.webkitOverflowScrolling = 'touch';
+            resultado.style.boxSizing = 'border-box';
+        }
+        
+        // Todos los contenedores de tablas
+        const contenedores = document.querySelectorAll('#tablasResultado .tabla-container, #tablasResultado .table-responsive, #tablasResultado .tabla-individual');
+        contenedores.forEach(cont => {
+            cont.style.maxWidth = '100%';
+            cont.style.overflowX = 'auto';
+            cont.style.webkitOverflowScrolling = 'touch';
+            cont.style.boxSizing = 'border-box';
+        });
+        
+        // Todas las tablas
+        const tablas = document.querySelectorAll('#tablasResultado .tabla-dinamica');
+        tablas.forEach(tabla => {
+            tabla.style.maxWidth = '100%';
+            tabla.style.minWidth = 'auto';
+            tabla.style.width = 'auto';
+            tabla.style.display = 'table';
+        });
+        
+        console.log('✅ Scroll horizontal forzado en todos los contenedores');
+    }, 150);
 }
 
 function generarResumenHtml(datosFiltrados, variablesFila, variablesColumna) {
@@ -374,7 +421,7 @@ function generarResumenHtml(datosFiltrados, variablesFila, variablesColumna) {
     const fechaHasta = document.getElementById('fecha_hasta').value;
     
     return `
-        <div class="resumen-card" style="background:#f8fafc; padding:15px; border-radius:16px; margin-top:20px;">
+        <div class="resumen-card" style="background:#f8fafc; padding:15px; border-radius:16px; margin-top:20px; max-width:100%; overflow-x:auto;">
             <strong>📋 Resumen:</strong>
             <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:10px;">
                 <span>📄 ${datosFiltrados.length} registros</span>
@@ -472,10 +519,31 @@ function obtenerEtiqueta(variable, valor) {
     return valor;
 }
 
+// ==================== MEJORA PARA MÓVILES ====================
+function mejorarScrollEnMovil() {
+    const selects = document.querySelectorAll('.multi-select');
+    selects.forEach(select => {
+        select.addEventListener('touchstart', function(e) {
+            this.style.overflowY = 'auto';
+        }, { passive: true });
+    });
+    
+    const cruceCards = document.querySelectorAll('.cruce-card');
+    cruceCards.forEach(card => {
+        card.addEventListener('click', function() {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+    });
+}
+
 // ==================== INICIALIZACIÓN ====================
 document.addEventListener('DOMContentLoaded', function() {
     cargarSelectores();
     cargarDatos();
+    mejorarScrollEnMovil();
     
     // Selección por defecto
     setTimeout(() => {
