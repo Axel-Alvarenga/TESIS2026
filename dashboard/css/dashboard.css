@@ -1,22 +1,32 @@
 /* ==================== DASHBOARD MODERNO Y RESPONSIVE ==================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* ==================== RESET FUERTE ==================== */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+}
+
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
     background: #f5f7fb;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 /* ==================== LAYOUT PRINCIPAL ==================== */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
 }
 
 /* ==================== SIDEBAR ==================== */
@@ -31,6 +41,7 @@ body {
     overflow-y: auto;
     z-index: 100;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .sidebar-header {
@@ -134,7 +145,6 @@ body {
         font-size: 1.3em;
     }
     
-    /* Botón para abrir/cerrar sidebar */
     .menu-toggle {
         display: block;
         position: fixed;
@@ -151,19 +161,83 @@ body {
     }
 }
 
-/* ==================== MAIN CONTENT ==================== */
+/* ==================== MAIN CONTENT - FUERZA SCROLL ==================== */
 .main-content {
     flex: 1;
     margin-left: 280px;
     padding: 24px 32px;
     transition: margin-left 0.3s ease;
     width: 100%;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+    min-width: 0;
+}
+
+/* TODOS los hijos directos del main-content deben tener scroll */
+.main-content > * {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+/* Forzar que el contenedor del contenido de cruces.php no se desborde */
+.main-content .tabla-container,
+.main-content .selector-panel,
+.main-content .filtros-card,
+.main-content .cruces-rapidos,
+.main-content .filtros-extra,
+.main-content .insights-card,
+.main-content .resumen-card,
+.main-content #tablasResultado,
+.main-content #tablasContainer {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+}
+
+/* Forzar que las tablas no rompan el layout */
+.main-content .tabla-dinamica {
+    max-width: 100% !important;
+    min-width: 600px !important;
+    display: table !important;
+}
+
+/* Contenedor de resultados */
+#tablasResultado {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 @media (max-width: 768px) {
     .main-content {
         margin-left: 0;
-        padding: 70px 15px 20px 15px;
+        padding: 70px 10px 20px 10px !important;
+        overflow-x: auto !important;
+    }
+    
+    .main-content .tabla-dinamica {
+        min-width: 500px !important;
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 60px 5px 15px 5px !important;
+        overflow-x: auto !important;
+    }
+    
+    .main-content .tabla-dinamica {
+        min-width: 400px !important;
+        font-size: 10px !important;
     }
 }
 
@@ -280,6 +354,7 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.04);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .chart-card h3 {
@@ -326,6 +401,9 @@ body {
     padding: 20px;
     margin-bottom: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .filtros-card h3 {
@@ -461,7 +539,9 @@ body {
     transform: translateY(-2px);
 }
 
-.btn-crear, .btn-editar, .btn-eliminar {
+.btn-crear,
+.btn-editar,
+.btn-eliminar {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -488,7 +568,9 @@ body {
     color: white;
 }
 
-.btn-crear:hover, .btn-editar:hover, .btn-eliminar:hover {
+.btn-crear:hover,
+.btn-editar:hover,
+.btn-eliminar:hover {
     transform: translateY(-2px);
 }
 
@@ -499,7 +581,9 @@ body {
     padding: 20px;
     margin-top: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    overflow-x: auto;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .table-container h3 {
@@ -509,8 +593,9 @@ body {
 }
 
 .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    max-width: 100% !important;
 }
 
 .tabla-dinamica {
@@ -518,6 +603,7 @@ body {
     border-collapse: collapse;
     font-size: 14px;
     min-width: 600px;
+    max-width: 100% !important;
 }
 
 .tabla-dinamica th,
@@ -616,6 +702,8 @@ body {
     margin-bottom: 24px;
     font-size: 14px;
     font-weight: 500;
+    max-width: 100% !important;
+    overflow-x: auto !important;
 }
 
 .mensaje-exito {
@@ -687,4 +775,60 @@ body {
 
 .fade-in {
     animation: fadeIn 0.3s ease;
+}
+
+/* ==================== SCROLLBARS PERSONALIZADAS ==================== */
+.main-content::-webkit-scrollbar,
+.table-container::-webkit-scrollbar,
+.tabla-container::-webkit-scrollbar,
+.tabla-individual::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar,
+#tablasResultado::-webkit-scrollbar,
+.filtros-card::-webkit-scrollbar,
+.selector-panel::-webkit-scrollbar,
+.cruces-rapidos::-webkit-scrollbar,
+.filtros-extra::-webkit-scrollbar {
+    height: 8px !important;
+    width: 8px !important;
+}
+
+.main-content::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track,
+.tabla-container::-webkit-scrollbar-track,
+.tabla-individual::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track,
+#tablasResultado::-webkit-scrollbar-track,
+.filtros-card::-webkit-scrollbar-track,
+.selector-panel::-webkit-scrollbar-track,
+.cruces-rapidos::-webkit-scrollbar-track,
+.filtros-extra::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb,
+.tabla-container::-webkit-scrollbar-thumb,
+.tabla-individual::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb,
+#tablasResultado::-webkit-scrollbar-thumb,
+.filtros-card::-webkit-scrollbar-thumb,
+.selector-panel::-webkit-scrollbar-thumb,
+.cruces-rapidos::-webkit-scrollbar-thumb,
+.filtros-extra::-webkit-scrollbar-thumb {
+    background: #c1c1c1 !important;
+    border-radius: 10px !important;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover,
+.table-container::-webkit-scrollbar-thumb:hover,
+.tabla-container::-webkit-scrollbar-thumb:hover,
+.tabla-individual::-webkit-scrollbar-thumb:hover,
+.table-responsive::-webkit-scrollbar-thumb:hover,
+#tablasResultado::-webkit-scrollbar-thumb:hover,
+.filtros-card::-webkit-scrollbar-thumb:hover,
+.selector-panel::-webkit-scrollbar-thumb:hover,
+.cruces-rapidos::-webkit-scrollbar-thumb:hover,
+.filtros-extra::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8 !important;
 }
