@@ -1,9 +1,22 @@
 <?php
-// verificar_captcha.php - Verifica el token de reCAPTCHA v3 y establece sesión
+// verificar_captcha.php - Verifica el token de reCAPTCHA v3
 session_start();
 require_once 'config.php';
 
 header('Content-Type: application/json');
+
+// ==================== MODO PRUEBA (saltar reCAPTCHA) ====================
+// Si la URL tiene ?test=1, se salta reCAPTCHA
+if (isset($_GET['test']) && $_GET['test'] === '1') {
+    $_SESSION['acceso_verificado'] = true;
+    $_SESSION['acceso_verificado_timestamp'] = time();
+    echo json_encode([
+        'success' => true,
+        'mensaje' => 'Modo prueba (sin reCAPTCHA)',
+        'score' => 0.9
+    ]);
+    exit;
+}
 
 $recaptcha_response = $_POST['recaptcha_response'] ?? '';
 
@@ -12,7 +25,7 @@ if (empty($recaptcha_response)) {
     exit;
 }
 
-// Verificar con Google usando cURL
+// Verificar con Google
 $url = 'https://www.google.com/recaptcha/api/siteverify';
 $data = [
     'secret' => RECAPTCHA_SECRET_KEY,
@@ -92,7 +105,6 @@ if ($action !== 'acceso') {
     exit;
 }
 
-// ==================== ¡IMPORTANTE! Establecer la sesión ====================
 $_SESSION['acceso_verificado'] = true;
 $_SESSION['acceso_verificado_timestamp'] = time();
 
