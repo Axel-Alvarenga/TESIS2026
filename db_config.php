@@ -3,9 +3,9 @@
 // ¡¡¡COMPLETARÁS ESTOS DATOS DESPUÉS DE CREAR LA BD EN WEBUZO!!!
 
 $host = 'localhost';     // Siempre 'localhost' en Webuzo
-$dbname = 'cntrcnmxc_vocesdelsur';            // ← LO ANOTARÁS DESPUÉS
-$username = 'cntrcnmxc_YONYZADMIN';          // ← LO ANOTARÁS DESPUÉS
-$password = 'YonyZ0981550354';          // ← LA CONTRASEÑA QUE ELIJAS
+$dbname = '';            // ← LO ANOTARÁS DESPUÉS
+$username = '';          // ← LO ANOTARÁS DESPUÉS
+$password = '';          // ← LA CONTRASEÑA QUE ELIJAS
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
