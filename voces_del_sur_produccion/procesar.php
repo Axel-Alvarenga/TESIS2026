@@ -3,6 +3,12 @@ session_start();
 require_once 'db_config.php';
 require_once 'rate_limit.php';
 
+// ==================== VERIFICAR ACCESO ====================
+if (!isset($_SESSION['acceso_verificado']) || $_SESSION['acceso_verificado'] !== true) {
+    header('Location: index.php?error=acceso_no_autorizado');
+    exit;
+}
+
 $ip = $_SERVER['REMOTE_ADDR'];
 
 // ==================== LIMPIAR REGISTROS ANTIGUOS ====================
@@ -161,7 +167,6 @@ if (isset($_POST['p9_critica'])) {
     if ($p9_seleccionadas > 2) {
         die('❌ Error: Solo puedes seleccionar hasta 2 opciones en P9.');
     }
-    // Validar que las opciones sean válidas
     $opciones_validas = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
     foreach ($_POST['p9_critica'] as $opcion) {
         if (!in_array($opcion, $opciones_validas) && $opcion !== 'OTRO') {

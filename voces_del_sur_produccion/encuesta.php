@@ -1,6 +1,23 @@
 <?php
 session_start();
-// Generar token CSRF si no existe (seguridad)
+
+// ==================== VERIFICAR ACCESO ====================
+// Si el usuario no pasó por index.php con reCAPTCHA, redirigir
+if (!isset($_SESSION['acceso_verificado']) || $_SESSION['acceso_verificado'] !== true) {
+    header('Location: index.php?error=acceso_no_autorizado');
+    exit;
+}
+
+// Opcional: tiempo de expiración de la sesión (30 minutos)
+$tiempo_expiracion = 1800;
+if (isset($_SESSION['acceso_verificado_timestamp']) && (time() - $_SESSION['acceso_verificado_timestamp'] > $tiempo_expiracion)) {
+    session_unset();
+    session_destroy();
+    header('Location: index.php?error=sesion_expirada');
+    exit;
+}
+
+// Generar token CSRF si no existe
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -159,7 +176,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p3_pertenencia" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p3"> I. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <!-- Campo de comentario (se vuelve obligatorio SOLO si se selecciona "OTRO") -->
                         <div class="comentario-original" id="comentario_p3">
                             <label><strong>¿Quieres añadir algo sobre tu experiencia de pertenencia?</strong> 
                                 <span id="requerido_p3" class="required-mark" style="display: none;">*</span>
@@ -188,7 +204,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p4_atraccion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4"> I. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <!-- Campo de comentario -->
                         <div class="comentario-original" id="comentario_p4">
                             <label><strong>¿Quieres añadir algo sobre qué te atraería a un espacio nuevo?</strong> 
                                 <span id="requerido_p4" class="required-mark" style="display: none;">*</span>
