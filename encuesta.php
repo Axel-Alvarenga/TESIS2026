@@ -123,6 +123,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div class="options">
                             <label><input type="radio" name="sexo" value="masculino" required> Masculino</label>
                             <label><input type="radio" name="sexo" value="femenino"> Femenino</label>
+
                         </div>
                         <small>Esta información nos ayuda a entender mejor las diferentes perspectivas y necesidades.</small>
                     </div>
@@ -164,15 +165,15 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P3. En el último mes, ¿en qué momento sentiste que pertenecías a algo más grande que vos mismo/a? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p3_pertenencia" value="A" required class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> A. En un grupo de amigos o de gente en quien confío</label>
-                            <label><input type="radio" name="p3_pertenencia" value="B" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> B. En la Eucaristía u otro momento de oración o liturgia</label>
-                            <label><input type="radio" name="p3_pertenencia" value="C" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> C. Cuando ayudé a alguien que lo necesitaba</label>
-                            <label><input type="radio" name="p3_pertenencia" value="D" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> D. En las redes sociales, siguiendo algo que me apasiona</label>
-                            <label><input type="radio" name="p3_pertenencia" value="E" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> E. En la naturaleza</label>
-                            <label><input type="radio" name="p3_pertenencia" value="F" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> F. En la práctica de un deporte</label>
-                            <label><input type="radio" name="p3_pertenencia" value="G" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> G. En experiencias de silencio o reflexión personal</label>
-                            <label><input type="radio" name="p3_pertenencia" value="H" class="radio-opcion" data-target="texto_otro_p3" data-comentario="comentario_p3"> H. No recuerdo haber sentido eso en el último mes</label>
-                            <label><input type="radio" name="p3_pertenencia" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p3" data-comentario="comentario_p3"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p3_pertenencia" value="A" required class="radio-opcion" data-comentario="comentario_p3"> A. En un grupo de amigos o de gente en quien confío</label>
+                            <label><input type="radio" name="p3_pertenencia" value="B" class="radio-opcion" data-comentario="comentario_p3"> B. En la Eucaristía u otro momento de oración o liturgia</label>
+                            <label><input type="radio" name="p3_pertenencia" value="C" class="radio-opcion" data-comentario="comentario_p3"> C. Cuando ayudé a alguien que lo necesitaba</label>
+                            <label><input type="radio" name="p3_pertenencia" value="D" class="radio-opcion" data-comentario="comentario_p3"> D. En las redes sociales, siguiendo algo que me apasiona</label>
+                            <label><input type="radio" name="p3_pertenencia" value="E" class="radio-opcion" data-comentario="comentario_p3"> E. En la naturaleza</label>
+                            <label><input type="radio" name="p3_pertenencia" value="F" class="radio-opcion" data-comentario="comentario_p3"> F. En la práctica de un deporte</label>
+                            <label><input type="radio" name="p3_pertenencia" value="G" class="radio-opcion" data-comentario="comentario_p3"> G. En experiencias de silencio o reflexión personal</label>
+                            <label><input type="radio" name="p3_pertenencia" value="H" class="radio-opcion" data-comentario="comentario_p3"> H. No recuerdo haber sentido eso en el último mes</label>
+                            <label><input type="radio" name="p3_pertenencia" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p3"> I. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p3" class="otro-texto" style="display: none;">
@@ -182,11 +183,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p3">
-                            <label><strong>¿Quieres añadir algo sobre tu experiencia de pertenencia?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu experiencia de pertenencia?</strong>
                                 <span id="requerido_p3" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p3" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque2" id="textarea_p3" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con tu respuesta..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p3">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -199,14 +207,14 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P4. Si hoy te invitáramos a un espacio nuevo, ¿qué es lo que más te atraería? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p4_atraccion" value="A" required class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> A. Conocer personas con valores similares y generar vínculos de confianza</label>
-                            <label><input type="radio" name="p4_atraccion" value="B" class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> B. Un espacio donde pueda estar en silencio y pensar sin presiones</label>
-                            <label><input type="radio" name="p4_atraccion" value="C" class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> C. Aprender sobre liderazgo</label>
-                            <label><input type="radio" name="p4_atraccion" value="D" class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> D. Desarrollar habilidades técnicas</label>
-                            <label><input type="radio" name="p4_atraccion" value="E" class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> E. Aprender sobre emprendimiento</label>
-                            <label><input type="radio" name="p4_atraccion" value="F" class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> F. Participar en un espacio donde no me juzguen y pueda ser como soy</label>
-                            <label><input type="radio" name="p4_atraccion" value="G" class="radio-opcion" data-target="texto_otro_p4" data-comentario="comentario_p4"> G. Integrarme a un proyecto concreto donde mi participación genere un cambio real</label>
-                            <label><input type="radio" name="p4_atraccion" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p4" data-comentario="comentario_p4"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p4_atraccion" value="A" required class="radio-opcion" data-comentario="comentario_p4"> A. Conocer personas con valores similares y generar vínculos de confianza</label>
+                            <label><input type="radio" name="p4_atraccion" value="B" class="radio-opcion" data-comentario="comentario_p4"> B. Un espacio donde pueda estar en silencio y pensar sin presiones</label>
+                            <label><input type="radio" name="p4_atraccion" value="C" class="radio-opcion" data-comentario="comentario_p4"> C. Aprender sobre liderazgo</label>
+                            <label><input type="radio" name="p4_atraccion" value="D" class="radio-opcion" data-comentario="comentario_p4"> D. Desarrollar habilidades técnicas</label>
+                            <label><input type="radio" name="p4_atraccion" value="E" class="radio-opcion" data-comentario="comentario_p4"> E. Aprender sobre emprendimiento</label>
+                            <label><input type="radio" name="p4_atraccion" value="F" class="radio-opcion" data-comentario="comentario_p4"> F. Participar en un espacio donde no me juzguen y pueda ser como soy</label>
+                            <label><input type="radio" name="p4_atraccion" value="G" class="radio-opcion" data-comentario="comentario_p4"> G. Integrarme a un proyecto concreto donde mi participación genere un cambio real</label>
+                            <label><input type="radio" name="p4_atraccion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4"> H. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p4" class="otro-texto" style="display: none;">
@@ -216,11 +224,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p4">
-                            <label><strong>¿Quieres añadir algo sobre qué te atraería a un espacio nuevo?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre qué te atraería a un espacio nuevo?</strong>
                                 <span id="requerido_p4" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p4" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque3" id="textarea_p4" rows="3" placeholder="Opcional: comparte aquí cualquier comentario, opinión o experiencia relacionada con tu respuesta..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p4">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -235,13 +250,13 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P4b-1. ¿Cuál es tu situación principal ahora? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p4b_situacion" value="A" required class="radio-opcion" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> A. Estudio (secundaria, terciario o universidad)</label>
-                            <label><input type="radio" name="p4b_situacion" value="B" class="radio-opcion" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> B. Trabajo</label>
-                            <label><input type="radio" name="p4b_situacion" value="C" class="radio-opcion" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> C. Estudio y trabajo</label>
-                            <label><input type="radio" name="p4b_situacion" value="D" class="radio-opcion" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> D. Busco trabajo o estudio</label>
-                            <label><input type="radio" name="p4b_situacion" value="E" class="radio-opcion" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> E. Hogar o cuidado de familia</label>
-                            <label><input type="radio" name="p4b_situacion" value="F" class="radio-opcion" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> F. Otra situación</label>
-                            <label><input type="radio" name="p4b_situacion" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p4b1" data-comentario="comentario_p4b1"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p4b_situacion" value="A" required class="radio-opcion" data-comentario="comentario_p4b1"> A. Estudio (secundaria, terciario o universidad)</label>
+                            <label><input type="radio" name="p4b_situacion" value="B" class="radio-opcion" data-comentario="comentario_p4b1"> B. Trabajo</label>
+                            <label><input type="radio" name="p4b_situacion" value="C" class="radio-opcion" data-comentario="comentario_p4b1"> C. Estudio y trabajo</label>
+                            <label><input type="radio" name="p4b_situacion" value="D" class="radio-opcion" data-comentario="comentario_p4b1"> D. Busco trabajo o estudio</label>
+                            <label><input type="radio" name="p4b_situacion" value="E" class="radio-opcion" data-comentario="comentario_p4b1"> E. Hogar o cuidado de familia</label>
+                            <label><input type="radio" name="p4b_situacion" value="F" class="radio-opcion" data-comentario="comentario_p4b1"> F. Otra situación</label>
+                            <label><input type="radio" name="p4b_situacion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4b1"> G. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p4b1" class="otro-texto" style="display: none;">
@@ -251,11 +266,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b1">
-                            <label><strong>¿Quieres añadir algo sobre tu situación principal actual?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu situación principal actual?</strong>
                                 <span id="requerido_p4b1" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p4b1" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_p4b1" id="textarea_p4b1" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p4b1">Este campo es opcional y nos ayuda a entender mejor tu realidad.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -270,16 +292,16 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P4b-2. Si pensás en formarte o trabajar en los próximos años, ¿en qué área te ves más? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p4b_area" value="A" required class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> A. Salud y cuidado de personas</label>
-                            <label><input type="radio" name="p4b_area" value="B" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> B. Tecnología, sistemas o datos</label>
-                            <label><input type="radio" name="p4b_area" value="C" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> C. Agro, campo o medio ambiente</label>
-                            <label><input type="radio" name="p4b_area" value="D" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> D. Educación o trabajo social</label>
-                            <label><input type="radio" name="p4b_area" value="E" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> E. Comercio, servicios o logística</label>
-                            <label><input type="radio" name="p4b_area" value="F" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> F. Arte, comunicación o medios</label>
-                            <label><input type="radio" name="p4b_area" value="G" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> G. Construcción, industria o energía</label>
-                            <label><input type="radio" name="p4b_area" value="H" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> H. Emprendimiento propio</label>
-                            <label><input type="radio" name="p4b_area" value="I" class="radio-opcion" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> I. Todavía no lo tengo claro</label>
-                            <label><input type="radio" name="p4b_area" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p4b2" data-comentario="comentario_p4b2"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p4b_area" value="A" required class="radio-opcion" data-comentario="comentario_p4b2"> A. Salud y cuidado de personas</label>
+                            <label><input type="radio" name="p4b_area" value="B" class="radio-opcion" data-comentario="comentario_p4b2"> B. Tecnología, sistemas o datos</label>
+                            <label><input type="radio" name="p4b_area" value="C" class="radio-opcion" data-comentario="comentario_p4b2"> C. Agro, campo o medio ambiente</label>
+                            <label><input type="radio" name="p4b_area" value="D" class="radio-opcion" data-comentario="comentario_p4b2"> D. Educación o trabajo social</label>
+                            <label><input type="radio" name="p4b_area" value="E" class="radio-opcion" data-comentario="comentario_p4b2"> E. Comercio, servicios o logística</label>
+                            <label><input type="radio" name="p4b_area" value="F" class="radio-opcion" data-comentario="comentario_p4b2"> F. Arte, comunicación o medios</label>
+                            <label><input type="radio" name="p4b_area" value="G" class="radio-opcion" data-comentario="comentario_p4b2"> G. Construcción, industria o energía</label>
+                            <label><input type="radio" name="p4b_area" value="H" class="radio-opcion" data-comentario="comentario_p4b2"> H. Emprendimiento propio</label>
+                            <label><input type="radio" name="p4b_area" value="I" class="radio-opcion" data-comentario="comentario_p4b2"> I. Todavía no lo tengo claro</label>
+                            <label><input type="radio" name="p4b_area" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4b2"> J. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p4b2" class="otro-texto" style="display: none;">
@@ -289,11 +311,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b2">
-                            <label><strong>¿Quieres añadir algo sobre tu área de interés o tus metas a futuro?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu área de interés o tus metas a futuro?</strong>
                                 <span id="requerido_p4b2" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p4b2" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_p4b2" id="textarea_p4b2" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p4b2">Este campo es opcional y nos ayuda a entender mejor tus intereses.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -308,11 +337,11 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P4b-3. ¿Estarías dispuesto/a a formarte o trabajar en otro distrito de Itapúa si hubiera una buena oportunidad? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p4b_movilidad" value="A" required class="radio-opcion" data-target="texto_otro_p4b3" data-comentario="comentario_p4b3"> A. Sí, sin problema</label>
-                            <label><input type="radio" name="p4b_movilidad" value="B" class="radio-opcion" data-target="texto_otro_p4b3" data-comentario="comentario_p4b3"> B. Sí, pero solo si es realmente buena</label>
-                            <label><input type="radio" name="p4b_movilidad" value="C" class="radio-opcion" data-target="texto_otro_p4b3" data-comentario="comentario_p4b3"> C. Preferiría quedarme cerca</label>
-                            <label><input type="radio" name="p4b_movilidad" value="D" class="radio-opcion" data-target="texto_otro_p4b3" data-comentario="comentario_p4b3"> D. No, necesito quedarme en mi zona</label>
-                            <label><input type="radio" name="p4b_movilidad" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p4b3" data-comentario="comentario_p4b3"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p4b_movilidad" value="A" required class="radio-opcion" data-comentario="comentario_p4b3"> A. Sí, sin problema</label>
+                            <label><input type="radio" name="p4b_movilidad" value="B" class="radio-opcion" data-comentario="comentario_p4b3"> B. Sí, pero solo si es realmente buena</label>
+                            <label><input type="radio" name="p4b_movilidad" value="C" class="radio-opcion" data-comentario="comentario_p4b3"> C. Preferiría quedarme cerca</label>
+                            <label><input type="radio" name="p4b_movilidad" value="D" class="radio-opcion" data-comentario="comentario_p4b3"> D. No, necesito quedarme en mi zona</label>
+                            <label><input type="radio" name="p4b_movilidad" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4b3"> E. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p4b3" class="otro-texto" style="display: none;">
@@ -322,11 +351,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b3">
-                            <label><strong>¿Quieres añadir algo sobre tu disponibilidad para moverte o tus motivos para quedarte?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu disponibilidad para moverte o tus motivos para quedarte?</strong>
                                 <span id="requerido_p4b3" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p4b3" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_p4b3" id="textarea_p4b3" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p4b3">Este campo es opcional y nos ayuda a entender mejor las barreras o facilitadores para la movilidad.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -339,11 +375,11 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P5. ¿Con qué frecuencia buscás respuestas a tus grandes preguntas en la fe? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p5_espiritualidad" value="A" required class="radio-opcion" data-target="texto_otro_p5" data-comentario="comentario_p5"> A. Es mi principal referencia</label>
-                            <label><input type="radio" name="p5_espiritualidad" value="B" class="radio-opcion" data-target="texto_otro_p5" data-comentario="comentario_p5"> B. A veces recurro a la fe, pero no siempre comprendo el lenguaje</label>
-                            <label><input type="radio" name="p5_espiritualidad" value="C" class="radio-opcion" data-target="texto_otro_p5" data-comentario="comentario_p5"> C. Prefiero buscar en otros ámbitos</label>
-                            <label><input type="radio" name="p5_espiritualidad" value="D" class="radio-opcion" data-target="texto_otro_p5" data-comentario="comentario_p5"> D. No suelo hacerme esas preguntas</label>
-                            <label><input type="radio" name="p5_espiritualidad" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p5" data-comentario="comentario_p5"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p5_espiritualidad" value="A" required class="radio-opcion" data-comentario="comentario_p5"> A. Es mi principal referencia</label>
+                            <label><input type="radio" name="p5_espiritualidad" value="B" class="radio-opcion" data-comentario="comentario_p5"> B. A veces recurro a la fe, pero no siempre comprendo el lenguaje</label>
+                            <label><input type="radio" name="p5_espiritualidad" value="C" class="radio-opcion" data-comentario="comentario_p5"> C. Prefiero buscar en otros ámbitos</label>
+                            <label><input type="radio" name="p5_espiritualidad" value="D" class="radio-opcion" data-comentario="comentario_p5"> D. No suelo hacerme esas preguntas</label>
+                            <label><input type="radio" name="p5_espiritualidad" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p5"> E. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p5" class="otro-texto" style="display: none;">
@@ -353,11 +389,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p5">
-                            <label><strong>¿Quieres añadir algo sobre tu espiritualidad o búsqueda de sentido?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu espiritualidad o búsqueda de sentido?</strong>
                                 <span id="requerido_p5" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p5" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque4" id="textarea_p5" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p5">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -370,12 +413,12 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P6. En momentos de crisis o decisiones importantes, ¿qué representa tu familia para vos? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p6_familia" value="A" required class="radio-opcion" data-target="texto_otro_p6" data-comentario="comentario_p6"> A. Mi principal apoyo y refugio</label>
-                            <label><input type="radio" name="p6_familia" value="B" class="radio-opcion" data-target="texto_otro_p6" data-comentario="comentario_p6"> B. Un lugar de tensiones</label>
-                            <label><input type="radio" name="p6_familia" value="C" class="radio-opcion" data-target="texto_otro_p6" data-comentario="comentario_p6"> C. No entienden completamente mi realidad</label>
-                            <label><input type="radio" name="p6_familia" value="D" class="radio-opcion" data-target="texto_otro_p6" data-comentario="comentario_p6"> D. Una fuente de motivación</label>
-                            <label><input type="radio" name="p6_familia" value="E" class="radio-opcion" data-target="texto_otro_p6" data-comentario="comentario_p6"> E. No tengo una familia de referencia clara</label>
-                            <label><input type="radio" name="p6_familia" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p6" data-comentario="comentario_p6"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p6_familia" value="A" required class="radio-opcion" data-comentario="comentario_p6"> A. Mi principal apoyo y refugio</label>
+                            <label><input type="radio" name="p6_familia" value="B" class="radio-opcion" data-comentario="comentario_p6"> B. Un lugar de tensiones</label>
+                            <label><input type="radio" name="p6_familia" value="C" class="radio-opcion" data-comentario="comentario_p6"> C. No entienden completamente mi realidad</label>
+                            <label><input type="radio" name="p6_familia" value="D" class="radio-opcion" data-comentario="comentario_p6"> D. Una fuente de motivación</label>
+                            <label><input type="radio" name="p6_familia" value="E" class="radio-opcion" data-comentario="comentario_p6"> E. No tengo una familia de referencia clara</label>
+                            <label><input type="radio" name="p6_familia" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p6"> F. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p6" class="otro-texto" style="display: none;">
@@ -385,11 +428,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p6">
-                            <label><strong>¿Quieres añadir algo sobre tu experiencia familiar?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu experiencia familiar?</strong>
                                 <span id="requerido_p6" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p6" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque5" id="textarea_p6" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p6">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -402,12 +452,12 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P7. Al proyectar tu vida a 10 años, ¿cuál es tu prioridad fundamental? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p7_proyecto" value="A" required class="radio-opcion" data-target="texto_otro_p7" data-comentario="comentario_p7"> A. Estabilidad económica y desarrollo profesional</label>
-                            <label><input type="radio" name="p7_proyecto" value="B" class="radio-opcion" data-target="texto_otro_p7" data-comentario="comentario_p7"> B. Formar una familia sólida</label>
-                            <label><input type="radio" name="p7_proyecto" value="C" class="radio-opcion" data-target="texto_otro_p7" data-comentario="comentario_p7"> C. Impacto positivo en mi comunidad</label>
-                            <label><input type="radio" name="p7_proyecto" value="D" class="radio-opcion" data-target="texto_otro_p7" data-comentario="comentario_p7"> D. Paz interior y sentido profundo</label>
-                            <label><input type="radio" name="p7_proyecto" value="E" class="radio-opcion" data-target="texto_otro_p7" data-comentario="comentario_p7"> E. Todavía no tengo una dirección clara</label>
-                            <label><input type="radio" name="p7_proyecto" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p7" data-comentario="comentario_p7"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p7_proyecto" value="A" required class="radio-opcion" data-comentario="comentario_p7"> A. Estabilidad económica y desarrollo profesional</label>
+                            <label><input type="radio" name="p7_proyecto" value="B" class="radio-opcion" data-comentario="comentario_p7"> B. Formar una familia sólida</label>
+                            <label><input type="radio" name="p7_proyecto" value="C" class="radio-opcion" data-comentario="comentario_p7"> C. Impacto positivo en mi comunidad</label>
+                            <label><input type="radio" name="p7_proyecto" value="D" class="radio-opcion" data-comentario="comentario_p7"> D. Paz interior y sentido profundo</label>
+                            <label><input type="radio" name="p7_proyecto" value="E" class="radio-opcion" data-comentario="comentario_p7"> E. Todavía no tengo una dirección clara</label>
+                            <label><input type="radio" name="p7_proyecto" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p7"> F. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p7" class="otro-texto" style="display: none;">
@@ -417,11 +467,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p7">
-                            <label><strong>¿Quieres añadir algo sobre tu proyecto de vida a futuro?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu proyecto de vida a futuro?</strong>
                                 <span id="requerido_p7" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p7" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque6" id="textarea_p7" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p7">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -434,12 +491,12 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="question">
                         <label>P8. ¿Cómo te sentís respecto a tu vocación o misión en el mundo? <span class="required-mark">*</span></label>
                         <div class="options">
-                            <label><input type="radio" name="p8_vocacion" value="A" required class="radio-opcion" data-target="texto_otro_p8" data-comentario="comentario_p8"> A. Tengo una misión clara y trabajo para cumplirla</label>
-                            <label><input type="radio" name="p8_vocacion" value="B" class="radio-opcion" data-target="texto_otro_p8" data-comentario="comentario_p8"> B. Miedo a equivocarme y desperdiciar mi vida</label>
-                            <label><input type="radio" name="p8_vocacion" value="C" class="radio-opcion" data-target="texto_otro_p8" data-comentario="comentario_p8"> C. Presionado por lo que esperan de mí</label>
-                            <label><input type="radio" name="p8_vocacion" value="D" class="radio-opcion" data-target="texto_otro_p8" data-comentario="comentario_p8"> D. Me gustaría saber si Dios tiene un plan para mí</label>
-                            <label><input type="radio" name="p8_vocacion" value="E" class="radio-opcion" data-target="texto_otro_p8" data-comentario="comentario_p8"> E. Busco una profesión que me dé estabilidad</label>
-                            <label><input type="radio" name="p8_vocacion" value="OTRO" class="radio-opcion radio-otro" data-target="texto_otro_p8" data-comentario="comentario_p8"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="radio" name="p8_vocacion" value="A" required class="radio-opcion" data-comentario="comentario_p8"> A. Tengo una misión clara y trabajo para cumplirla</label>
+                            <label><input type="radio" name="p8_vocacion" value="B" class="radio-opcion" data-comentario="comentario_p8"> B. Miedo a equivocarme y desperdiciar mi vida</label>
+                            <label><input type="radio" name="p8_vocacion" value="C" class="radio-opcion" data-comentario="comentario_p8"> C. Presionado por lo que esperan de mí</label>
+                            <label><input type="radio" name="p8_vocacion" value="D" class="radio-opcion" data-comentario="comentario_p8"> D. Me gustaría saber si Dios tiene un plan para mí</label>
+                            <label><input type="radio" name="p8_vocacion" value="E" class="radio-opcion" data-comentario="comentario_p8"> E. Busco una profesión que me dé estabilidad</label>
+                            <label><input type="radio" name="p8_vocacion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p8"> F. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p8" class="otro-texto" style="display: none;">
@@ -449,11 +506,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p8">
-                            <label><strong>¿Quieres añadir algo sobre tu vocación o misión en el mundo?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu vocación o misión en el mundo?</strong>
                                 <span id="requerido_p8" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p8" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque7" id="textarea_p8" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p8">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -473,7 +537,7 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="checkbox" name="p9_critica[]" value="E"> E. Los adultos no nos escuchan</label>
                             <label><input type="checkbox" name="p9_critica[]" value="F"> F. Malas experiencias personales</label>
                             <label><input type="checkbox" name="p9_critica[]" value="G"> G. No me siento alejado</label>
-                            <label><input type="checkbox" name="p9_critica[]" value="OTRO" class="checkbox-otro" data-target="texto_otro_p9" data-comentario="comentario_p9"> I. Otro (especificar en el campo de abajo)</label>
+                            <label><input type="checkbox" name="p9_critica[]" value="OTRO" class="checkbox-otro" data-comentario="comentario_p9"> H. Otro (especificar en el campo de abajo)</label>
                         </div>
 
                         <div id="texto_otro_p9" class="otro-texto" style="display: none;">
@@ -483,11 +547,18 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
 
                         <div class="comentario-original" id="comentario_p9">
-                            <label><strong>¿Quieres añadir algo sobre tu visión de la Iglesia?</strong> 
+                            <label>
+                                <strong>¿Quieres añadir algo sobre tu visión de la Iglesia?</strong>
                                 <span id="requerido_p9" class="required-mark" style="display: none;">*</span>
+                                <span id="texto_obligatorio_p9" style="display: none; color: #dc2626; font-size: 0.85em; font-weight: normal; margin-left: 8px;">
+                                    (Este campo es OBLIGATORIO porque seleccionaste "Otro")
+                                </span>
                             </label>
                             <textarea name="comentario_bloque8" id="textarea_p9" rows="3" placeholder="Opcional: comparte aquí cualquier comentario..." maxlength="500"></textarea>
                             <small id="texto_ayuda_p9">Este campo es opcional y nos ayuda a entender mejor tus respuestas.</small>
+                            <div class="mensaje-error-texto" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">
+                                ⚠️ Este campo es obligatorio porque seleccionaste "Otro".
+                            </div>
                         </div>
                         <small>Selecciona hasta dos opciones</small>
                     </div>

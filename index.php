@@ -4,12 +4,16 @@ session_start();
 require_once 'config.php';
 
 // ==================== MODO PRUEBA (desactivar reCAPTCHA) ====================
+// DESCOMENTAR SOLO PARA PRUEBAS LOCALES
+/*
 if (isset($_GET['test']) && $_GET['test'] === '1') {
     $_SESSION['acceso_verificado'] = true;
     $_SESSION['acceso_verificado_timestamp'] = time();
     header('Location: encuesta.php');
     exit;
 }
+*/
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -165,7 +169,7 @@ if (isset($_GET['test']) && $_GET['test'] === '1') {
                 <p>Un espacio de escucha impulsado por la Diócesis de Encarnación y la Universidad Católica.</p>
             </div>
 
-            <!-- BANNER DE MODO PRUEBA -->
+            <!-- BANNER DE MODO PRUEBA (OCULTO POR DEFECTO) -->
             <div id="modoTestBanner" class="modo-test-banner">
                 🔧 <strong>MODO PRUEBA ACTIVO</strong> — reCAPTCHA desactivado<br>
                 <small>Si ves esto, significa que ya estás en modo prueba. Haz clic en "Voces del Sur →" para continuar.</small>
@@ -183,9 +187,12 @@ if (isset($_GET['test']) && $_GET['test'] === '1') {
                     Al continuar, deberás aceptar el consentimiento informado
                 </p>
 
+                <!-- ENLACE DE MODO PRUEBA COMENTADO -->
+                <!--
                 <p style="margin-top: 15px; font-size: 0.7em; color: #a0aec0;">
                     <a href="?test=1" style="color: #a0aec0; text-decoration: underline;">⚡ Modo prueba (saltar reCAPTCHA)</a>
                 </p>
+                -->
             </div>
 
             <div class="footer-note">

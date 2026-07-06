@@ -6,7 +6,8 @@ require_once 'config.php';
 header('Content-Type: application/json');
 
 // ==================== MODO PRUEBA (saltar reCAPTCHA) ====================
-// Si la URL tiene ?test=1, se salta reCAPTCHA
+// DESCOMENTAR SOLO PARA PRUEBAS LOCALES
+/*
 if (isset($_GET['test']) && $_GET['test'] === '1') {
     $_SESSION['acceso_verificado'] = true;
     $_SESSION['acceso_verificado_timestamp'] = time();
@@ -17,6 +18,7 @@ if (isset($_GET['test']) && $_GET['test'] === '1') {
     ]);
     exit;
 }
+*/
 
 $recaptcha_response = $_POST['recaptcha_response'] ?? '';
 

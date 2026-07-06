@@ -1,170 +1,363 @@
-// navegacion-pasos.js - Control de navegación entre bloques
-const pages = document.querySelectorAll('.step-page');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const stepCounter = document.getElementById('stepCounter');
-const stepProgressFill = document.getElementById('stepProgressFill');
-const formulario = document.getElementById('encuestaForm');
+// js/navegacion-pasos.js - Navegación por pasos
+let pasoActual = 1;
+const totalPasos = 12;
 
-let currentStep = 1;
-const totalSteps = 12;
-
-function updateStepVisibility() {
-    pages.forEach((page, index) => {
-        if (index + 1 === currentStep) {
-            page.classList.add('active');
-        } else {
-            page.classList.remove('active');
+document.addEventListener('DOMContentLoaded', function() {
+    mostrarPaso(pasoActual);
+    actualizarBotones();
+    
+    // Event listeners para los botones
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (validarPaso(pasoActual)) {
+            if (pasoActual < totalPasos) {
+                pasoActual++;
+                mostrarPaso(pasoActual);
+                actualizarBotones();
+            }
         }
     });
     
-    stepCounter.textContent = `Bloque ${currentStep} de ${totalSteps}`;
-    const progress = (currentStep / totalSteps) * 100;
-    stepProgressFill.style.width = `${progress}%`;
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (pasoActual > 1) {
+            pasoActual--;
+            mostrarPaso(pasoActual);
+            actualizarBotones();
+        }
+    });
+});
+
+function mostrarPaso(paso) {
+    // Ocultar todos los pasos
+    document.querySelectorAll('.step-page').forEach(el => {
+        el.classList.remove('active');
+        el.style.display = 'none';
+    });
     
-    if (currentStep === 1) {
-        prevBtn.style.visibility = 'hidden';
-    } else {
-        prevBtn.style.visibility = 'visible';
+    // Mostrar el paso actual
+    const pasoElement = document.querySelector(`.step-page[data-step="${paso}"]`);
+    if (pasoElement) {
+        pasoElement.style.display = 'block';
+        pasoElement.classList.add('active');
     }
     
-    if (currentStep === totalSteps) {
-        nextBtn.textContent = 'Enviar respuestas ✓';
-    } else {
-        nextBtn.textContent = 'Siguiente →';
+    // Actualizar indicador de progreso
+    const progressFill = document.getElementById('stepProgressFill');
+    const stepCounter = document.getElementById('stepCounter');
+    
+    if (progressFill) {
+        progressFill.style.width = ((paso / totalPasos) * 100) + '%';
+    }
+    if (stepCounter) {
+        stepCounter.textContent = `Bloque ${paso} de ${totalPasos}`;
     }
 }
 
-function validateCurrentStep() {
-    const currentPage = document.querySelector(`.step-page[data-step="${currentStep}"]`);
-    const requiredFields = currentPage.querySelectorAll('[required]');
-    let isValid = true;
-    let mensajes = [];
-    
-    // Validación especial para parroquia en el paso 1
-    if (currentStep === 1 && typeof selectedParroquia !== 'undefined' && selectedParroquia === '') {
-        isValid = false;
-        mensajes.push('Por favor, selecciona una parroquia.');
-        const parroquiaError = document.getElementById('parroquiaError');
-        const selectorInput = document.getElementById('selectorInput');
-        if (parroquiaError) parroquiaError.style.display = 'block';
-        if (selectorInput) selectorInput.classList.add('error');
-    } else if (currentStep === 1) {
-        const parroquiaError = document.getElementById('parroquiaError');
-        const selectorInput = document.getElementById('selectorInput');
-        if (parroquiaError) parroquiaError.style.display = 'none';
-        if (selectorInput) selectorInput.classList.remove('error');
+function actualizarBotones() {
+    const prevBtn = document.getElementById('prevBtn');
+    if (pasoActual > 1) {
+        prevBtn.style.visibility = 'visible';
+    } else {
+        prevBtn.style.visibility = 'hidden';
     }
     
-    // Validar campos obligatorios
-    requiredFields.forEach(field => {
-        // Saltar campos de texto "Otro" (se validan aparte)
-        if (field.classList.contains('otro-input')) return;
-        
-        if (field.type === 'radio') {
-            const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
-            const isChecked = Array.from(radioGroup).some(r => r.checked);
-            if (!isChecked) {
-                isValid = false;
-                field.classList.add('error');
-                // Obtener el label de la pregunta
-                const question = field.closest('.question');
-                const label = question ? question.querySelector('label') : null;
-                const text = label ? label.innerText.replace(/\*/g, '').trim() : field.name;
-                if (!mensajes.some(m => m.includes(text.substring(0, 30)))) {
-                    mensajes.push(`Completa la pregunta: "${text.substring(0, 50)}..."`);
-                }
-            } else {
-                field.classList.remove('error');
+    const nextBtn = document.getElementById('nextBtn');
+    if (pasoActual === totalPasos) {
+        nextBtn.textContent = 'Enviar Encuesta';
+        nextBtn.type = 'submit';
+    } else {
+        nextBtn.textContent = 'Siguiente →';
+        nextBtn.type = 'button';
+    }
+}
+
+function validarPaso(paso) {
+    let valido = true;
+    let mensajesError = [];
+    
+    // Limpiar errores anteriores
+    document.querySelectorAll('.mensaje-error-texto').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+    
+    // Eliminar contenedor de errores anterior
+    const errorContainerAntiguo = document.getElementById('error-container');
+    if (errorContainerAntiguo) errorContainerAntiguo.remove();
+    
+    switch(paso) {
+        case 1: // Bloque 1: Datos demográficos
+            const anio = document.getElementById('anioNacimiento');
+            if (!anio || anio.value === '') {
+                mensajesError.push('Debes seleccionar tu año de nacimiento');
+                valido = false;
+                if (anio) anio.classList.add('error');
             }
-        } else if (field.type === 'checkbox' && field.required && !field.checked) {
-            isValid = false;
-            field.classList.add('error');
-        } else if ((field.value === '' || field.value === null) && field.type !== 'checkbox') {
-            isValid = false;
-            field.classList.add('error');
-        } else {
-            field.classList.remove('error');
-        }
-    });
-    
-    // Validación de permisos para menores
-    const permisoDiv = document.getElementById('permisoMenores');
-    const permisoCheckbox = document.getElementById('permisoPadres');
-    if (permisoDiv && permisoDiv.style.display === 'block' && permisoCheckbox && !permisoCheckbox.checked) {
-        isValid = false;
-        mensajes.push('Debes marcar la casilla de autorización parental (eres menor de 18 años).');
-    }
-    
-    // ========== VALIDACIÓN DE "OTRO" ==========
-    // Buscar en el paso actual si hay algún campo "Otro" seleccionado
-    const radiosOtro = currentPage.querySelectorAll('.radio-otro');
-    let otroSeleccionado = false;
-    let otroInputVacio = false;
-    
-    radiosOtro.forEach(radio => {
-        if (radio.checked) {
-            otroSeleccionado = true;
-            // Buscar el campo de texto asociado
-            const targetId = radio.dataset.target;
-            if (targetId) {
-                const textContainer = document.getElementById(targetId);
-                if (textContainer) {
-                    const input = textContainer.querySelector('.otro-input');
-                    if (input && input.value.trim() === '') {
-                        otroInputVacio = true;
-                        input.classList.add('error');
-                    } else if (input) {
-                        input.classList.remove('error');
+            
+            const sexo = document.querySelector('input[name="sexo"]:checked');
+            if (!sexo) {
+                mensajesError.push('Debes seleccionar tu género');
+                valido = false;
+            }
+            
+            const parroquia = document.getElementById('parroquiaHidden');
+            if (!parroquia || parroquia.value === '') {
+                mensajesError.push('Debes seleccionar tu parroquia');
+                valido = false;
+                const selectorInput = document.getElementById('selectorInput');
+                if (selectorInput) selectorInput.classList.add('error');
+                const parroquiaError = document.getElementById('parroquiaError');
+                if (parroquiaError) parroquiaError.style.display = 'block';
+            }
+            break;
+            
+        case 2: // Bloque 2: P3 - Pertenencia
+            const p3 = document.querySelector('input[name="p3_pertenencia"]:checked');
+            if (!p3) {
+                mensajesError.push('Debes seleccionar una opción en P3');
+                valido = false;
+            } else if (p3.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p3');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P3)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p3 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
                     }
                 }
             }
-        }
+            break;
+            
+        case 3: // Bloque 3: P4 - Atracción
+            const p4 = document.querySelector('input[name="p4_atraccion"]:checked');
+            if (!p4) {
+                mensajesError.push('Debes seleccionar una opción en P4');
+                valido = false;
+            } else if (p4.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p4');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P4)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p4 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 4: // Bloque 4: P4b-1 - Situación
+            const p4b1 = document.querySelector('input[name="p4b_situacion"]:checked');
+            if (!p4b1) {
+                mensajesError.push('Debes seleccionar tu situación principal');
+                valido = false;
+            } else if (p4b1.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p4b1');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P4b-1)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p4b1 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 5: // Bloque 5: P4b-2 - Área
+            const p4b2 = document.querySelector('input[name="p4b_area"]:checked');
+            if (!p4b2) {
+                mensajesError.push('Debes seleccionar tu área de interés');
+                valido = false;
+            } else if (p4b2.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p4b2');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P4b-2)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p4b2 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 6: // Bloque 6: P4b-3 - Movilidad
+            const p4b3 = document.querySelector('input[name="p4b_movilidad"]:checked');
+            if (!p4b3) {
+                mensajesError.push('Debes seleccionar tu movilidad territorial');
+                valido = false;
+            } else if (p4b3.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p4b3');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P4b-3)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p4b3 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 7: // Bloque 7: P5 - Espiritualidad
+            const p5 = document.querySelector('input[name="p5_espiritualidad"]:checked');
+            if (!p5) {
+                mensajesError.push('Debes seleccionar una opción en P5');
+                valido = false;
+            } else if (p5.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p5');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P5)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p5 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 8: // Bloque 8: P6 - Familia
+            const p6 = document.querySelector('input[name="p6_familia"]:checked');
+            if (!p6) {
+                mensajesError.push('Debes seleccionar una opción en P6');
+                valido = false;
+            } else if (p6.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p6');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P6)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p6 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 9: // Bloque 9: P7 - Proyecto de vida
+            const p7 = document.querySelector('input[name="p7_proyecto"]:checked');
+            if (!p7) {
+                mensajesError.push('Debes seleccionar una opción en P7');
+                valido = false;
+            } else if (p7.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p7');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P7)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p7 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 10: // Bloque 10: P8 - Vocación
+            const p8 = document.querySelector('input[name="p8_vocacion"]:checked');
+            if (!p8) {
+                mensajesError.push('Debes seleccionar una opción en P8');
+                valido = false;
+            } else if (p8.value === 'OTRO') {
+                const textarea = document.getElementById('textarea_p8');
+                if (!textarea || textarea.value.trim() === '') {
+                    mensajesError.push('Debes especificar tu respuesta en "Otro" (P8)');
+                    valido = false;
+                    if (textarea) {
+                        textarea.classList.add('error');
+                        const errorMsg = document.querySelector('#comentario_p8 .mensaje-error-texto');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                    }
+                }
+            }
+            break;
+            
+        case 11: // Bloque 11: P9 - Crítica (checkbox)
+            const p9Checkboxes = document.querySelectorAll('input[name="p9_critica[]"]:checked');
+            if (p9Checkboxes.length === 0) {
+                mensajesError.push('Debes seleccionar al menos una opción en P9');
+                valido = false;
+            } else if (p9Checkboxes.length > 2) {
+                mensajesError.push('Solo puedes seleccionar hasta 2 opciones en P9');
+                valido = false;
+            } else {
+                // Verificar si seleccionó "OTRO" y si el campo está lleno
+                let otroSeleccionado = false;
+                p9Checkboxes.forEach(cb => {
+                    if (cb.value === 'OTRO') otroSeleccionado = true;
+                });
+                if (otroSeleccionado) {
+                    const textarea = document.getElementById('textarea_p9');
+                    if (!textarea || textarea.value.trim() === '') {
+                        mensajesError.push('Debes especificar tu respuesta en "Otro" (P9)');
+                        valido = false;
+                        if (textarea) {
+                            textarea.classList.add('error');
+                            const errorMsg = document.querySelector('#comentario_p9 .mensaje-error-texto');
+                            if (errorMsg) errorMsg.style.display = 'block';
+                        }
+                    }
+                }
+            }
+            break;
+            
+        case 12: // Bloque 12: P10 - Esperanza
+            const p10 = document.querySelector('input[name="p10_esperanza"]:checked');
+            if (!p10) {
+                mensajesError.push('Debes seleccionar tu nivel de esperanza');
+                valido = false;
+            }
+            
+            // Validar permiso de padres si es menor
+            const permisoDiv = document.getElementById('permisoMenores');
+            if (permisoDiv && permisoDiv.style.display !== 'none') {
+                const permisoCheck = document.getElementById('permisoPadres');
+                if (!permisoCheck || !permisoCheck.checked) {
+                    mensajesError.push('Debes aceptar el permiso de tus padres o tutores');
+                    valido = false;
+                }
+            }
+            break;
+    }
+    
+    if (mensajesError.length > 0) {
+        mostrarMensajesError(mensajesError);
+        return false;
+    }
+    
+    return true;
+}
+
+function mostrarMensajesError(mensajes) {
+    const pasoActivo = document.querySelector('.step-page.active');
+    if (!pasoActivo) return;
+    
+    const errorContainer = document.createElement('div');
+    errorContainer.id = 'error-container';
+    errorContainer.style.cssText = `
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 15px 20px;
+        border-radius: 10px;
+        border-left: 4px solid #dc2626;
+        margin-bottom: 20px;
+        animation: fadeInStep 0.3s ease;
+    `;
+    
+    let html = '<strong>❌ Por favor, corrige los siguientes errores:</strong><ul style="margin: 10px 0 0 20px;">';
+    mensajes.forEach(msg => {
+        html += `<li style="margin-bottom: 5px;">${msg}</li>`;
     });
+    html += '</ul>';
+    errorContainer.innerHTML = html;
     
-    if (otroSeleccionado && otroInputVacio) {
-        isValid = false;
-        mensajes.push('Debes especificar tu respuesta en "Otro".');
-    }
-    
-    // ========== MOSTRAR ERRORES ==========
-    if (!isValid) {
-        if (mensajes.length === 0) {
-            mensajes.push('Por favor, completa todos los campos obligatorios (marcados con *) antes de continuar.');
-        }
-        // Mostrar notificación moderna
-        if (typeof mostrarNotificacion !== 'undefined') {
-            mostrarNotificacion(mensajes.join('<br>'), 'error');
-        } else {
-            alert(mensajes.join('\n'));
-        }
-    }
-    
-    return isValid;
+    pasoActivo.insertBefore(errorContainer, pasoActivo.firstChild);
+    errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-
-function nextStep() {
-    if (validateCurrentStep()) {
-        if (currentStep < totalSteps) {
-            currentStep++;
-            updateStepVisibility();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            formulario.submit();
-        }
-    }
-}
-
-function prevStep() {
-    if (currentStep > 1) {
-        currentStep--;
-        updateStepVisibility();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}
-
-nextBtn.addEventListener('click', nextStep);
-prevBtn.addEventListener('click', prevStep);
-
-// Inicializar
-updateStepVisibility();

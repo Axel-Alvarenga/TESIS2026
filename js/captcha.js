@@ -10,11 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // La clave de sitio se pasa como variable global desde PHP
     const SITE_KEY = window.RECAPTCHA_SITE_KEY || '';
 
-    // Verificar si la URL tiene ?test=1
+    // ==================== MODO PRUEBA ====================
+    // DESCOMENTAR SOLO PARA PRUEBAS LOCALES
+    /*
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('test') === '1') {
         if (modoTestBanner) modoTestBanner.classList.add('visible');
     }
+    */
 
     function verificarRecaptcha() {
         return new Promise((resolve) => {
