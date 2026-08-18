@@ -104,6 +104,7 @@ $p3_value = $_POST['p3_pertenencia'] ?? '';
 if (empty($p3_value)) {
     die('❌ Error: Debes seleccionar una opción en P3.');
 }
+// ⚠️ Guardar el texto "OTRO" de P3 en campo_libre
 if ($p3_value === 'OTRO') {
     $p3_otro_texto = sanitizar($_POST['p3_otro_texto'] ?? '');
     if (empty($p3_otro_texto)) {
@@ -238,7 +239,7 @@ if (empty($p10_esperanza) || !in_array($p10_esperanza, ['1', '2', '3', '4', '5']
 
 // ==================== RECOGER TODOS LOS DATOS ====================
 
-// Recoger TODOS los comentarios
+// Recoger TODOS los comentarios (se guardan en sus columnas específicas)
 $comentario_bloque2 = sanitizar($_POST['comentario_bloque2'] ?? '');
 $comentario_bloque3 = sanitizar($_POST['comentario_bloque3'] ?? '');
 $comentario_bloque4 = sanitizar($_POST['comentario_bloque4'] ?? '');
@@ -252,7 +253,9 @@ $comentario_p4b2 = sanitizar($_POST['comentario_p4b2'] ?? '');
 $comentario_p4b3 = sanitizar($_POST['comentario_p4b3'] ?? '');
 $comentario_p10_adicional = sanitizar($_POST['campo_libre'] ?? '');
 
-// Recoger TODOS los campos "Otro"
+// ============================================================
+// 2. RECOGER CAMPOS "OTRO" (SOLO PARA validación y campo_libre)
+// ============================================================
 $p3_otro_texto = sanitizar($_POST['p3_otro_texto'] ?? '');
 $p4_otro_texto = sanitizar($_POST['p4_otro_texto'] ?? '');
 $p4b1_otro_texto = sanitizar($_POST['p4b1_otro_texto'] ?? '');
@@ -264,23 +267,9 @@ $p7_otro_texto = sanitizar($_POST['p7_otro_texto'] ?? '');
 $p8_otro_texto = sanitizar($_POST['p8_otro_texto'] ?? '');
 $p9_otro_texto = sanitizar($_POST['p9_otro_texto'] ?? '');
 
-// ==================== PROCESAR P9 CRÍTICA ====================
-if (isset($_POST['p9_critica'])) {
-    if (in_array('OTRO', $_POST['p9_critica'])) {
-        $p9_critica_array = array_filter($_POST['p9_critica'], function($v) { return $v !== 'OTRO'; });
-        if (empty($p9_critica_array)) {
-            $p9_critica = 'OTRO: ' . $p9_otro_texto;
-        } else {
-            $p9_critica = implode(',', $p9_critica_array) . ', OTRO: ' . $p9_otro_texto;
-        }
-    } else {
-        $p9_critica = implode(',', $_POST['p9_critica']);
-    }
-} else {
-    $p9_critica = '';
-}
-
-// ==================== CONSTRUIR campo_libre (SOLO PARA "OTRO") ====================
+// ============================================================
+// 3. CONSTRUIR campo_libre (SOLO PARA "OTRO")
+// ============================================================
 $campo_libre_final = '';
 
 // P3 - SOLO si es OTRO
@@ -336,10 +325,32 @@ if (isset($_POST['p9_critica']) && in_array('OTRO', $_POST['p9_critica']) && !em
 // Limpiar campo_libre
 $campo_libre_final = trim($campo_libre_final);
 
-// ==================== PROCESAR DATOS ====================
+// ============================================================
+// 4. PROCESAR P9 CRÍTICA
+// ============================================================
+if (isset($_POST['p9_critica'])) {
+    if (in_array('OTRO', $_POST['p9_critica'])) {
+        $p9_critica_array = array_filter($_POST['p9_critica'], function($v) { return $v !== 'OTRO'; });
+        if (empty($p9_critica_array)) {
+            $p9_critica = 'OTRO: ' . $p9_otro_texto;
+        } else {
+            $p9_critica = implode(',', $p9_critica_array) . ', OTRO: ' . $p9_otro_texto;
+        }
+    } else {
+        $p9_critica = implode(',', $_POST['p9_critica']);
+    }
+} else {
+    $p9_critica = '';
+}
+
+// ============================================================
+// 5. PROCESAR DATOS FINALES
+// ============================================================
 $permiso_padres = isset($_POST['permiso_padres']) ? 'si' : 'no';
 
-// ==================== INSERTAR EN BASE DE DATOS ====================
+// ============================================================
+// 6. INSERTAR EN BASE DE DATOS
+// ============================================================
 $sql = "INSERT INTO respuestas (
     ip, p1_anio, sexo, p2_parroquia, 
     p3_pertenencia, p4_atraccion,
