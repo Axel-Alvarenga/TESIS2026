@@ -123,7 +123,6 @@ if (empty($_SESSION['csrf_token'])) {
                         <div class="options">
                             <label><input type="radio" name="sexo" value="masculino" required> Masculino</label>
                             <label><input type="radio" name="sexo" value="femenino"> Femenino</label>
-
                         </div>
                         <small>Esta información nos ayuda a entender mejor las diferentes perspectivas y necesidades.</small>
                     </div>
