@@ -175,10 +175,11 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p3_pertenencia" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p3"> I. Otro (especificar en el campo de abajo)</label>
                         </div>
 
+                        <!-- CAMPO "OTRO" - CON EL NAME CORRECTO -->
                         <div id="texto_otro_p3" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p3_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p3">
@@ -219,7 +220,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p4" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p4_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p4">
@@ -261,7 +262,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p4b1" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p4b1_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b1">
@@ -306,7 +307,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p4b2" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p4b2_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b2">
@@ -346,7 +347,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p4b3" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p4b3_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b3">
@@ -384,7 +385,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p5" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p5_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p5">
@@ -423,7 +424,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p6" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p6_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p6">
@@ -462,7 +463,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p7" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p7_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p7">
@@ -501,7 +502,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p8" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p8_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p8">
@@ -542,7 +543,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div id="texto_otro_p9" class="otro-texto" style="display: none;">
                             <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
                             <input type="text" name="p9_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error">Este campo es obligatorio.</div>
+                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p9">
