@@ -175,13 +175,7 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p3_pertenencia" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p3"> I. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <!-- CAMPO "OTRO" - CON EL NAME CORRECTO -->
-                        <div id="texto_otro_p3" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p3_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
-                        </div>
-
+                        <!-- SOLO EL CAMPO DE COMENTARIO (se vuelve obligatorio cuando es OTRO) -->
                         <div class="comentario-original" id="comentario_p3">
                             <label>
                                 <strong>¿Quieres añadir algo sobre tu experiencia de pertenencia?</strong>
@@ -215,12 +209,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p4_atraccion" value="F" class="radio-opcion" data-comentario="comentario_p4"> F. Participar en un espacio donde no me juzguen y pueda ser como soy</label>
                             <label><input type="radio" name="p4_atraccion" value="G" class="radio-opcion" data-comentario="comentario_p4"> G. Integrarme a un proyecto concreto donde mi participación genere un cambio real</label>
                             <label><input type="radio" name="p4_atraccion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4"> H. Otro (especificar en el campo de abajo)</label>
-                        </div>
-
-                        <div id="texto_otro_p4" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p4_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p4">
@@ -257,12 +245,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p4b_situacion" value="E" class="radio-opcion" data-comentario="comentario_p4b1"> E. Hogar o cuidado de familia</label>
                             <label><input type="radio" name="p4b_situacion" value="F" class="radio-opcion" data-comentario="comentario_p4b1"> F. Otra situación</label>
                             <label><input type="radio" name="p4b_situacion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4b1"> G. Otro (especificar en el campo de abajo)</label>
-                        </div>
-
-                        <div id="texto_otro_p4b1" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p4b1_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p4b1">
@@ -304,12 +286,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p4b_area" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4b2"> J. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <div id="texto_otro_p4b2" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p4b2_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
-                        </div>
-
                         <div class="comentario-original" id="comentario_p4b2">
                             <label>
                                 <strong>¿Quieres añadir algo sobre tu área de interés o tus metas a futuro?</strong>
@@ -344,12 +320,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p4b_movilidad" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p4b3"> E. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <div id="texto_otro_p4b3" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p4b3_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
-                        </div>
-
                         <div class="comentario-original" id="comentario_p4b3">
                             <label>
                                 <strong>¿Quieres añadir algo sobre tu disponibilidad para moverte o tus motivos para quedarte?</strong>
@@ -380,12 +350,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p5_espiritualidad" value="C" class="radio-opcion" data-comentario="comentario_p5"> C. Prefiero buscar en otros ámbitos</label>
                             <label><input type="radio" name="p5_espiritualidad" value="D" class="radio-opcion" data-comentario="comentario_p5"> D. No suelo hacerme esas preguntas</label>
                             <label><input type="radio" name="p5_espiritualidad" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p5"> E. Otro (especificar en el campo de abajo)</label>
-                        </div>
-
-                        <div id="texto_otro_p5" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p5_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p5">
@@ -421,12 +385,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p6_familia" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p6"> F. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <div id="texto_otro_p6" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p6_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
-                        </div>
-
                         <div class="comentario-original" id="comentario_p6">
                             <label>
                                 <strong>¿Quieres añadir algo sobre tu experiencia familiar?</strong>
@@ -458,12 +416,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p7_proyecto" value="D" class="radio-opcion" data-comentario="comentario_p7"> D. Paz interior y sentido profundo</label>
                             <label><input type="radio" name="p7_proyecto" value="E" class="radio-opcion" data-comentario="comentario_p7"> E. Todavía no tengo una dirección clara</label>
                             <label><input type="radio" name="p7_proyecto" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p7"> F. Otro (especificar en el campo de abajo)</label>
-                        </div>
-
-                        <div id="texto_otro_p7" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p7_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p7">
@@ -499,12 +451,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="radio" name="p8_vocacion" value="OTRO" class="radio-opcion radio-otro" data-comentario="comentario_p8"> F. Otro (especificar en el campo de abajo)</label>
                         </div>
 
-                        <div id="texto_otro_p8" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p8_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
-                        </div>
-
                         <div class="comentario-original" id="comentario_p8">
                             <label>
                                 <strong>¿Quieres añadir algo sobre tu vocación o misión en el mundo?</strong>
@@ -538,12 +484,6 @@ if (empty($_SESSION['csrf_token'])) {
                             <label><input type="checkbox" name="p9_critica[]" value="F"> F. Malas experiencias personales</label>
                             <label><input type="checkbox" name="p9_critica[]" value="G"> G. No me siento alejado</label>
                             <label><input type="checkbox" name="p9_critica[]" value="OTRO" class="checkbox-otro" data-comentario="comentario_p9"> H. Otro (especificar en el campo de abajo)</label>
-                        </div>
-
-                        <div id="texto_otro_p9" class="otro-texto" style="display: none;">
-                            <label><strong>Por favor, especifica:</strong> <span class="required-mark">*</span></label>
-                            <input type="text" name="p9_otro_texto" class="otro-input" placeholder="Escribe aquí tu respuesta..." maxlength="200">
-                            <div class="mensaje-error" style="display: none; color: #dc2626; font-size: 13px; margin-top: 5px;">Este campo es obligatorio.</div>
                         </div>
 
                         <div class="comentario-original" id="comentario_p9">

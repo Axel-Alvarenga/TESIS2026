@@ -99,116 +99,115 @@ if (empty($p2_parroquia) || $p2_parroquia === '') {
     die('❌ Error: Debes seleccionar una parroquia.');
 }
 
-// 4. Validar P3 - Pertenencia
+// 4. Validar P3 - Pertenencia (usa comentario_bloque2 para "OTRO")
 $p3_value = $_POST['p3_pertenencia'] ?? '';
 if (empty($p3_value)) {
     die('❌ Error: Debes seleccionar una opción en P3.');
 }
-// ⚠️ Guardar el texto "OTRO" de P3 en campo_libre
 if ($p3_value === 'OTRO') {
-    $p3_otro_texto = sanitizar($_POST['p3_otro_texto'] ?? '');
+    $p3_otro_texto = sanitizar($_POST['comentario_bloque2'] ?? '');
     if (empty($p3_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P3).');
     }
 }
 
-// 5. Validar P4 - Atracción
+// 5. Validar P4 - Atracción (usa comentario_bloque3 para "OTRO")
 $p4_value = $_POST['p4_atraccion'] ?? '';
 if (empty($p4_value)) {
     die('❌ Error: Debes seleccionar una opción en P4.');
 }
 if ($p4_value === 'OTRO') {
-    $p4_otro_texto = sanitizar($_POST['p4_otro_texto'] ?? '');
+    $p4_otro_texto = sanitizar($_POST['comentario_bloque3'] ?? '');
     if (empty($p4_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P4).');
     }
 }
 
-// 6. Validar P4b-1 - Situación
+// 6. Validar P4b-1 - Situación (usa comentario_p4b1 para "OTRO")
 $p4b_situacion = $_POST['p4b_situacion'] ?? '';
 if (empty($p4b_situacion)) {
     die('❌ Error: Debes seleccionar una opción en P4b-1.');
 }
 if ($p4b_situacion === 'OTRO') {
-    $p4b1_otro_texto = sanitizar($_POST['p4b1_otro_texto'] ?? '');
+    $p4b1_otro_texto = sanitizar($_POST['comentario_p4b1'] ?? '');
     if (empty($p4b1_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P4b-1).');
     }
 }
 
-// 7. Validar P4b-2 - Área de interés
+// 7. Validar P4b-2 - Área de interés (usa comentario_p4b2 para "OTRO")
 $p4b_area = $_POST['p4b_area'] ?? '';
 if (empty($p4b_area)) {
     die('❌ Error: Debes seleccionar una opción en P4b-2.');
 }
 if ($p4b_area === 'OTRO') {
-    $p4b2_otro_texto = sanitizar($_POST['p4b2_otro_texto'] ?? '');
+    $p4b2_otro_texto = sanitizar($_POST['comentario_p4b2'] ?? '');
     if (empty($p4b2_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P4b-2).');
     }
 }
 
-// 8. Validar P4b-3 - Movilidad
+// 8. Validar P4b-3 - Movilidad (usa comentario_p4b3 para "OTRO")
 $p4b_movilidad = $_POST['p4b_movilidad'] ?? '';
 if (empty($p4b_movilidad)) {
     die('❌ Error: Debes seleccionar una opción en P4b-3.');
 }
 if ($p4b_movilidad === 'OTRO') {
-    $p4b3_otro_texto = sanitizar($_POST['p4b3_otro_texto'] ?? '');
+    $p4b3_otro_texto = sanitizar($_POST['comentario_p4b3'] ?? '');
     if (empty($p4b3_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P4b-3).');
     }
 }
 
-// 9. Validar P5 - Espiritualidad
+// 9. Validar P5 - Espiritualidad (usa comentario_bloque4 para "OTRO")
 $p5_value = $_POST['p5_espiritualidad'] ?? '';
 if (empty($p5_value)) {
     die('❌ Error: Debes seleccionar una opción en P5.');
 }
 if ($p5_value === 'OTRO') {
-    $p5_otro_texto = sanitizar($_POST['p5_otro_texto'] ?? '');
+    $p5_otro_texto = sanitizar($_POST['comentario_bloque4'] ?? '');
     if (empty($p5_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P5).');
     }
 }
 
-// 10. Validar P6 - Familia
+// 10. Validar P6 - Familia (usa comentario_bloque5 para "OTRO")
 $p6_value = $_POST['p6_familia'] ?? '';
 if (empty($p6_value)) {
     die('❌ Error: Debes seleccionar una opción en P6.');
 }
 if ($p6_value === 'OTRO') {
-    $p6_otro_texto = sanitizar($_POST['p6_otro_texto'] ?? '');
+    $p6_otro_texto = sanitizar($_POST['comentario_bloque5'] ?? '');
     if (empty($p6_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P6).');
     }
 }
 
-// 11. Validar P7 - Proyecto de vida
+// 11. Validar P7 - Proyecto de vida (usa comentario_bloque6 para "OTRO")
 $p7_value = $_POST['p7_proyecto'] ?? '';
 if (empty($p7_value)) {
     die('❌ Error: Debes seleccionar una opción en P7.');
 }
 if ($p7_value === 'OTRO') {
-    $p7_otro_texto = sanitizar($_POST['p7_otro_texto'] ?? '');
+    $p7_otro_texto = sanitizar($_POST['comentario_bloque6'] ?? '');
     if (empty($p7_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P7).');
     }
 }
 
-// 12. Validar P8 - Vocación
+// 12. Validar P8 - Vocación (usa comentario_bloque7 para "OTRO")
 $p8_value = $_POST['p8_vocacion'] ?? '';
 if (empty($p8_value)) {
     die('❌ Error: Debes seleccionar una opción en P8.');
 }
 if ($p8_value === 'OTRO') {
-    $p8_otro_texto = sanitizar($_POST['p8_otro_texto'] ?? '');
+    $p8_otro_texto = sanitizar($_POST['comentario_bloque7'] ?? '');
     if (empty($p8_otro_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P8).');
     }
 }
 
-// 13. Validar P9 - Crítica
+// 13. Validar P9 - Crítica (usa comentario_bloque8 para "OTRO")
 if (isset($_POST['p9_critica'])) {
     $p9_seleccionadas = count($_POST['p9_critica']);
     if ($p9_seleccionadas > 2) {
@@ -221,7 +220,7 @@ if (isset($_POST['p9_critica'])) {
         }
     }
     if (in_array('OTRO', $_POST['p9_critica'])) {
-        $p9_otro_texto = sanitizar($_POST['p9_otro_texto'] ?? '');
+        $p9_otro_texto = sanitizar($_POST['comentario_bloque8'] ?? '');
         if (empty($p9_otro_texto)) {
             die('❌ Error: Debes especificar tu respuesta en "Otro" (P9).');
         }
@@ -239,7 +238,7 @@ if (empty($p10_esperanza) || !in_array($p10_esperanza, ['1', '2', '3', '4', '5']
 
 // ==================== RECOGER TODOS LOS DATOS ====================
 
-// Recoger TODOS los comentarios (se guardan en sus columnas específicas)
+// Recoger TODOS los comentarios
 $comentario_bloque2 = sanitizar($_POST['comentario_bloque2'] ?? '');
 $comentario_bloque3 = sanitizar($_POST['comentario_bloque3'] ?? '');
 $comentario_bloque4 = sanitizar($_POST['comentario_bloque4'] ?? '');
@@ -254,87 +253,73 @@ $comentario_p4b3 = sanitizar($_POST['comentario_p4b3'] ?? '');
 $comentario_p10_adicional = sanitizar($_POST['campo_libre'] ?? '');
 
 // ============================================================
-// 2. RECOGER CAMPOS "OTRO" (SOLO PARA validación y campo_libre)
-// ============================================================
-$p3_otro_texto = sanitizar($_POST['p3_otro_texto'] ?? '');
-$p4_otro_texto = sanitizar($_POST['p4_otro_texto'] ?? '');
-$p4b1_otro_texto = sanitizar($_POST['p4b1_otro_texto'] ?? '');
-$p4b2_otro_texto = sanitizar($_POST['p4b2_otro_texto'] ?? '');
-$p4b3_otro_texto = sanitizar($_POST['p4b3_otro_texto'] ?? '');
-$p5_otro_texto = sanitizar($_POST['p5_otro_texto'] ?? '');
-$p6_otro_texto = sanitizar($_POST['p6_otro_texto'] ?? '');
-$p7_otro_texto = sanitizar($_POST['p7_otro_texto'] ?? '');
-$p8_otro_texto = sanitizar($_POST['p8_otro_texto'] ?? '');
-$p9_otro_texto = sanitizar($_POST['p9_otro_texto'] ?? '');
-
-// ============================================================
-// 3. CONSTRUIR campo_libre (SOLO PARA "OTRO")
+// CONSTRUIR campo_libre (SOLO PARA "OTRO" usando el comentario)
 // ============================================================
 $campo_libre_final = '';
 
-// P3 - SOLO si es OTRO
-if ($p3_value === 'OTRO' && !empty($p3_otro_texto)) {
-    $campo_libre_final .= "[OTRO P3] " . $p3_otro_texto . "\n";
+// P3 - Usa comentario_bloque2 para OTRO
+if ($p3_value === 'OTRO' && !empty($comentario_bloque2)) {
+    $campo_libre_final .= "[OTRO P3] " . $comentario_bloque2 . "\n";
 }
 
-// P4 - SOLO si es OTRO
-if ($p4_value === 'OTRO' && !empty($p4_otro_texto)) {
-    $campo_libre_final .= "[OTRO P4] " . $p4_otro_texto . "\n";
+// P4 - Usa comentario_bloque3 para OTRO
+if ($p4_value === 'OTRO' && !empty($comentario_bloque3)) {
+    $campo_libre_final .= "[OTRO P4] " . $comentario_bloque3 . "\n";
 }
 
-// P4b-1 - SOLO si es OTRO
-if ($p4b_situacion === 'OTRO' && !empty($p4b1_otro_texto)) {
-    $campo_libre_final .= "[OTRO P4b-1] " . $p4b1_otro_texto . "\n";
+// P4b-1 - Usa comentario_p4b1 para OTRO
+if ($p4b_situacion === 'OTRO' && !empty($comentario_p4b1)) {
+    $campo_libre_final .= "[OTRO P4b-1] " . $comentario_p4b1 . "\n";
 }
 
-// P4b-2 - SOLO si es OTRO
-if ($p4b_area === 'OTRO' && !empty($p4b2_otro_texto)) {
-    $campo_libre_final .= "[OTRO P4b-2] " . $p4b2_otro_texto . "\n";
+// P4b-2 - Usa comentario_p4b2 para OTRO
+if ($p4b_area === 'OTRO' && !empty($comentario_p4b2)) {
+    $campo_libre_final .= "[OTRO P4b-2] " . $comentario_p4b2 . "\n";
 }
 
-// P4b-3 - SOLO si es OTRO
-if ($p4b_movilidad === 'OTRO' && !empty($p4b3_otro_texto)) {
-    $campo_libre_final .= "[OTRO P4b-3] " . $p4b3_otro_texto . "\n";
+// P4b-3 - Usa comentario_p4b3 para OTRO
+if ($p4b_movilidad === 'OTRO' && !empty($comentario_p4b3)) {
+    $campo_libre_final .= "[OTRO P4b-3] " . $comentario_p4b3 . "\n";
 }
 
-// P5 - SOLO si es OTRO
-if ($p5_value === 'OTRO' && !empty($p5_otro_texto)) {
-    $campo_libre_final .= "[OTRO P5] " . $p5_otro_texto . "\n";
+// P5 - Usa comentario_bloque4 para OTRO
+if ($p5_value === 'OTRO' && !empty($comentario_bloque4)) {
+    $campo_libre_final .= "[OTRO P5] " . $comentario_bloque4 . "\n";
 }
 
-// P6 - SOLO si es OTRO
-if ($p6_value === 'OTRO' && !empty($p6_otro_texto)) {
-    $campo_libre_final .= "[OTRO P6] " . $p6_otro_texto . "\n";
+// P6 - Usa comentario_bloque5 para OTRO
+if ($p6_value === 'OTRO' && !empty($comentario_bloque5)) {
+    $campo_libre_final .= "[OTRO P6] " . $comentario_bloque5 . "\n";
 }
 
-// P7 - SOLO si es OTRO
-if ($p7_value === 'OTRO' && !empty($p7_otro_texto)) {
-    $campo_libre_final .= "[OTRO P7] " . $p7_otro_texto . "\n";
+// P7 - Usa comentario_bloque6 para OTRO
+if ($p7_value === 'OTRO' && !empty($comentario_bloque6)) {
+    $campo_libre_final .= "[OTRO P7] " . $comentario_bloque6 . "\n";
 }
 
-// P8 - SOLO si es OTRO
-if ($p8_value === 'OTRO' && !empty($p8_otro_texto)) {
-    $campo_libre_final .= "[OTRO P8] " . $p8_otro_texto . "\n";
+// P8 - Usa comentario_bloque7 para OTRO
+if ($p8_value === 'OTRO' && !empty($comentario_bloque7)) {
+    $campo_libre_final .= "[OTRO P8] " . $comentario_bloque7 . "\n";
 }
 
-// P9 - SOLO si es OTRO (checkbox)
-if (isset($_POST['p9_critica']) && in_array('OTRO', $_POST['p9_critica']) && !empty($p9_otro_texto)) {
-    $campo_libre_final .= "[OTRO P9] " . $p9_otro_texto . "\n";
+// P9 - Usa comentario_bloque8 para OTRO
+if (isset($_POST['p9_critica']) && in_array('OTRO', $_POST['p9_critica']) && !empty($comentario_bloque8)) {
+    $campo_libre_final .= "[OTRO P9] " . $comentario_bloque8 . "\n";
 }
 
 // Limpiar campo_libre
 $campo_libre_final = trim($campo_libre_final);
 
 // ============================================================
-// 4. PROCESAR P9 CRÍTICA
+// PROCESAR P9 CRÍTICA
 // ============================================================
 if (isset($_POST['p9_critica'])) {
     if (in_array('OTRO', $_POST['p9_critica'])) {
         $p9_critica_array = array_filter($_POST['p9_critica'], function($v) { return $v !== 'OTRO'; });
         if (empty($p9_critica_array)) {
-            $p9_critica = 'OTRO: ' . $p9_otro_texto;
+            $p9_critica = 'OTRO: ' . $comentario_bloque8;
         } else {
-            $p9_critica = implode(',', $p9_critica_array) . ', OTRO: ' . $p9_otro_texto;
+            $p9_critica = implode(',', $p9_critica_array) . ', OTRO: ' . $comentario_bloque8;
         }
     } else {
         $p9_critica = implode(',', $_POST['p9_critica']);
@@ -344,12 +329,12 @@ if (isset($_POST['p9_critica'])) {
 }
 
 // ============================================================
-// 5. PROCESAR DATOS FINALES
+// PROCESAR DATOS FINALES
 // ============================================================
 $permiso_padres = isset($_POST['permiso_padres']) ? 'si' : 'no';
 
 // ============================================================
-// 6. INSERTAR EN BASE DE DATOS
+// INSERTAR EN BASE DE DATOS
 // ============================================================
 $sql = "INSERT INTO respuestas (
     ip, p1_anio, sexo, p2_parroquia, 
