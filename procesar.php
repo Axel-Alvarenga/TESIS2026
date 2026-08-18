@@ -99,7 +99,7 @@ if (empty($p2_parroquia) || $p2_parroquia === '') {
     die('❌ Error: Debes seleccionar una parroquia.');
 }
 
-// 4. Validar P3 - Pertenencia (usa comentario_bloque2 para "OTRO")
+// 4. Validar P3 - Pertenencia
 $p3_value = $_POST['p3_pertenencia'] ?? '';
 if (empty($p3_value)) {
     die('❌ Error: Debes seleccionar una opción en P3.');
@@ -111,7 +111,7 @@ if ($p3_value === 'OTRO') {
     }
 }
 
-// 5. Validar P4 - Atracción (usa comentario_bloque3 para "OTRO")
+// 5. Validar P4 - Atracción
 $p4_value = $_POST['p4_atraccion'] ?? '';
 if (empty($p4_value)) {
     die('❌ Error: Debes seleccionar una opción en P4.');
@@ -123,7 +123,7 @@ if ($p4_value === 'OTRO') {
     }
 }
 
-// 6. Validar P4b-1 - Situación (usa comentario_p4b1 para "OTRO")
+// 6. Validar P4b-1 - Situación
 $p4b_situacion = $_POST['p4b_situacion'] ?? '';
 if (empty($p4b_situacion)) {
     die('❌ Error: Debes seleccionar una opción en P4b-1.');
@@ -135,7 +135,7 @@ if ($p4b_situacion === 'OTRO') {
     }
 }
 
-// 7. Validar P4b-2 - Área de interés (usa comentario_p4b2 para "OTRO")
+// 7. Validar P4b-2 - Área de interés
 $p4b_area = $_POST['p4b_area'] ?? '';
 if (empty($p4b_area)) {
     die('❌ Error: Debes seleccionar una opción en P4b-2.');
@@ -147,7 +147,7 @@ if ($p4b_area === 'OTRO') {
     }
 }
 
-// 8. Validar P4b-3 - Movilidad (usa comentario_p4b3 para "OTRO")
+// 8. Validar P4b-3 - Movilidad
 $p4b_movilidad = $_POST['p4b_movilidad'] ?? '';
 if (empty($p4b_movilidad)) {
     die('❌ Error: Debes seleccionar una opción en P4b-3.');
@@ -159,7 +159,7 @@ if ($p4b_movilidad === 'OTRO') {
     }
 }
 
-// 9. Validar P5 - Espiritualidad (usa comentario_bloque4 para "OTRO")
+// 9. Validar P5 - Espiritualidad
 $p5_value = $_POST['p5_espiritualidad'] ?? '';
 if (empty($p5_value)) {
     die('❌ Error: Debes seleccionar una opción en P5.');
@@ -171,7 +171,7 @@ if ($p5_value === 'OTRO') {
     }
 }
 
-// 10. Validar P6 - Familia (usa comentario_bloque5 para "OTRO")
+// 10. Validar P6 - Familia
 $p6_value = $_POST['p6_familia'] ?? '';
 if (empty($p6_value)) {
     die('❌ Error: Debes seleccionar una opción en P6.');
@@ -183,7 +183,7 @@ if ($p6_value === 'OTRO') {
     }
 }
 
-// 11. Validar P7 - Proyecto de vida (usa comentario_bloque6 para "OTRO")
+// 11. Validar P7 - Proyecto de vida
 $p7_value = $_POST['p7_proyecto'] ?? '';
 if (empty($p7_value)) {
     die('❌ Error: Debes seleccionar una opción en P7.');
@@ -195,7 +195,7 @@ if ($p7_value === 'OTRO') {
     }
 }
 
-// 12. Validar P8 - Vocación (usa comentario_bloque7 para "OTRO")
+// 12. Validar P8 - Vocación
 $p8_value = $_POST['p8_vocacion'] ?? '';
 if (empty($p8_value)) {
     die('❌ Error: Debes seleccionar una opción en P8.');
@@ -207,7 +207,7 @@ if ($p8_value === 'OTRO') {
     }
 }
 
-// 13. Validar P9 - Crítica (usa comentario_bloque8 para "OTRO")
+// ==================== P9 - CRÍTICA (CORREGIDO) ====================
 if (isset($_POST['p9_critica'])) {
     $p9_seleccionadas = count($_POST['p9_critica']);
     if ($p9_seleccionadas > 2) {
@@ -219,12 +219,14 @@ if (isset($_POST['p9_critica'])) {
             die('❌ Error: Opción inválida en P9.');
         }
     }
+    // Validar que si seleccionó OTRO, el comentario no esté vacío
     if (in_array('OTRO', $_POST['p9_critica'])) {
         $p9_otro_texto = sanitizar($_POST['comentario_bloque8'] ?? '');
         if (empty($p9_otro_texto)) {
             die('❌ Error: Debes especificar tu respuesta en "Otro" (P9).');
         }
     }
+    // ✅ Guardar SOLO las letras (H para OTRO)
     $p9_critica = implode(',', $_POST['p9_critica']);
 } else {
     die('❌ Error: Debes seleccionar al menos una opción en P9.');
@@ -257,76 +259,58 @@ $comentario_p10_adicional = sanitizar($_POST['campo_libre'] ?? '');
 // ============================================================
 $campo_libre_final = '';
 
-// P3 - Usa comentario_bloque2 para OTRO
+// P3
 if ($p3_value === 'OTRO' && !empty($comentario_bloque2)) {
     $campo_libre_final .= "[OTRO P3] " . $comentario_bloque2 . "\n";
 }
 
-// P4 - Usa comentario_bloque3 para OTRO
+// P4
 if ($p4_value === 'OTRO' && !empty($comentario_bloque3)) {
     $campo_libre_final .= "[OTRO P4] " . $comentario_bloque3 . "\n";
 }
 
-// P4b-1 - Usa comentario_p4b1 para OTRO
+// P4b-1
 if ($p4b_situacion === 'OTRO' && !empty($comentario_p4b1)) {
     $campo_libre_final .= "[OTRO P4b-1] " . $comentario_p4b1 . "\n";
 }
 
-// P4b-2 - Usa comentario_p4b2 para OTRO
+// P4b-2
 if ($p4b_area === 'OTRO' && !empty($comentario_p4b2)) {
     $campo_libre_final .= "[OTRO P4b-2] " . $comentario_p4b2 . "\n";
 }
 
-// P4b-3 - Usa comentario_p4b3 para OTRO
+// P4b-3
 if ($p4b_movilidad === 'OTRO' && !empty($comentario_p4b3)) {
     $campo_libre_final .= "[OTRO P4b-3] " . $comentario_p4b3 . "\n";
 }
 
-// P5 - Usa comentario_bloque4 para OTRO
+// P5
 if ($p5_value === 'OTRO' && !empty($comentario_bloque4)) {
     $campo_libre_final .= "[OTRO P5] " . $comentario_bloque4 . "\n";
 }
 
-// P6 - Usa comentario_bloque5 para OTRO
+// P6
 if ($p6_value === 'OTRO' && !empty($comentario_bloque5)) {
     $campo_libre_final .= "[OTRO P6] " . $comentario_bloque5 . "\n";
 }
 
-// P7 - Usa comentario_bloque6 para OTRO
+// P7
 if ($p7_value === 'OTRO' && !empty($comentario_bloque6)) {
     $campo_libre_final .= "[OTRO P7] " . $comentario_bloque6 . "\n";
 }
 
-// P8 - Usa comentario_bloque7 para OTRO
+// P8
 if ($p8_value === 'OTRO' && !empty($comentario_bloque7)) {
     $campo_libre_final .= "[OTRO P8] " . $comentario_bloque7 . "\n";
 }
 
-// P9 - Usa comentario_bloque8 para OTRO
+// P9 - SOLO si es OTRO (checkbox)
 if (isset($_POST['p9_critica']) && in_array('OTRO', $_POST['p9_critica']) && !empty($comentario_bloque8)) {
     $campo_libre_final .= "[OTRO P9] " . $comentario_bloque8 . "\n";
 }
 
 // Limpiar campo_libre
 $campo_libre_final = trim($campo_libre_final);
-
-// ============================================================
-// PROCESAR P9 CRÍTICA
-// ============================================================
-if (isset($_POST['p9_critica'])) {
-    if (in_array('OTRO', $_POST['p9_critica'])) {
-        $p9_critica_array = array_filter($_POST['p9_critica'], function($v) { return $v !== 'OTRO'; });
-        if (empty($p9_critica_array)) {
-            $p9_critica = 'OTRO: ' . $comentario_bloque8;
-        } else {
-            $p9_critica = implode(',', $p9_critica_array) . ', OTRO: ' . $comentario_bloque8;
-        }
-    } else {
-        $p9_critica = implode(',', $_POST['p9_critica']);
-    }
-} else {
-    $p9_critica = '';
-}
 
 // ============================================================
 // PROCESAR DATOS FINALES
