@@ -88,7 +88,7 @@ $sexo = $_POST['sexo'] ?? '';
 if (empty($sexo)) {
     die('❌ Error: Debes seleccionar tu género.');
 }
-$opciones_sexo = ['masculino', 'femenino', 'otro', 'prefiero_no_decir'];
+$opciones_sexo = ['masculino', 'femenino'];
 if (!in_array($sexo, $opciones_sexo)) {
     die('❌ Error: Opción de género no válida.');
 }
@@ -105,7 +105,7 @@ if (empty($p3_value)) {
     die('❌ Error: Debes seleccionar una opción en P3.');
 }
 if ($p3_value === 'OTRO') {
-    $p3_texto = sanitizar($_POST['comentario_bloque2'] ?? '');
+    $p3_texto = sanitizar($_POST['p3_otro_texto'] ?? '');
     if (empty($p3_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P3).');
     }
@@ -117,61 +117,97 @@ if (empty($p4_value)) {
     die('❌ Error: Debes seleccionar una opción en P4.');
 }
 if ($p4_value === 'OTRO') {
-    $p4_texto = sanitizar($_POST['comentario_bloque3'] ?? '');
+    $p4_texto = sanitizar($_POST['p4_otro_texto'] ?? '');
     if (empty($p4_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P4).');
     }
 }
 
-// 6. Validar P5 - Espiritualidad
+// 6. Validar P4b-1 - Situación
+$p4b_situacion = $_POST['p4b_situacion'] ?? '';
+if (empty($p4b_situacion)) {
+    die('❌ Error: Debes seleccionar una opción en P4b-1.');
+}
+if ($p4b_situacion === 'OTRO') {
+    $p4b1_texto = sanitizar($_POST['p4b1_otro_texto'] ?? '');
+    if (empty($p4b1_texto)) {
+        die('❌ Error: Debes especificar tu respuesta en "Otro" (P4b-1).');
+    }
+}
+
+// 7. Validar P4b-2 - Área de interés
+$p4b_area = $_POST['p4b_area'] ?? '';
+if (empty($p4b_area)) {
+    die('❌ Error: Debes seleccionar una opción en P4b-2.');
+}
+if ($p4b_area === 'OTRO') {
+    $p4b2_texto = sanitizar($_POST['p4b2_otro_texto'] ?? '');
+    if (empty($p4b2_texto)) {
+        die('❌ Error: Debes especificar tu respuesta en "Otro" (P4b-2).');
+    }
+}
+
+// 8. Validar P4b-3 - Movilidad
+$p4b_movilidad = $_POST['p4b_movilidad'] ?? '';
+if (empty($p4b_movilidad)) {
+    die('❌ Error: Debes seleccionar una opción en P4b-3.');
+}
+if ($p4b_movilidad === 'OTRO') {
+    $p4b3_texto = sanitizar($_POST['p4b3_otro_texto'] ?? '');
+    if (empty($p4b3_texto)) {
+        die('❌ Error: Debes especificar tu respuesta en "Otro" (P4b-3).');
+    }
+}
+
+// 9. Validar P5 - Espiritualidad
 $p5_value = $_POST['p5_espiritualidad'] ?? '';
 if (empty($p5_value)) {
     die('❌ Error: Debes seleccionar una opción en P5.');
 }
 if ($p5_value === 'OTRO') {
-    $p5_texto = sanitizar($_POST['comentario_bloque4'] ?? '');
+    $p5_texto = sanitizar($_POST['p5_otro_texto'] ?? '');
     if (empty($p5_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P5).');
     }
 }
 
-// 7. Validar P6 - Familia
+// 10. Validar P6 - Familia
 $p6_value = $_POST['p6_familia'] ?? '';
 if (empty($p6_value)) {
     die('❌ Error: Debes seleccionar una opción en P6.');
 }
 if ($p6_value === 'OTRO') {
-    $p6_texto = sanitizar($_POST['comentario_bloque5'] ?? '');
+    $p6_texto = sanitizar($_POST['p6_otro_texto'] ?? '');
     if (empty($p6_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P6).');
     }
 }
 
-// 8. Validar P7 - Proyecto de vida
+// 11. Validar P7 - Proyecto de vida
 $p7_value = $_POST['p7_proyecto'] ?? '';
 if (empty($p7_value)) {
     die('❌ Error: Debes seleccionar una opción en P7.');
 }
 if ($p7_value === 'OTRO') {
-    $p7_texto = sanitizar($_POST['comentario_bloque6'] ?? '');
+    $p7_texto = sanitizar($_POST['p7_otro_texto'] ?? '');
     if (empty($p7_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P7).');
     }
 }
 
-// 9. Validar P8 - Vocación
+// 12. Validar P8 - Vocación
 $p8_value = $_POST['p8_vocacion'] ?? '';
 if (empty($p8_value)) {
     die('❌ Error: Debes seleccionar una opción en P8.');
 }
 if ($p8_value === 'OTRO') {
-    $p8_texto = sanitizar($_POST['comentario_bloque7'] ?? '');
+    $p8_texto = sanitizar($_POST['p8_otro_texto'] ?? '');
     if (empty($p8_texto)) {
         die('❌ Error: Debes especificar tu respuesta en "Otro" (P8).');
     }
 }
 
-// 10. Validar P9 - Crítica
+// 13. Validar P9 - Crítica
 if (isset($_POST['p9_critica'])) {
     $p9_seleccionadas = count($_POST['p9_critica']);
     if ($p9_seleccionadas > 2) {
@@ -184,17 +220,16 @@ if (isset($_POST['p9_critica'])) {
         }
     }
     if (in_array('OTRO', $_POST['p9_critica'])) {
-        $p9_otro_texto = sanitizar($_POST['comentario_bloque8'] ?? '');
+        $p9_otro_texto = sanitizar($_POST['p9_otro_texto'] ?? '');
         if (empty($p9_otro_texto)) {
             die('❌ Error: Debes especificar tu respuesta en "Otro" (P9).');
         }
     }
-    $p9_critica = implode(',', $_POST['p9_critica']);
 } else {
     die('❌ Error: Debes seleccionar al menos una opción en P9.');
 }
 
-// 11. Validar P10 - Esperanza
+// 14. Validar P10 - Esperanza
 $p10_esperanza = $_POST['p10_esperanza'] ?? '';
 if (empty($p10_esperanza) || !in_array($p10_esperanza, ['1', '2', '3', '4', '5'])) {
     die('❌ Error: Debes seleccionar un nivel de esperanza válido.');
@@ -205,7 +240,7 @@ $campo_libre_adicional = '';
 
 // P3 - Pertenencia
 if ($p3_value === 'OTRO') {
-    $p3_texto = sanitizar($_POST['comentario_bloque2'] ?? '');
+    $p3_texto = sanitizar($_POST['p3_otro_texto'] ?? '');
     if (!empty($p3_texto)) {
         $campo_libre_adicional .= "[OTRO P3] " . $p3_texto . "\n";
     }
@@ -217,7 +252,7 @@ if ($p3_value !== 'OTRO' && !empty($comentario_p3)) {
 
 // P4 - Atracción
 if ($p4_value === 'OTRO') {
-    $p4_texto = sanitizar($_POST['comentario_bloque3'] ?? '');
+    $p4_texto = sanitizar($_POST['p4_otro_texto'] ?? '');
     if (!empty($p4_texto)) {
         $campo_libre_adicional .= "[OTRO P4] " . $p4_texto . "\n";
     }
@@ -227,9 +262,45 @@ if ($p4_value !== 'OTRO' && !empty($comentario_p4)) {
     $campo_libre_adicional .= "[COMENTARIO P4] " . $comentario_p4 . "\n";
 }
 
+// P4b-1 - Situación
+if ($p4b_situacion === 'OTRO') {
+    $p4b1_texto = sanitizar($_POST['p4b1_otro_texto'] ?? '');
+    if (!empty($p4b1_texto)) {
+        $campo_libre_adicional .= "[OTRO P4b-1] " . $p4b1_texto . "\n";
+    }
+}
+$comentario_p4b1 = sanitizar($_POST['comentario_p4b1'] ?? '');
+if ($p4b_situacion !== 'OTRO' && !empty($comentario_p4b1)) {
+    $campo_libre_adicional .= "[COMENTARIO P4b-1] " . $comentario_p4b1 . "\n";
+}
+
+// P4b-2 - Área de interés
+if ($p4b_area === 'OTRO') {
+    $p4b2_texto = sanitizar($_POST['p4b2_otro_texto'] ?? '');
+    if (!empty($p4b2_texto)) {
+        $campo_libre_adicional .= "[OTRO P4b-2] " . $p4b2_texto . "\n";
+    }
+}
+$comentario_p4b2 = sanitizar($_POST['comentario_p4b2'] ?? '');
+if ($p4b_area !== 'OTRO' && !empty($comentario_p4b2)) {
+    $campo_libre_adicional .= "[COMENTARIO P4b-2] " . $comentario_p4b2 . "\n";
+}
+
+// P4b-3 - Movilidad
+if ($p4b_movilidad === 'OTRO') {
+    $p4b3_texto = sanitizar($_POST['p4b3_otro_texto'] ?? '');
+    if (!empty($p4b3_texto)) {
+        $campo_libre_adicional .= "[OTRO P4b-3] " . $p4b3_texto . "\n";
+    }
+}
+$comentario_p4b3 = sanitizar($_POST['comentario_p4b3'] ?? '');
+if ($p4b_movilidad !== 'OTRO' && !empty($comentario_p4b3)) {
+    $campo_libre_adicional .= "[COMENTARIO P4b-3] " . $comentario_p4b3 . "\n";
+}
+
 // P5 - Espiritualidad
 if ($p5_value === 'OTRO') {
-    $p5_texto = sanitizar($_POST['comentario_bloque4'] ?? '');
+    $p5_texto = sanitizar($_POST['p5_otro_texto'] ?? '');
     if (!empty($p5_texto)) {
         $campo_libre_adicional .= "[OTRO P5] " . $p5_texto . "\n";
     }
@@ -241,7 +312,7 @@ if ($p5_value !== 'OTRO' && !empty($comentario_p5)) {
 
 // P6 - Familia
 if ($p6_value === 'OTRO') {
-    $p6_texto = sanitizar($_POST['comentario_bloque5'] ?? '');
+    $p6_texto = sanitizar($_POST['p6_otro_texto'] ?? '');
     if (!empty($p6_texto)) {
         $campo_libre_adicional .= "[OTRO P6] " . $p6_texto . "\n";
     }
@@ -253,7 +324,7 @@ if ($p6_value !== 'OTRO' && !empty($comentario_p6)) {
 
 // P7 - Proyecto de vida
 if ($p7_value === 'OTRO') {
-    $p7_texto = sanitizar($_POST['comentario_bloque6'] ?? '');
+    $p7_texto = sanitizar($_POST['p7_otro_texto'] ?? '');
     if (!empty($p7_texto)) {
         $campo_libre_adicional .= "[OTRO P7] " . $p7_texto . "\n";
     }
@@ -265,7 +336,7 @@ if ($p7_value !== 'OTRO' && !empty($comentario_p7)) {
 
 // P8 - Vocación
 if ($p8_value === 'OTRO') {
-    $p8_texto = sanitizar($_POST['comentario_bloque7'] ?? '');
+    $p8_texto = sanitizar($_POST['p8_otro_texto'] ?? '');
     if (!empty($p8_texto)) {
         $campo_libre_adicional .= "[OTRO P8] " . $p8_texto . "\n";
     }
@@ -275,16 +346,36 @@ if ($p8_value !== 'OTRO' && !empty($comentario_p8)) {
     $campo_libre_adicional .= "[COMENTARIO P8] " . $comentario_p8 . "\n";
 }
 
-// P9 - Crítica
+// P9 - Crítica (checkbox)
 if (isset($_POST['p9_critica']) && in_array('OTRO', $_POST['p9_critica'])) {
-    $p9_otro_texto = sanitizar($_POST['comentario_bloque8'] ?? '');
+    $p9_otro_texto = sanitizar($_POST['p9_otro_texto'] ?? '');
     if (!empty($p9_otro_texto)) {
         $campo_libre_adicional .= "[OTRO P9] " . $p9_otro_texto . "\n";
     }
+    $p9_critica_array = array_filter($_POST['p9_critica'], function($v) { return $v !== 'OTRO'; });
+    if (empty($p9_critica_array)) {
+        $p9_critica = 'OTRO: ' . $p9_otro_texto;
+    } else {
+        $p9_critica = implode(',', $p9_critica_array) . ', OTRO: ' . $p9_otro_texto;
+    }
+} else {
+    $p9_critica = isset($_POST['p9_critica']) ? implode(',', $_POST['p9_critica']) : '';
 }
 $comentario_p9 = sanitizar($_POST['comentario_bloque8'] ?? '');
 if (!in_array('OTRO', $_POST['p9_critica'] ?? []) && !empty($comentario_p9)) {
     $campo_libre_adicional .= "[COMENTARIO P9] " . $comentario_p9 . "\n";
+}
+
+// P10 - Comentario de esperanza
+$comentario_p10 = sanitizar($_POST['comentario_bloque9'] ?? '');
+if (!empty($comentario_p10)) {
+    $campo_libre_adicional .= "[COMENTARIO P10] " . $comentario_p10 . "\n";
+}
+
+// P10 - Campo libre adicional ("¿Hay algo que quisieras decirnos?")
+$comentario_p10_adicional = sanitizar($_POST['campo_libre'] ?? '');
+if (!empty($comentario_p10_adicional)) {
+    $campo_libre_adicional .= "[COMENTARIO ADICIONAL P10] " . $comentario_p10_adicional . "\n";
 }
 
 // ==================== PROCESAR DATOS ====================
@@ -294,21 +385,26 @@ $campo_libre_original = sanitizar($_POST['campo_libre'] ?? '');
 $campo_libre_final = trim($campo_libre_original . "\n" . $campo_libre_adicional);
 
 // ==================== INSERTAR EN BASE DE DATOS ====================
-// ⚠️ SOLO LOS CAMPOS QUE EXISTEN EN TU BASE DE DATOS
 $sql = "INSERT INTO respuestas (
     ip, p1_anio, sexo, p2_parroquia, p3_pertenencia, p4_atraccion,
+    p4b_situacion, p4b_area, p4b_movilidad,
     p5_espiritualidad, p6_familia, p7_proyecto, p8_vocacion,
     p9_critica, p10_esperanza, campo_libre, permiso_padres,
     comentario_bloque2, comentario_bloque3, comentario_bloque4,
+    comentario_p4b1, comentario_p4b2, comentario_p4b3,
     comentario_bloque5, comentario_bloque6, 
-    comentario_bloque7, comentario_bloque8, comentario_bloque9
+    comentario_bloque7, comentario_bloque8, comentario_bloque9,
+    comentario_p10_adicional
 ) VALUES (
     :ip, :p1_anio, :sexo, :p2_parroquia, :p3_pertenencia, :p4_atraccion,
+    :p4b_situacion, :p4b_area, :p4b_movilidad,
     :p5_espiritualidad, :p6_familia, :p7_proyecto, :p8_vocacion,
     :p9_critica, :p10_esperanza, :campo_libre, :permiso_padres,
     :comentario_bloque2, :comentario_bloque3, :comentario_bloque4,
+    :comentario_p4b1, :comentario_p4b2, :comentario_p4b3,
     :comentario_bloque5, :comentario_bloque6, 
-    :comentario_bloque7, :comentario_bloque8, :comentario_bloque9
+    :comentario_bloque7, :comentario_bloque8, :comentario_bloque9,
+    :comentario_p10_adicional
 )";
 
 $stmt = $pdo->prepare($sql);
@@ -319,6 +415,9 @@ $stmt->execute([
     ':p2_parroquia' => sanitizar($p2_parroquia),
     ':p3_pertenencia' => $p3_value === 'OTRO' ? 'OTRO' : sanitizar($p3_value),
     ':p4_atraccion' => $p4_value === 'OTRO' ? 'OTRO' : sanitizar($p4_value),
+    ':p4b_situacion' => $p4b_situacion === 'OTRO' ? 'OTRO' : sanitizar($p4b_situacion),
+    ':p4b_area' => $p4b_area === 'OTRO' ? 'OTRO' : sanitizar($p4b_area),
+    ':p4b_movilidad' => $p4b_movilidad === 'OTRO' ? 'OTRO' : sanitizar($p4b_movilidad),
     ':p5_espiritualidad' => $p5_value === 'OTRO' ? 'OTRO' : sanitizar($p5_value),
     ':p6_familia' => $p6_value === 'OTRO' ? 'OTRO' : sanitizar($p6_value),
     ':p7_proyecto' => $p7_value === 'OTRO' ? 'OTRO' : sanitizar($p7_value),
@@ -330,11 +429,15 @@ $stmt->execute([
     ':comentario_bloque2' => sanitizar($_POST['comentario_bloque2'] ?? ''),
     ':comentario_bloque3' => sanitizar($_POST['comentario_bloque3'] ?? ''),
     ':comentario_bloque4' => sanitizar($_POST['comentario_bloque4'] ?? ''),
+    ':comentario_p4b1' => sanitizar($_POST['comentario_p4b1'] ?? ''),
+    ':comentario_p4b2' => sanitizar($_POST['comentario_p4b2'] ?? ''),
+    ':comentario_p4b3' => sanitizar($_POST['comentario_p4b3'] ?? ''),
     ':comentario_bloque5' => sanitizar($_POST['comentario_bloque5'] ?? ''),
     ':comentario_bloque6' => sanitizar($_POST['comentario_bloque6'] ?? ''),
     ':comentario_bloque7' => sanitizar($_POST['comentario_bloque7'] ?? ''),
     ':comentario_bloque8' => sanitizar($_POST['comentario_bloque8'] ?? ''),
-    ':comentario_bloque9' => sanitizar($_POST['comentario_bloque9'] ?? '')
+    ':comentario_bloque9' => sanitizar($_POST['comentario_bloque9'] ?? ''),
+    ':comentario_p10_adicional' => $comentario_p10_adicional
 ]);
 
 $_SESSION['envios_realizados'] = ($_SESSION['envios_realizados'] ?? 0) + 1;
